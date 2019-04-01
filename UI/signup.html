@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Sign in|Sign up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--   google fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,800|Libre+Baskerville"
+      rel="stylesheet"
+    />
+    <!--   font-awesome icons -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <!-- page styles -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="./css/signup.css"
+    />
+  </head>
+  <body>
+    <main class="container" id="js-container">
+      <section class="form-container signup-container">
+        <form action="javascript:void(0)" method="POST">
+          <h1>Sign Up for Banka</h1>
+          <div class="social-container">
+            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+            <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+          <span>or use your email for registration</span>
+          <input type="text" placeholder="Firstname" />
+          <input type="text" placeholder="Lastname" />
+          <input type="text" placeholder="Other names" />
+          <input type="email" placeholder="Email" />
+          <input type="password" placeholder="Password" />
+          <button>Sign Up</button>
+          <span class="mobile-tgl"
+            >Have an account?&nbsp;<a href="#" class="alt js-tgl-form"
+              >Sign in</a
+            ></span
+          >
+        </form>
+      </section>
+
+      <section class="form-container signin-container">
+        <form action="javascript:void(0)" method="POST">
+          <h1>Sign In</h1>
+          <div class="social-container">
+            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+            <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+          <span>or continue with your email</span>
+          <input type="email" placeholder="Email" />
+          <input type="password" placeholder="Password" />
+          <button>Sign In</button>
+          <span class="mobile-tgl"
+            >Don't have an account?&nbsp;<a href="#" class="alt js-tgl-form"
+              >Sign up</a
+            ></span
+          >
+        </form>
+      </section>
+
+      <section class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-box overlay-left">
+            <h1>Hello there!</h1>
+            <p>
+              Register with Banka and experience amazing an banking service.
+            </p>
+            <p class="alt">
+              OR
+            </p>
+            <button class="transparent js-tgl-form" id="signIn">Sign In</button>
+          </div>
+
+          <div class="overlay-box overlay-right">
+            <h1>Welcome Back!</h1>
+            <p>
+              Please sign in to access your Banka account
+            </p>
+            <p class="alt">
+              OR
+            </p>
+            <button class="transparent js-tgl-form" id="signUp">
+              Sign Up
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="./scripts/signin.js"></script>
+  </body>
+</html>

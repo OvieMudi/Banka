@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="./css/main.css"
+    />
+    <!--   favicons -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="./favicon/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="./favicon/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+    <!--   google fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:300,400|Montserrat|Libre+Baskerville"
+      rel="stylesheet"
+    />
+    <!--   font-awesome icons -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <span class="navbar-toggle" id="js-navbar-toggle"
+          ><i class="fa fa-bars"></i
+        ></span>
+        <!--  Home Icon/Logo -->
+        <a href="./index.html" class="logo"
+          ><i class="fas fa-coins icon"></i><span class="icon">B</span>anka</a
+        >
+        <!--  Main navigation links -->
+        <ul class="main-navlinks" id="js-navlinks">
+          <li><a href="#">Support</a></li>
+          <li><a href="#">Branches</a></li>
+          <li><a href="#">Settings</a></li>
+        </ul>
+      </nav>
+    </header>  
+
+    <!-- Sticky Page Navbar -->
+    <div class="page-nav-container">
+      <ul class="page-nav" role="navigation">
+        <li>
+          <a href="#" id="accounts-link"
+            ><i class="fas fa-wallet"></i
+            ><span class="hidden-text">Accounts</span></a
+          >
+        </li>
+        <li>
+          <a href="#" id="transactions-link"
+            ><i class="fas fa-hand-holding-usd"></i
+            ><span class="hidden-text">Transactions</span></a
+          >
+        </li>
+        <li class="nav-active">
+          <a href="#" id="profile-link"
+            ><i class="fas fa-user"></i
+            ><span class="hidden-text">Profile</span></a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <!-- Profile -->
+    <main>
+    <!-- Page Title -->
+      <!-- <section class="page-info">
+        <span class="pg-location"><a href="#"><i class="fas fa-plus"></i>&nbsp;Create new</a></span>
+      </section> -->
+      <section class="profile-card">
+        <div class="card-main-header">Profile</div>
+        <div class="profile-img-container"><img src="./images/Avatar2.PNG" class="profile-img" alt="user-img"></div>
+        
+        <div class="card-data-header">Bio</div>
+        <div class="profile-bio profile-data">
+          <p class="profile-key">Name</p>
+          <span class="profile-value">Chris Martin</span>
+      
+          <p class="profile-key">Email</p>
+          <span class="profile-value">cm@coldplay.com</span>
+      
+          <p class="profile-key">Role</p>
+          <span class="profile-value">client</span>
+      
+          <p class="profile-key">Registered</p>
+          <span class="profile-value">30-10-19</span>
+        </div>
+        
+        <div class="card-data-header">Contact</div>
+        
+        <div class="profile-contact profile-data">
+          <p class="profile-key">Address</p>
+          <span class="profile-value">25 Ipsum Lorem Crescent, Dolor Amet region.</span>
+          
+          <p class="profile-key">Phone</p>
+          <span class="profile-value">070318414899</span>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ---------------------- PAGE FOOOTER ----------------------- -->
+    <footer>
+      <ul class="footer-links">
+        <li><a href="#">Banka.com</a></li>
+        <li><a href="#">API</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+      <p class="copyright">&copy;2019 Banka. Designed and built with love by <a href="#">OvieMudi</a> with the support of the incredible <a href="#">LFAs</a>.</p>
+      <p class="copyright">Banka is licenced under the <a href="https://github.com/OvieMudi/Banka/blob/develop/LICENSE">MIT Licence</a>.</p>
+    </footer>
+    <script src="./scripts/main.js"></script>
+  </body>
+</html>

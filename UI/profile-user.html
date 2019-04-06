@@ -73,73 +73,63 @@
     <!-- Sticky Page Navbar -->
     <div class="page-nav-container">
       <ul class="page-nav" role="navigation">
-        <li class="nav-active">
+        <li>
           <a href="#" id="accounts-link"
             ><i class="fas fa-wallet"></i
-            ><span class="stick-nav-text">Accounts</span></a
+            ><span class="sticky-nav-text">Accounts</span></a
           >
         </li>
         <li>
           <a href="#" id="transactions-link"
             ><i class="fas fa-hand-holding-usd"></i
-            ><span class="stick-nav-text">Transactions</span></a
+            ><span class="sticky-nav-text">Transactions</span></a
           >
         </li>
-        <li>
-          <a href="./profile-user.html" id="profile-link"
+        <li class="nav-active">
+          <a href="#" id="profile-link"
             ><i class="fas fa-user"></i
-            ><span class="stick-nav-text">Profile</span></a
+            ><span class="sticky-nav-text">Profile</span></a
           >
         </li>
       </ul>
     </div>
 
-    <!-- Accounts -->
+    <!-- Profile -->
     <main>
     <!-- Page Title -->
       <!-- <section class="page-info">
         <span class="pg-location"><a href="#"><i class="fas fa-plus"></i>&nbsp;Create new</a></span>
       </section> -->
-
-      <a href="#" class="create-new modal-trigger"><i class="fas fa-plus"></i>&nbsp;Create new</a>
-
-      <!-- Create Account Modal -->
-      <section class="modal-container">
-        <div class="modal-content">
-          <span class="modal-close-btn modal-x-btn">&times;</span>
-          <p>Create a new Banka account?</p>
-          <button class="modal-close-btn btn">Cancel</button>
-          <button class="btn">Proceed</button>
+      <section class="profile-card">
+        <div class="card-main-header">Profile</div>
+        <div class="profile-img-container"><img src="./images/Avatar2.PNG" class="profile-img" alt="user-img"></div>
+        
+        <div class="card-data-header">Bio</div>
+        <div class="profile-bio profile-data">
+          <p class="profile-key">Name</p>
+          <span class="profile-value">Chris Martin</span>
+      
+          <p class="profile-key">Email</p>
+          <span class="profile-value">cm@coldplay.com</span>
+      
+          <p class="profile-key">Role</p>
+          <span class="profile-value">client</span>
+      
+          <p class="profile-key">Registered</p>
+          <span class="profile-value">30-10-19</span>
+        </div>
+        
+        <div class="card-data-header">Contact</div>
+        
+        <div class="profile-contact profile-data">
+          <p class="profile-key">Address</p>
+          <span class="profile-value">25 Ipsum Lorem Crescent, Dolor Amet region.</span>
+          
+          <p class="profile-key">Phone</p>
+          <span class="profile-value">070318414899</span>
         </div>
       </section>
 
-    <!-- Client Accounts -->
-      <section class="accts-container">
-        <a href="#" class="acct-summary">
-          <span class="row">
-            <span class="digit"><i class="fas fa-coins"></i> 0123456789</span>
-            <span class="acc-type mob-display-none">savings</span>
-            <span class="digit">₦12,345,678.90</span>
-            <span class="acct-active"><i class="fas fa-circle"></i></span>
-          </span>
-        </a>
-        <a href="#" class="acct-summary">
-          <span class="row">
-            <span class="digit"><i class="fas fa-coins"></i> 0123456789</span>
-            <span class="acc-type mob-display-none">current</span>
-            <span class="digit">₦12,345,678.90</span>
-            <span class="acct-active"><i class="fas fa-circle"></i></span>
-          </span>
-        </a>
-        <a href="#" class="acct-summary">
-          <span class="row">
-            <span class="digit"><i class="fas fa-coins"></i> 0123456789</span>
-            <span class="acc-type mob-display-none">savings</span>
-            <span class="digit">₦12,345,678.90</span>
-            <span class="acct-inactive"><i class="fas fa-circle"></i></span>
-          </span>
-        </a>
-      </section>
     </main>
 
     <!-- ---------------------- PAGE FOOOTER ----------------------- -->

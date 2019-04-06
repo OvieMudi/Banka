@@ -7,12 +7,12 @@ backg 1D4063
 /* --------------- GENERAL STYLES --------------- */
 
 :root {
+  --sticky-nav-height: 3.5rem;
   --theme-orange: #ff4b2b;
   --black-font: #444;
   --icon-yellow: #f3c943;
-  --light-theme-yellow: #fdf7e3;
+  --light-theme-yellow: #fcf2d3;
   --nav-background-color: #f6f5ff;
-  --rl-padding: 0.5rem;
 }
 
 * {
@@ -247,13 +247,12 @@ header nav {
 
 .page-nav-container {
   width: 100%;
-  position: fixed; /* or sticky */
+  position: fixed;
   bottom: 0;
   display: flex;
   justify-content: center;
   background-color: #f6f5ff;
   border-top: 1px solid #cdd6e9;
-  /* box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25); */
   margin-top: 1rem;
   min-height: 55px;
 }
@@ -268,8 +267,8 @@ header nav {
 
 .page-nav li {
   list-style-type: none;
-  height: 3.5rem;
-  line-height: 3.5rem;
+  height: var(--sticky-nav-height);
+  /* line-height: 3.5rem; */
   display: inline-block;
   text-align: center;
 }
@@ -282,13 +281,15 @@ header nav {
 .page-nav a {
   text-decoration: none;
   color: inherit;
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
   height: 100%;
 }
 
-.hidden-text {
-  display: none;
+.sticky-nav-text {
+  font-size: 0.6em;
 }
 
 .nav-active {
@@ -483,7 +484,7 @@ a.acct-summary:first-of-type {
     background: #fdf7e3;
   }
 
-  /* SET CELLS WIDTH */
+  /* Cells Width */
   .table-design thead th,
   .table-design thead td,
   .table-design tbody th,
@@ -491,11 +492,68 @@ a.acct-summary:first-of-type {
     width: 20%;
   }
 
-  /* HIDE MOBILE CELL HEADING */
+  /* Hide Mobile Header */
   .table-design tbody .col-header {
     display: none;
   }
 }
+
+/* ---------------------- USER PROFILE PAGE --------------- */
+section.profile-card {
+  min-height: 200px;
+  width: 90%;
+  max-width: 480px;
+  margin: 0 auto;
+  margin: 1rem auto;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card-main-header {
+  height: 2rem;
+  line-height: 2rem;
+  text-align: center;
+  background: var(--nav-background-color);
+}
+
+.card-data-header {
+  height: 1.5rem;
+  line-height: 1.5rem;
+  text-align: center;
+  background-color: var(--light-theme-yellow);
+  margin-bottom: 0.5rem;
+}
+
+.profile-img-container {
+  min-height: 150px;
+  width: 150px;
+  margin: 0 auto;
+}
+
+.profile-img {
+  display: inline-block;
+  height: 150px;
+  width: 100%;
+  border-radius: 50%;
+}
+
+.profile-data {
+  display: grid;
+  grid-template-columns: 50% 1fr;
+  grid-auto-rows: minmax(2rem, auto);
+  padding: 0 0.5rem;
+  font-size: 0.8em;
+}
+
+.profile-key {
+  text-align: right;
+  padding-right: 1.5rem;
+}
+
+.profile-data p,
+.profile-data span {
+  padding-bottom: 0.5rem;
+}
+
 /* ------------------------- PAGE FOOTER ---------------------------*/
 footer {
   background-color: lightcoral;
@@ -573,7 +631,7 @@ footer a:hover {
 
   /* page sticky nav */
   .page-nav-container {
-    position: sticky; /* or sticky */ /* important */
+    position: sticky; /* important */
     top: 0; /* important */
     margin: 0 0 1rem;
     border-top: none;
@@ -586,9 +644,17 @@ footer a:hover {
     font-size: 1em;
   }
 
-  .hidden-text {
-    display: initial;
+  .page-nav li {
+    line-height: var(--sticky-nav-height);
+  }
+
+  .page-nav a {
+    display: inline-block;
+  }
+
+  .sticky-nav-text {
     padding: 0 0.2rem;
+    font-size: 1em;
   }
 
   /* footer content */

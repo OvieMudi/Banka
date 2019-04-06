@@ -4,12 +4,13 @@ backg 1D4063
  purple #781496;
 */
 
-/* general styles */
+/* --------------- GENERAL STYLES --------------- */
 
 :root {
   --theme-orange: #ff4b2b;
-  --black-font: #444444;
+  --black-font: #444;
   --icon-yellow: #f3c943;
+  --light-theme-yellow: #fdf7e3;
   --nav-background-color: #f6f5ff;
   --rl-padding: 0.5rem;
 }
@@ -29,12 +30,162 @@ body {
   color: var(--black-font);
 }
 
+main {
+  min-height: 90vh;
+}
+
 a {
   text-decoration: none;
 }
 
+/* General Button */
+
+.btn {
+  padding: 0 0.5rem;
+  font-size: 1.2em;
+  border: 1px solid #d4d3dd;
+  color: var(--black-font);
+  cursor: pointer;
+  background-color: var(--nav-background-color);
+  font-family: "Montserrat", sans-serif;
+  outline: none;
+  transition: background-color 0.5s;
+}
+
+.btn-border {
+  padding: 0 0.5rem;
+  font-size: 1.2em;
+  border: 1px solid #d4d3dd;
+  border-left: none;
+  color: var(--black-font);
+  cursor: pointer;
+  background-color: var(--nav-background-color);
+  font-family: "Montserrat", sans-serif;
+  outline: none;
+  transition: background-color 0.5s;
+}
+
+.btn:hover,
+.btn-border:hover {
+  background-color: var(--light-theme-yellow);
+  opacity: 0.85;
+}
+
+/* ------------ Modal -------------*/
+
+.modal-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.1);
+  transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.modal-content {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 1rem 1.5rem;
+  width: 24rem;
+  border-radius: 0.5rem;
+}
+
+.modal-x-btn {
+  float: right;
+  width: 1.5rem;
+  line-height: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  background-color: lightgray;
+  color: lightcoral;
+  font-size: 1.4rem;
+}
+.modal-close-btn:hover {
+  background-color: var(--nav-background-color);
+}
+
+.modal-content p {
+  font-size: 1.4em;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.modal-content button {
+  font-size: 1em;
+  padding: 0.5rem;
+  border: 1px solid var(--theme-orange);
+  margin-right: 0.5rem;
+}
+
+.modal-content button:hover {
+  color: var(--theme-orange);
+}
+
+.show-modal {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+/* create new button */
+a.create-new {
+  display: inline-flex;
+  align-items: center;
+  height: 2.5rem;
+  padding: 0 1rem;
+  border: 1px solid var(--theme-orange);
+  border-radius: 0.5rem;
+  margin: 0 1rem 0.5rem;
+  font-size: 0.9em;
+  color: var(--theme-orange);
+  transition: background-color 0.3s;
+}
+a.create-new:hover {
+  background-color: var(--nav-background-color);
+}
+a.create-new:active {
+  transform: scale(0.98);
+}
+
 .mob-display-none {
   display: none;
+}
+
+.display-block {
+  display: block !important;
+}
+
+.display-flex {
+  display: flex !important;
+}
+
+/* Number Input and button */
+.inputContainer {
+  display: flex;
+  margin-top: 0.5rem;
+  display: none;
+}
+
+.txtInput {
+  width: 30%;
+  min-width: 200px;
+  height: 40px;
+  border: 1px solid #d4d3dd;
+  padding: 0.7rem;
+  margin-left: 1rem;
+  outline: none;
+  font-size: 1em;
+  font-weight: 400;
+  letter-spacing: 1.5px;
 }
 
 /* -------------- NAVIGATION ---------------- */
@@ -144,7 +295,7 @@ header nav {
   color: var(--theme-orange);
 }
 
-/* ------------------- ACCOUNTS DASHBOARD PAGE ----------------  */
+/* ====================== ACCOUNTS DASHBOARD PAGE ======================  */
 /* -------------MAIN CONTENT ----------------------- */
 
 /* page info bar */
@@ -162,31 +313,6 @@ header nav {
 
 .page-info a {
   color: inherit;
-}
-
-/* user accounts */
-main {
-  min-height: 90vh;
-}
-
-/* create new account button */
-a.create-new {
-  display: inline-flex;
-  align-items: center;
-  height: 3rem;
-  padding: 0 1rem;
-  border: 1px solid var(--theme-orange);
-  border-radius: 0.5rem;
-  margin: 0 1rem 0.5rem;
-  font-size: 1em;
-  color: var(--theme-orange);
-  transition: background-color 0.3s;
-}
-a.create-new:hover {
-  background-color: var(--nav-background-color);
-}
-a.create-new:active {
-  transform: scale(0.98);
 }
 
 a.acct-summary {
@@ -229,6 +355,147 @@ a.acct-summary:first-of-type {
   font-size: 70%;
 }
 
+/* =========================== ALL TRANSACTIONS PAGE =========================  */
+
+.cashier-section {
+  margin-bottom: 2rem;
+  display: none;
+}
+
+.table-container {
+  padding: 0 1rem;
+  width: 100%;
+}
+/* Basic responsive table layout */
+
+.table-layout caption {
+  position: absolute !important;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.table-layout thead,
+.table-layout tbody {
+  width: 100%;
+}
+
+.table-layout tr {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+.table-layout th,
+.table-layout td {
+  word-break: break-all;
+}
+
+@media (min-width: 640px) {
+  .table-layout tr {
+    flex-direction: row;
+  }
+}
+
+/* ----------------- Table Design --------------*/
+.table-design {
+  width: 100%;
+  font-size: 0.8rem;
+}
+
+/* DISPLAY EACH ROW AS A CARD */
+.table-design tbody tr {
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.table-design tbody th {
+  font-weight: normal;
+  /* background-color: var(--nav-background-color); */
+}
+
+.table-design tbody th,
+.table-design tbody td {
+  display: flex;
+  padding: 0.5rem;
+}
+
+/* INDIVIDUAL CELL HEADING STYLES */
+.table-design tbody .col-header {
+  width: 10rem;
+  flex: 0 0 50%;
+  padding: 0 2rem;
+  color: #444;
+  text-align: right;
+  line-height: 100%;
+  font-weight: bold;
+}
+
+/* Hide table header thead */
+.table-design thead {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+/* Show header on wide display */
+@media (min-width: 640px) {
+  .table-design {
+    background-color: #fff;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  /* TABLE HEADER STYLING */
+  .table-design thead {
+    background-color: #f6f5ff;
+    color: #444;
+  }
+  .table-design tbody th,
+  .table-design tbody td {
+    display: initial;
+  }
+
+  .table-design thead th {
+    padding: 1rem 0.9rem;
+    text-align: center;
+  }
+  /* 
+  .table-design tbody th[role="rowheader"] {
+    background-color: #fff;
+  } */
+
+  .table-design thead {
+    position: unset;
+  }
+
+  .table-design tbody tr {
+    background: none;
+    box-shadow: none;
+    margin-bottom: 0;
+  }
+
+  .table-design tbody:nth-child(even) {
+    background-color: #f8f8f8; /*#fdf7e3*/
+  }
+
+  .table-design tbody tr:hover {
+    background: #fdf7e3;
+  }
+
+  /* SET CELLS WIDTH */
+  .table-design thead th,
+  .table-design thead td,
+  .table-design tbody th,
+  .table-design tbody td {
+    width: 20%;
+  }
+
+  /* HIDE MOBILE CELL HEADING */
+  .table-design tbody .col-header {
+    display: none;
+  }
+}
 /* ------------------------- PAGE FOOTER ---------------------------*/
 footer {
   background-color: lightcoral;

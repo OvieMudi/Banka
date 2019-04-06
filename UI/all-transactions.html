@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="./css/main.css"
+    />
+    <!--   favicons -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="./favicon/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="./favicon/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+    <!--   google fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:300,400|Montserrat|Libre+Baskerville"
+      rel="stylesheet"
+    />
+    <!--   font-awesome icons -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <span class="navbar-toggle" id="js-navbar-toggle"
+          ><i class="fa fa-bars"></i
+        ></span>
+        <!--  Home Icon/Logo -->
+        <a href="./index.html" class="logo"
+          ><i class="fas fa-coins icon"></i><span class="icon">B</span>anka</a
+        >
+        <!--  Main navigation links -->
+        <ul class="main-navlinks" id="js-navlinks">
+          <li><a href="#">Support</a></li>
+          <li><a href="#">Branches</a></li>
+          <li><a href="#">Settings</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Sticky Page Navbar -->
+    <div class="page-nav-container">
+      <ul class="page-nav" role="navigation">
+        <li>
+          <a href="#" id="accounts-link"
+            ><i class="fas fa-wallet"></i
+            ><span class="hidden-text">Accounts</span></a
+          >
+        </li>
+        <li class="nav-active">
+          <a href="#" id="transactions-link"
+            ><i class="fas fa-hand-holding-usd"></i
+            ><span class="hidden-text">Transactions</span></a
+          >
+        </li>
+        <li>
+          <a href="#" id="profile-link"
+            ><i class="fas fa-user"></i
+            ><span class="hidden-text">Profile</span></a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <!-- Transactions -->
+    <main>
+      <!-- Cashier Section -->
+      <section class="cashier-section">
+        <a href="#" class="create-new" id="newTrxBtn"><i class="fas fa-plus"></i>&nbsp;New Transaction</a>
+        <div class="inputContainer">
+          <input type="number" class="txtInput" placeholder="Enter account no"><!-- input -->
+          <button class="btn-border">Find</button><!-- button -->
+        </div>
+      </section><!-- End cashier section -->
+
+      <!-- TRANSACTIONS TABLE -->
+      <section class="table-container">
+        <table class="table-layout table-design " role="table">
+          <caption>User Accounts</caption>
+          <thead>
+            <tr role="row">
+              <th id="columnheader1" role="columnheader" scope="col">Trx ID</th>
+              <th id="columnheader2" role="columnheader" scope="col">Acct No</th>
+              <th id="columnheader3" role="columnheader" scope="col">Amount</th>
+              <th id="columnheader4" role="columnheader" scope="col">Trx type</th>
+              <th id="columnheader5" role="columnheader" scope="col">Balance</th>
+              <th id="columnheader6" role="columnheader" scope="col">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr role="row" data-href="./transaction-client.html">
+              <th id="item1" role="rowheader" scope="row"><span aria-hidden="true" class="col-header">Trx ID</span> <span>28200</span></th>
+              <td headers="item1 columnheader1" role="cell"><span aria-hidden="true" class="col-header">Acct No</span> <span>01234567890</span></td>
+              <td headers="item1 columnheader2" role="cell"><span aria-hidden="true" class="col-header">Amount</span> <span class="digit">₦250,560.88</span></td>
+              <td headers="item1 columnheader3" role="cell"><span aria-hidden="true" class="col-header">Trx type</span> <span>Credit</span></td>
+              <td headers="item1 columnheader4" role="cell"><span aria-hidden="true" class="col-header">Balance</span> <span class="digit">₦1,250,560.88</span></td>
+              <td headers="item1 columnheader5" role="cell"><span aria-hidden="true" class="col-header">Date</span> <span>Jan 27, 2019</span></td>
+            </tr>
+          <tbody>
+            <tr role="row" data-href="./transaction-client.html">
+              <th id="item1" role="rowheader" scope="row"><span aria-hidden="true" class="col-header">Trx ID</span> <span>28200</span></th>
+              <td headers="item1 columnheader1" role="cell"><span aria-hidden="true" class="col-header">Acct No</span> <span>01234567890</span></td>
+              <td headers="item1 columnheader2" role="cell"><span aria-hidden="true" class="col-header">Amount</span> <span class="digit">₦250,560.88</span></td>
+              <td headers="item1 columnheader3" role="cell"><span aria-hidden="true" class="col-header">Trx type</span> <span>Credit</span></td>
+              <td headers="item1 columnheader4" role="cell"><span aria-hidden="true" class="col-header">Balance</span> <span class="digit">₦1,250,560.88</span></td>
+              <td headers="item1 columnheader5" role="cell"><span aria-hidden="true" class="col-header">Date</span> <span>Jan 27, 2019</span></td>
+            </tr>
+          <tbody>
+            <tr role="row" data-href="./transaction-client.html">
+              <th id="item1" role="rowheader" scope="row"><span aria-hidden="true" class="col-header">Trx ID</span> <span>28200</span></th>
+              <td headers="item1 columnheader1" role="cell"><span aria-hidden="true" class="col-header">Acct No</span> <span>01234567890</span></td>
+              <td headers="item1 columnheader2" role="cell"><span aria-hidden="true" class="col-header">Amount</span> <span class="digit">₦250,560.88</span></td>
+              <td headers="item1 columnheader3" role="cell"><span aria-hidden="true" class="col-header">Trx type</span> <span>Credit</span></td>
+              <td headers="item1 columnheader4" role="cell"><span aria-hidden="true" class="col-header">Balance</span> <span class="digit">₦1,250,560.88</span></td>
+              <td headers="item1 columnheader5" role="cell"><span aria-hidden="true" class="col-header">Date</span> <span>Jan 27, 2019</span></td>
+            </tr>
+          <tbody>
+            <tr role="row" data-href="./transaction-client.html">
+              <th id="item1" role="rowheader" scope="row"><span aria-hidden="true" class="col-header">Trx ID</span> <span>28200</span></th>
+              <td headers="item1 columnheader1" role="cell"><span aria-hidden="true" class="col-header">Acct No</span> <span>01234567890</span></td>
+              <td headers="item1 columnheader2" role="cell"><span aria-hidden="true" class="col-header">Amount</span> <span class="digit">₦250,560.88</span></td>
+              <td headers="item1 columnheader3" role="cell"><span aria-hidden="true" class="col-header">Trx type</span> <span>Credit</span></td>
+              <td headers="item1 columnheader4" role="cell"><span aria-hidden="true" class="col-header">Balance</span> <span class="digit">₦1,250,560.88</span></td>
+              <td headers="item1 columnheader5" role="cell"><span aria-hidden="true" class="col-header">Date</span> <span>Jan 27, 2019</span></td>
+            </tr>
+          <tbody>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <!-- ---------------------- PAGE FOOOTER ----------------------- -->
+    <footer>
+      <ul class="footer-links">
+        <li><a href="#">Banka.com</a></li>
+        <li><a href="#">API</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+      <p class="copyright">
+        &copy;2019 Banka. Designed and built with love by
+        <a href="#">OvieMudi</a> with the support of the incredible
+        <a href="#">LFAs</a>.
+      </p>
+      <p class="copyright">
+        Banka is licenced under the
+        <a href="https://github.com/OvieMudi/Banka/blob/develop/LICENSE"
+          >MIT Licence</a
+        >.
+      </p>
+    </footer>
+    <script src="./scripts/main.js"></script>
+    <script src="./scripts/table.js"></script>
+  </body>
+</html>

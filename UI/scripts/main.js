@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", e => {
   localStorage.setItem("user", "cashier");
+  localStorage.setItem("role", "admin");
   const user = localStorage.getItem("user");
+  const role = user === "client" ? "client" : "staff";
 
   /* ---------- PAGE NAVIGATION ------------------ */
   const accountsNavLink = document.getElementById("accounts-link");
@@ -16,17 +18,19 @@ document.addEventListener("DOMContentLoaded", e => {
     mainNavlinks.classList.toggle("visible");
   });
 
-  /* -------------  CASHIER SECTION ------------------- */
-  const cashierSection = document.querySelector(".cashier-section");
+  /* -------------  CASHIER TRANSACTIONS SECTION ------------------- */
+  const trxTglBtn = document.querySelector("#input-tgl-btn");
+  const cashierSection = document.querySelector(".js-cashier-trx-section");
   if (cashierSection && user == "cashier") {
     cashierSection.classList.add("display-block");
+    showAccInputBtn(trxTglBtn);
+  }
 
-    const newTrxBtn = document.querySelector("#newTrxBtn");
-    const accInputContainer = document.querySelector(".inputContainer");
-    newTrxBtn.addEventListener("click", e => {
-      accInputContainer.classList.toggle("display-flex");
-      e.preventDefault();
-    });
+  /* ------------------ STAFF DASHBOARD SECTION -------------- */
+  const staffSearchSection = document.querySelector(".js-staff-search-section");
+  if (staffSearchSection && role === "staff") {
+    staffSearchSection.classList.add("display-block");
+    showAccInputBtn(trxTglBtn);
   }
 
   /* MOdal section */
@@ -51,3 +55,10 @@ document.addEventListener("DOMContentLoaded", e => {
     });
   }
 });
+function showAccInputBtn(trxTglBtn) {
+  const accInputContainer = document.querySelector(".inputContainer");
+  trxTglBtn.addEventListener("click", e => {
+    accInputContainer.classList.toggle("display-flex");
+    e.preventDefault();
+  });
+}

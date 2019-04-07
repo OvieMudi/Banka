@@ -358,7 +358,7 @@ a.acct-summary:first-of-type {
 
 /* =========================== ALL TRANSACTIONS PAGE =========================  */
 
-.cashier-section {
+.hidden-op-section {
   margin-bottom: 2rem;
   display: none;
 }
@@ -476,12 +476,12 @@ a.acct-summary:first-of-type {
     margin-bottom: 0;
   }
 
-  .table-design tbody:nth-child(even) {
+  .table-design tbody tr:nth-of-type(even) {
     background-color: #f8f8f8; /*#fdf7e3*/
   }
 
   .table-design tbody tr:hover {
-    background: #fdf7e3;
+    background: var(--light-theme-yellow);
   }
 
   /* Cells Width */

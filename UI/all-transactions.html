@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Dashboard</title>
+    <title>Transactions</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="stylesheet"
@@ -96,8 +96,8 @@
     <!-- Transactions -->
     <main>
       <!-- Cashier Section -->
-      <section class="cashier-section">
-        <a href="#" class="create-new" id="newTrxBtn"><i class="fas fa-plus"></i>&nbsp;New Transaction</a>
+      <section class="hidden-op-section js-cashier-trx-section">
+        <a href="#" class="create-new" id="input-tgl-btn"><i class="fas fa-paper-plane"></i>&nbsp;New Transaction</a>
         <div class="inputContainer">
           <input type="number" class="txtInput" placeholder="Enter account no"><!-- input -->
           <button class="btn-border">Find</button><!-- button -->
@@ -120,42 +120,38 @@
           </thead>
           <tbody>
             <tr role="row" data-href="./transaction-client.html">
-              <th id="item1" role="rowheader" scope="row"><span aria-hidden="true" class="col-header">Trx ID</span> <span>28200</span></th>
-              <td headers="item1 columnheader1" role="cell"><span aria-hidden="true" class="col-header">Acct No</span> <span>01234567890</span></td>
-              <td headers="item1 columnheader2" role="cell"><span aria-hidden="true" class="col-header">Amount</span> <span class="digit">₦250,560.88</span></td>
-              <td headers="item1 columnheader3" role="cell"><span aria-hidden="true" class="col-header">Trx type</span> <span>Credit</span></td>
-              <td headers="item1 columnheader4" role="cell"><span aria-hidden="true" class="col-header">Balance</span> <span class="digit">₦1,250,560.88</span></td>
-              <td headers="item1 columnheader5" role="cell"><span aria-hidden="true" class="col-header">Date</span> <span>Jan 27, 2019</span></td>
+              <th id="item1" headers="columnheader1" role="rowheader" scope="row"><span aria-hidden="true" class="col-header">Trx ID</span> <span>28200</span></th>
+              <td headers="item1 columnheader2" role="cell"><span aria-hidden="true" class="col-header">Acct No</span> <span>01234567890</span></td>
+              <td headers="item1 columnheader3" role="cell"><span aria-hidden="true" class="col-header">Amount</span> <span class="digit">₦250,560.88</span></td>
+              <td headers="item1 columnheader4" role="cell"><span aria-hidden="true" class="col-header">Trx type</span> <span>Credit</span></td>
+              <td headers="item1 columnheader5" role="cell"><span aria-hidden="true" class="col-header">Balance</span> <span class="digit">₦1,250,560.88</span></td>
+              <td headers="item1 columnheader6" role="cell"><span aria-hidden="true" class="col-header">Date</span> <span>Jan 27, 2019</span></td>
             </tr>
-          <tbody>
             <tr role="row" data-href="./transaction-client.html">
-              <th id="item1" role="rowheader" scope="row"><span aria-hidden="true" class="col-header">Trx ID</span> <span>28200</span></th>
-              <td headers="item1 columnheader1" role="cell"><span aria-hidden="true" class="col-header">Acct No</span> <span>01234567890</span></td>
-              <td headers="item1 columnheader2" role="cell"><span aria-hidden="true" class="col-header">Amount</span> <span class="digit">₦250,560.88</span></td>
-              <td headers="item1 columnheader3" role="cell"><span aria-hidden="true" class="col-header">Trx type</span> <span>Credit</span></td>
-              <td headers="item1 columnheader4" role="cell"><span aria-hidden="true" class="col-header">Balance</span> <span class="digit">₦1,250,560.88</span></td>
-              <td headers="item1 columnheader5" role="cell"><span aria-hidden="true" class="col-header">Date</span> <span>Jan 27, 2019</span></td>
+              <th id="item1" headers="columnheader1" role="rowheader" scope="row"><span aria-hidden="true" class="col-header">Trx ID</span> <span>28200</span></th>
+              <td headers="item1 columnheader2" role="cell"><span aria-hidden="true" class="col-header">Acct No</span> <span>01234567890</span></td>
+              <td headers="item1 columnheader3" role="cell"><span aria-hidden="true" class="col-header">Amount</span> <span class="digit">₦250,560.88</span></td>
+              <td headers="item1 columnheader4" role="cell"><span aria-hidden="true" class="col-header">Trx type</span> <span>Credit</span></td>
+              <td headers="item1 columnheader5" role="cell"><span aria-hidden="true" class="col-header">Balance</span> <span class="digit">₦1,250,560.88</span></td>
+              <td headers="item1 columnheader6" role="cell"><span aria-hidden="true" class="col-header">Date</span> <span>Jan 27, 2019</span></td>
             </tr>
-          <tbody>
             <tr role="row" data-href="./transaction-client.html">
-              <th id="item1" role="rowheader" scope="row"><span aria-hidden="true" class="col-header">Trx ID</span> <span>28200</span></th>
-              <td headers="item1 columnheader1" role="cell"><span aria-hidden="true" class="col-header">Acct No</span> <span>01234567890</span></td>
-              <td headers="item1 columnheader2" role="cell"><span aria-hidden="true" class="col-header">Amount</span> <span class="digit">₦250,560.88</span></td>
-              <td headers="item1 columnheader3" role="cell"><span aria-hidden="true" class="col-header">Trx type</span> <span>Credit</span></td>
-              <td headers="item1 columnheader4" role="cell"><span aria-hidden="true" class="col-header">Balance</span> <span class="digit">₦1,250,560.88</span></td>
-              <td headers="item1 columnheader5" role="cell"><span aria-hidden="true" class="col-header">Date</span> <span>Jan 27, 2019</span></td>
+              <th id="item1" headers="columnheader1" role="rowheader" scope="row"><span aria-hidden="true" class="col-header">Trx ID</span> <span>28200</span></th>
+              <td headers="item1 columnheader2" role="cell"><span aria-hidden="true" class="col-header">Acct No</span> <span>01234567890</span></td>
+              <td headers="item1 columnheader3" role="cell"><span aria-hidden="true" class="col-header">Amount</span> <span class="digit">₦250,560.88</span></td>
+              <td headers="item1 columnheader4" role="cell"><span aria-hidden="true" class="col-header">Trx type</span> <span>Credit</span></td>
+              <td headers="item1 columnheader5" role="cell"><span aria-hidden="true" class="col-header">Balance</span> <span class="digit">₦1,250,560.88</span></td>
+              <td headers="item1 columnheader6" role="cell"><span aria-hidden="true" class="col-header">Date</span> <span>Jan 27, 2019</span></td>
             </tr>
-          <tbody>
             <tr role="row" data-href="./transaction-client.html">
-              <th id="item1" role="rowheader" scope="row"><span aria-hidden="true" class="col-header">Trx ID</span> <span>28200</span></th>
-              <td headers="item1 columnheader1" role="cell"><span aria-hidden="true" class="col-header">Acct No</span> <span>01234567890</span></td>
-              <td headers="item1 columnheader2" role="cell"><span aria-hidden="true" class="col-header">Amount</span> <span class="digit">₦250,560.88</span></td>
-              <td headers="item1 columnheader3" role="cell"><span aria-hidden="true" class="col-header">Trx type</span> <span>Credit</span></td>
-              <td headers="item1 columnheader4" role="cell"><span aria-hidden="true" class="col-header">Balance</span> <span class="digit">₦1,250,560.88</span></td>
-              <td headers="item1 columnheader5" role="cell"><span aria-hidden="true" class="col-header">Date</span> <span>Jan 27, 2019</span></td>
+              <th id="item1" headers="columnheader1" role="rowheader" scope="row"><span aria-hidden="true" class="col-header">Trx ID</span> <span>28200</span></th>
+              <td headers="item1 columnheader2" role="cell"><span aria-hidden="true" class="col-header">Acct No</span> <span>01234567890</span></td>
+              <td headers="item1 columnheader3" role="cell"><span aria-hidden="true" class="col-header">Amount</span> <span class="digit">₦250,560.88</span></td>
+              <td headers="item1 columnheader4" role="cell"><span aria-hidden="true" class="col-header">Trx type</span> <span>Credit</span></td>
+              <td headers="item1 columnheader5" role="cell"><span aria-hidden="true" class="col-header">Balance</span> <span class="digit">₦1,250,560.88</span></td>
+              <td headers="item1 columnheader6" role="cell"><span aria-hidden="true" class="col-header">Date</span> <span>Jan 27, 2019</span></td>
             </tr>
           <tbody>
-          </tbody>
         </table>
       </section>
     </main>

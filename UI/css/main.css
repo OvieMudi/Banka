@@ -113,7 +113,7 @@ a {
 }
 
 .modal-content p {
-  font-size: 1.4em;
+  font-size: 1.2em;
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
@@ -186,6 +186,19 @@ a.create-new:active {
   font-size: 1em;
   font-weight: 400;
   letter-spacing: 1.5px;
+}
+
+/* General Page Title */
+.page-title {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+  padding: 0 0.5rem;
+  color: rgb(105, 105, 105);
+}
+
+.page-title h1 {
+  font-weight: 100;
 }
 
 /* -------------- NAVIGATION ---------------- */
@@ -274,8 +287,13 @@ header nav {
 }
 
 .page-nav li:hover {
-  background-color: #e7e7e7;
+  color: var(--theme-orange);
   opacity: 0.95;
+}
+
+.nav-active {
+  background-color: #e7e7e7;
+  color: var(--theme-orange);
 }
 
 .page-nav a {
@@ -290,10 +308,6 @@ header nav {
 
 .sticky-nav-text {
   font-size: 0.6em;
-}
-
-.nav-active {
-  color: var(--theme-orange);
 }
 
 /* ====================== ACCOUNTS DASHBOARD PAGE ======================  */
@@ -361,6 +375,8 @@ a.acct-summary:first-of-type {
 .hidden-op-section {
   margin-bottom: 2rem;
   display: none;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .table-container {
@@ -499,20 +515,23 @@ a.acct-summary:first-of-type {
 }
 
 /* ---------------------- USER PROFILE PAGE --------------- */
-section.profile-card {
-  min-height: 200px;
+.card-container {
   width: 90%;
   max-width: 480px;
-  margin: 0 auto;
-  margin: 1rem auto;
+  margin: 2rem auto;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
 }
 
+section.profile-card {
+  min-height: 200px;
+}
+
 .card-main-header {
-  height: 2rem;
-  line-height: 2rem;
+  height: 3rem;
+  line-height: 3rem;
   text-align: center;
   background: var(--nav-background-color);
+  margin-bottom: 0.8rem;
 }
 
 .card-data-header {
@@ -536,22 +555,38 @@ section.profile-card {
   border-radius: 50%;
 }
 
-.profile-data {
+.card-data-grid {
   display: grid;
   grid-template-columns: 50% 1fr;
   grid-auto-rows: minmax(2rem, auto);
   padding: 0 0.5rem;
-  font-size: 0.8em;
+  font-size: 0.85em;
 }
 
-.profile-key {
+.card-key {
   text-align: right;
   padding-right: 1.5rem;
 }
 
-.profile-data p,
-.profile-data span {
+.card-data-grid p,
+.card-data-grid span {
   padding-bottom: 0.5rem;
+}
+
+/* ------------------------- SINGLE ACCOUNT PAGE ------------------- */
+.cashier-acct-op {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cashier-btn-container {
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+  max-width: 480px;
+  margin: auto;
 }
 
 /* ------------------------- PAGE FOOTER ---------------------------*/

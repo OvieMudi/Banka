@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Account Details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="./css/main.css"
+    />
+    <!--   favicons -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="./favicon/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="./favicon/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+    <!--   google fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat|Libre+Baskerville"
+      rel="stylesheet"
+    />
+    <!--   font-awesome icons -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <span class="navbar-toggle" id="js-navbar-toggle"
+          ><i class="fa fa-bars"></i
+        ></span>
+        <!--  Home Icon/Logo -->
+        <a href="./index.html" class="logo"
+          ><i class="fas fa-coins icon"></i><span class="icon">B</span>anka</a
+        >
+        <!--  Main navigation links -->
+        <ul class="main-navlinks" id="js-navlinks">
+          <li><a href="#">Support</a></li>
+          <li><a href="#">Branches</a></li>
+          <li><a href="#">Settings</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Sticky Page Navbar -->
+    <div class="page-nav-container">
+      <ul class="page-nav" role="navigation">
+        <li class="nav-active">
+          <a href="#" id="accounts-link"
+            ><i class="fas fa-wallet"></i
+            ><span class="sticky-nav-text">Accounts</span></a
+          >
+        </li>
+        <li>
+          <a href="./transactions-all.html" id="transactions-link"
+            ><i class="fas fa-hand-holding-usd"></i
+            ><span class="sticky-nav-text">Transactions</span></a
+          >
+        </li>
+        <li>
+          <a href="./profile-user.html" id="profile-link"
+            ><i class="fas fa-user"></i
+            ><span class="sticky-nav-text">Profile</span></a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <main>
+      <!-- Cashier Section -->
+
+      <!-- Account Card -->
+      <section>
+        <a href="./transactions-all.html" class="create-new" id=""><i class="fas fa-paper-plane"></i>&nbsp;View Transaction</a>
+      </section>
+      <section class="card-container account-card">
+        <h2 class="card-main-header">Account Details</h2>
+        <div class="card-data-grid">
+          <p class="card-key">Account number</p>
+          <span class="card-value">1234567890</span>
+
+          <p class="card-key">Account name</p>
+          <span class="card-value">Chris Martin</span>
+
+          <p class="card-key">Balance</p>
+          <span class="card-value">123,456,790.79</span>
+
+          <p class="card-key">Type</p>
+          <span class="card-value">Current</span>
+
+          <p class="card-key">Status</p>
+          <span class="card-value"
+            >Active</span
+          >
+
+          <p class="card-key">Created</p>
+          <span class="card-value"
+          >27-10-2019</span
+          >
+
+          <p class="card-key">Phone</p>
+          <span class="card-value">070318414899</span>
+        </div>
+      </section>
+
+      <!-- Cashier operations section-->
+      <section class="cashier-acct-op hidden-op-section js-cashier-trx-section display-none">
+        <div class="cashier-btn-container">
+          <a href="#" class="create-new" id="js-credit-btn"
+            ><i class="fas fa-plus-circle"></i>&nbsp;Credit Account</a
+          >
+          <a href="#" class="create-new js-input-tgl-btn" id="js-dedit-btn"
+            ><i class="fas fa-minus-circle"></i>&nbsp;Debit Account</a
+          >
+        </div>
+        <div class="inputContainer">
+          <input
+            type="number"
+            class="txtInput"
+            placeholder="Enter amount"
+          /><!-- input -->
+          <button class="btn-border" id="js-credit-debit-btn">Credit</button
+          ><!-- button -->
+        </div>
+      </section>
+
+      <!-- Admin operations section-->
+      <section class="admin-acct-op hidden-op-section js-cashier-trx-section  display-none">
+        <div class="cashier-btn-container">
+          <a href="#" class="create-new modal-trigger" id="js-activate-btn"
+            ><i class="fas fa-check-circle"></i>&nbsp;Activate Account</a
+          >
+          <a href="#" class="create-new modal-trigger" id="js-deactivate-btn"
+            ><i class="fas fa-ban"></i>&nbsp;Deactivate Account</a
+          >
+          <a href="#" class="create-new js-input-tgl-btn modal-trigger" id="js-delete-btn"
+            ><i class="fas fa-trash-alt"></i>&nbsp;Delete Account</a
+          >
+        </div>
+      </section>
+      <!-- End admin section -->
+      <!-- Create Account Modal -->
+      <section class="modal-container">
+          <div class="modal-content">
+            <span class="modal-close-btn modal-x-btn">&times;</span>
+            <p>Do you want to <span id="js-confirmation-txt">perform operation on</span> this account?</p>
+            <button class="modal-close-btn btn">Cancel</button>
+            <button class="btn">Proceed</button>
+          </div>
+        </section>
+    </main>
+
+    <!-- ---------------------- PAGE FOOOTER ----------------------- -->
+    <footer>
+      <ul class="footer-links">
+        <li><a href="#">Banka.com</a></li>
+        <li><a href="#">API</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+      <p class="copyright">
+        &copy;2019 Banka. Designed and built with love by
+        <a href="#">OvieMudi</a> with the support of the incredible
+        <a href="#">LFAs</a>.
+      </p>
+      <p class="copyright">
+        Banka is licenced under the
+        <a href="https://github.com/OvieMudi/Banka/blob/develop/LICENSE"
+          >MIT Licence</a
+        >.
+      </p>
+    </footer>
+    <script src="./scripts/main.js"></script>
+    <script src="./scripts/table.js"></script>
+  </body>
+</html>

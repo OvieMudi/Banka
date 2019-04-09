@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Account Details</title>
+    <title>Transaction Details</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="stylesheet"
@@ -72,13 +72,13 @@
     <!-- Sticky Page Navbar -->
     <div class="page-nav-container">
       <ul class="page-nav" role="navigation">
-        <li class="nav-active">
+        <li>
           <a href="#" id="accounts-link"
             ><i class="fas fa-wallet"></i
             ><span class="sticky-nav-text">Accounts</span></a
           >
         </li>
-        <li>
+        <li  class="nav-active">
           <a href="./transactions-all.html" id="transactions-link"
             ><i class="fas fa-hand-holding-usd"></i
             ><span class="sticky-nav-text">Transactions</span></a
@@ -95,86 +95,43 @@
 
     <main>
       <!-- Cashier Section -->
+      <section class="hidden-op-section js-cashier-trx-section">
+        <a href="./account-details.html" class="create-new" id=""><i class="fas fa-paper-plane"></i>&nbsp;New Transaction</a>
+      </section>
 
       <!-- Account Card -->
-      <section>
-        <a href="./transactions-all.html" class="create-new" id=""><i class="fas fa-paper-plane"></i>&nbsp;View Transactions</a>
-      </section>
       <section class="card-container account-card">
-        <h2 class="card-main-header">Account Details</h2>
+        <h2 class="card-main-header">Transaction Details</h2>
         <div class="card-data-grid">
+          <p class="card-key">Transaction ID</p>
+          <span class="card-value">28200</span>
+
           <p class="card-key">Account number</p>
           <span class="card-value">1234567890</span>
 
           <p class="card-key">Account name</p>
           <span class="card-value">Chris Martin</span>
 
+          <p class="card-key">Transaction Type</p>
+          <span class="card-value">Credit</span>
+
+          <p class="card-key">Amount</p>
+          <span class="card-value">456,790.79</span>
+
           <p class="card-key">Balance</p>
           <span class="card-value">123,456,790.79</span>
 
-          <p class="card-key">Type</p>
-          <span class="card-value">Current</span>
-
-          <p class="card-key">Status</p>
+          <p class="card-key">Cashier</p>
           <span class="card-value"
-            >Active</span
+            >Ella Nut</span
           >
 
-          <p class="card-key">Created</p>
+          <p class="card-key">Date</p>
           <span class="card-value"
           >27-10-2019</span
           >
-
-          <p class="card-key">Phone</p>
-          <span class="card-value">070318414899</span>
         </div>
       </section>
-
-      <!-- Cashier operations section-->
-      <section class="cashier-acct-op hidden-op-section js-cashier-trx-section display-none">
-        <div class="cashier-btn-container">
-          <a href="#" class="create-new" id="js-credit-btn"
-            ><i class="fas fa-plus-circle"></i>&nbsp;Credit Account</a
-          >
-          <a href="#" class="create-new js-input-tgl-btn" id="js-dedit-btn"
-            ><i class="fas fa-minus-circle"></i>&nbsp;Debit Account</a
-          >
-        </div>
-        <div class="inputContainer">
-          <input
-            type="number"
-            class="txtInput"
-            placeholder="Enter amount"
-          /><!-- input -->
-          <button class="btn-border" id="js-credit-debit-btn">Credit</button
-          ><!-- button -->
-        </div>
-      </section>
-
-      <!-- Admin operations section-->
-      <section class="admin-acct-op hidden-op-section js-cashier-trx-section  display-none">
-        <div class="cashier-btn-container">
-          <a href="#" class="create-new modal-trigger" id="js-activate-btn"
-            ><i class="fas fa-check-circle"></i>&nbsp;Activate Account</a
-          >
-          <a href="#" class="create-new modal-trigger" id="js-deactivate-btn"
-            ><i class="fas fa-ban"></i>&nbsp;Deactivate Account</a
-          >
-          <a href="#" class="create-new js-input-tgl-btn modal-trigger" id="js-delete-btn"
-            ><i class="fas fa-trash-alt"></i>&nbsp;Delete Account</a
-          >
-        </div>
-      </section>
-      <!-- End admin section -->
-      <!-- Create Account Modal -->
-      <section class="modal-container">
-          <div class="modal-content">
-            <span class="modal-close-btn modal-x-btn">&times;</span>
-            <p>Do you want to <span id="js-confirmation-txt">perform operation on</span> this account?</p>
-            <button class="modal-close-btn btn">Cancel</button>
-            <button class="btn">Proceed</button>
-          </div>
-        </section>
     </main>
 
     <!-- ---------------------- PAGE FOOOTER ----------------------- -->

@@ -1,13 +1,21 @@
 document.addEventListener("DOMContentLoaded", e => {
-  localStorage.setItem("user", "cashier");
+  localStorage.setItem("user", "admin");
   localStorage.removeItem("role");
   const user = localStorage.getItem("user");
   const role = user === "client" ? "client" : "staff";
 
   /* ---------- PAGE NAVIGATION ------------------ */
   const accountsNavLink = document.getElementById("accounts-link");
-  // set nav links
-  accountsNavLink.setAttribute("href", `./dashboard-${role}.html`);
+  // Set Sticky Nav links
+  if (accountsNavLink) {
+    accountsNavLink.setAttribute("href", `./dashboard-${role}.html`);
+  }
+
+  //Set Admin Sticky Nav Links
+  const accountsNavLinkAdmin = document.getElementById("accounts-link-admin");
+  if (accountsNavLinkAdmin) {
+    accountsNavLinkAdmin.setAttribute("href", `./dashboard-${user}.html`);
+  }
 
   // Main nav hamburber menu
   const navbarToggle = document.getElementById("js-navbar-toggle");
@@ -19,6 +27,12 @@ document.addEventListener("DOMContentLoaded", e => {
 
   // input container
   const acctInputContainer = document.querySelector(".inputContainer");
+
+  /* ------------------- ADMIN PAGES ------------------------- */
+  const adminLink = document.getElementById("admin-link");
+  if (user === "admin") {
+    adminLink.classList.remove("display-none");
+  }
 
   /* -------------  CASHIER TRANSACTIONS SECTION ------------------- */
   const trxTglBtn = document.querySelectorAll(".js-input-tgl-btn");
@@ -80,11 +94,15 @@ document.addEventListener("DOMContentLoaded", e => {
   /* -------------------------- MODAL ------------------------*/
   const modalTrigger = document.querySelectorAll(".modal-trigger");
   if (modalTrigger) {
-    const modalContainer = document.querySelector(".modal-container");
+    const modalContainer = document.querySelectorAll(".modal-container");
     const modalCloseBtn = document.querySelectorAll(".modal-close-btn");
+    let modalOverlay;
 
     function toggleModal() {
-      modalContainer.classList.toggle("show-modal");
+      modalContainer.forEach(mContainer => {
+        mContainer.classList.toggle("show-modal");
+        modalOverlay = mContainer;
+      });
     }
 
     modalTrigger.forEach(trigger => {
@@ -94,7 +112,7 @@ document.addEventListener("DOMContentLoaded", e => {
       });
     });
     window.addEventListener("click", function(e) {
-      if (e.target === modalContainer) {
+      if (e.target === modalOverlay) {
         toggleModal();
       }
     });

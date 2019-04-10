@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Transaction Details</title>
+    <title>Admin | Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="stylesheet"
@@ -49,6 +49,7 @@
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
       crossorigin="anonymous"
     />
+    <script src="main.js"></script>
   </head>
   <body>
     <header>
@@ -57,14 +58,16 @@
           ><i class="fa fa-bars"></i
         ></span>
         <!--  Home Icon/Logo -->
-        <a href="./index.html" class="logo"
+        <a href="./dashboard-staff.html" class="logo"
           ><i class="fas fa-coins icon"></i><span class="icon">B</span>anka</a
         >
         <!--  Main navigation links -->
         <ul class="main-navlinks" id="js-navlinks">
           <li><a href="#">Support</a></li>
           <li><a href="#">Branches</a></li>
-          <li id="admin-link" class="display-none"><a href="./dashboard-admin.html">Admin</a></li>
+          <li id="admin-link" class="display-none">
+            <a href="./dashboard-admin.html">Admin</a>
+          </li>
           <li><a href="#">Settings</a></li>
         </ul>
       </nav>
@@ -74,64 +77,64 @@
     <div class="page-nav-container">
       <ul class="page-nav" role="navigation">
         <li>
-          <a href="#" id="accounts-link"
-            ><i class="fas fa-wallet"></i
-            ><span class="sticky-nav-text">Accounts</span></a
+          <a href="./dashboard-admin.html" id="accounts-link-admin"
+            ><i class="fas fa-user-shield"></i
+            ><span class="sticky-nav-text"> Staff</span></a
           >
         </li>
-        <li  class="nav-active">
-          <a href="./transactions-all.html" id="transactions-link"
-            ><i class="fas fa-hand-holding-usd"></i
-            ><span class="sticky-nav-text">Transactions</span></a
+        <li class="nav-active">
+          <a href="./create-staff.html"
+            ><i class="fas fa-user-plus"></i
+            ><span class="sticky-nav-text"> Create New</span></a
           >
         </li>
         <li>
           <a href="./profile-user.html" id="profile-link"
             ><i class="fas fa-user"></i
-            ><span class="sticky-nav-text">Profile</span></a
+            ><span class="sticky-nav-text"> Profile</span></a
           >
         </li>
       </ul>
     </div>
 
-    <main>
-      <!-- Cashier Section -->
-      <section class="hidden-op-section js-cashier-trx-section">
-        <a href="./account-details.html" class="create-new" id=""><i class="fas fa-paper-plane"></i>&nbsp;New Transaction</a>
-      </section>
+    <main class="main-form-container">
+      <!-- Create Staff Form -->
+      <section class="form-container">
+        <form action="javascript:void(0)" method="POST">
+          <h1>Create Staff Account</h1>
+          <input type="text" placeholder="Firstname" />
+          <input type="text" placeholder="Lastname" />
+          <input type="text" placeholder="Other names" />
+          <input type="email" placeholder="Email" />
+          <input type="password" placeholder="Password" />
 
-      <!-- Account Card -->
-      <section class="card-container account-card">
-        <h2 class="card-main-header">Transaction Details</h2>
-        <div class="card-data-grid">
-          <p class="card-key">Transaction ID</p>
-          <span class="card-value">28200</span>
+          <span>
+            Select account type
+          </span>
 
-          <p class="card-key">Account number</p>
-          <span class="card-value">1234567890</span>
+          <div class="radio-container">
+            <input
+              type="radio"
+              id="radio-cashier"
+              name="type"
+              value="Cashier"
+              checked
+            />
+            <label for="radio-cashier">Cashier</label>
+          </div>
 
-          <p class="card-key">Account name</p>
-          <span class="card-value">Chris Martin</span>
+          <div class="radio-container">
+            <input type="radio" id="radio-admin" name="type" value="Admin" />
+            <label for="radio-admin">Admin</label>
+          </div>
 
-          <p class="card-key">Transaction Type</p>
-          <span class="card-value">Credit</span>
+          <div class="radio-container">
+            <input type="radio" id="radio-user" name="type" value="Client" />
+            <label for="radio-user">Client</label>
+          </div>
 
-          <p class="card-key">Amount</p>
-          <span class="card-value">456,790.79</span>
-
-          <p class="card-key">Balance</p>
-          <span class="card-value">123,456,790.79</span>
-
-          <p class="card-key">Cashier</p>
-          <span class="card-value"
-            >Ella Nut</span
-          >
-
-          <p class="card-key">Date</p>
-          <span class="card-value"
-          >27-10-2019</span
-          >
-        </div>
+          <button>Sign Up</button>
+        </form>
       </section>
     </main>
 
@@ -158,6 +161,5 @@
       </p>
     </footer>
     <script src="./scripts/main.js"></script>
-    <script src="./scripts/table.js"></script>
   </body>
 </html>

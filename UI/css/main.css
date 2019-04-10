@@ -168,6 +168,10 @@ a.create-new:active {
   display: flex !important;
 }
 
+.display-none {
+  display: none;
+}
+
 /* Number Input and button */
 .inputContainer {
   display: flex;
@@ -345,12 +349,12 @@ a.acct-summary:first-of-type {
 }
 
 .row {
-  display: flex;
-  justify-content: space-between;
-  align-items: cener;
+  display: grid;
+  width: 100%;
+  grid-template-columns: minmax(30%, auto) auto auto;
   padding: 0 1rem;
   color: var(--black-font);
-  font-size: 0.9em;
+  font-size: 0.85em;
 }
 
 .digit {
@@ -364,10 +368,12 @@ a.acct-summary:first-of-type {
 .row .acct-active {
   color: green;
   font-size: 70%;
+  justify-self: flex-end;
 }
 .row .acct-inactive {
   color: rgb(196, 3, 3);
   font-size: 70%;
+  justify-self: flex-end;
 }
 
 /* =========================== ALL TRANSACTIONS PAGE =========================  */
@@ -589,6 +595,97 @@ section.profile-card {
   margin: auto;
 }
 
+/* -------------------------- ADMIN PAGES ------------------------ */
+#admin-link {
+  color: var(--light-theme-yellow);
+}
+
+#admin-link:hover {
+  opacity: 0.9;
+}
+
+.row-admin {
+  display: grid;
+  width: 100%;
+  grid-template-columns: minmax(30%, auto) 1fr 1fr;
+  padding: 0 1rem;
+  color: var(--black-font);
+  font-size: 0.85em;
+}
+
+i.fa-user-cog {
+  padding-right: 1rem;
+  color: var(--icon-yellow);
+}
+
+.staff-role-cell {
+  text-align: center;
+}
+
+/* ---------------- Create New Staff Account Page ----------------- */
+.main-form-container {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+  width: 340px;
+  min-height: 560px;
+  margin: 3rem auto;
+  padding: 1rem 0;
+}
+
+.main-form-container form {
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 10px;
+  height: 100%;
+  text-align: center;
+}
+
+form > input {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100%;
+}
+
+.main-form-container span {
+  font-size: 0.8em;
+  margin: 10px auto;
+}
+
+.main-form-container .radio-container {
+  align-self: flex-start;
+  font-size: 0.8em;
+  margin-bottom: 0.4rem;
+}
+
+.main-form-container button {
+  border-radius: 20px;
+  border: 1px solid #ff4b2b;
+  background-color: #ff4b2b;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 80ms ease-in;
+}
+
+.main-form-container button:active {
+  transform: scale(0.95);
+}
+
+.main-form-container button:focus {
+  outline: none;
+}
+
 /* ------------------------- PAGE FOOTER ---------------------------*/
 footer {
   background-color: lightcoral;
@@ -690,6 +787,37 @@ footer a:hover {
   .sticky-nav-text {
     padding: 0 0.2rem;
     font-size: 1em;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: minmax(30%, auto) repeat(3, 1fr);
+    padding: 0 1rem;
+    color: var(--black-font);
+    font-size: 0.9em;
+  }
+
+  /* ------------------- ADMIN PAGES -------------------- */
+  .row-admin {
+    display: grid;
+    width: 100%;
+    grid-template-columns: minmax(30%, auto) repeat(3, 1fr);
+    padding: 0 1rem;
+    color: var(--black-font);
+    font-size: 0.85em;
+    text-align: center;
+  }
+
+  /* ---------------- Create New Staff Account Page ----------------- */
+  .main-form-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    overflow: hidden;
+    width: 480px;
+    min-height: 560px;
+    margin: 3rem auto;
+    padding: 1rem 0;
   }
 
   /* footer content */

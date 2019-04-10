@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Dashboard</title>
+    <title>Admin | Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="stylesheet"
@@ -58,7 +58,7 @@
           ><i class="fa fa-bars"></i
         ></span>
         <!--  Home Icon/Logo -->
-        <a href="./index.html" class="logo"
+        <a href="./dashboard-staff.html" class="logo"
           ><i class="fas fa-coins icon"></i><span class="icon">B</span>anka</a
         >
         <!--  Main navigation links -->
@@ -75,21 +75,21 @@
     <div class="page-nav-container">
       <ul class="page-nav" role="navigation">
         <li class="nav-active">
-          <a href="#" id="accounts-link"
-            ><i class="fas fa-wallet"></i
-            ><span class="sticky-nav-text">Accounts</span></a
+          <a href="./dashboard-admin.html" id="accounts-link-admin"
+            ><i class="fas fa-user-shield"></i
+            ><span class="sticky-nav-text"> Staff</span></a
           >
         </li>
         <li>
-          <a href="#" id="transactions-link"
-            ><i class="fas fa-hand-holding-usd"></i
-            ><span class="sticky-nav-text">Transactions</span></a
+          <a href="./create-staff.html"
+            ><i class="fas fa-user-plus"></i
+            ><span class="sticky-nav-text"> Create New</span></a
           >
         </li>
         <li>
           <a href="./profile-user.html" id="profile-link"
             ><i class="fas fa-user"></i
-            ><span class="sticky-nav-text">Profile</span></a
+            ><span class="sticky-nav-text"> Profile</span></a
           >
         </li>
       </ul>
@@ -97,37 +97,39 @@
 
     <!-- Accounts -->
     <main>
-    <!-- Page Title -->
-      <!-- <section class="page-info">
-        <span class="pg-location"><a href="#"><i class="fas fa-plus"></i>&nbsp;Create new</a></span>
-      </section> -->
+    <!-- Staff Operations -->
+    <section class="hidden-op-section js-staff-search-section">
+      <a href="#" class="create-new js-input-tgl-btn" id=""><i class="fas fa-search"></i>&nbsp;Find Staff Account</a>
+      <div class="inputContainer">
+        <input type="number" class="txtInput" placeholder="Enter Staff ID"><!-- input -->
+        <button class="btn-border">Find</button><!-- button -->
+      </div>
+    </section><!-- End cashier section -->
 
-    <a href="#" class="create-new modal-trigger"><i class="fas fa-plus"></i>&nbsp;Create new</a>
-
-    <!-- Client Accounts -->
+    <!-- Staff Accounts -->
       <section class="accts-container">
         <a href="./account-details.html" class="acct-summary">
-          <span class="row">
-            <span class="digit"><i class="fas fa-coins"></i> 0123456789</span>
-            <span class="acc-type mob-display-none">savings</span>
-            <span class="digit">₦12,345,678.90</span>
-            <span class="acct-active"><i class="fas fa-circle"></i></span>
+          <span class="row-admin">
+            <span><i class="fas fa-user-cog">&nbsp;</i>1209</span>
+            <span>Muffin Mangon</span>
+            <span class="staff-role-cell">Cashier</span>
+            <span class="mob-display-none">Female</span>
           </span>
         </a>
         <a href="./account-details.html" class="acct-summary">
-          <span class="row">
-            <span class="digit"><i class="fas fa-coins"></i> 0123456789</span>
-            <span class="acc-type mob-display-none">current</span>
-            <span class="digit">₦345,678.90</span>
-            <span class="acct-active"><i class="fas fa-circle"></i></span>
+          <span class="row-admin">
+            <span><i class="fas fa-user-cog">&nbsp;</i>1309</span>
+            <span>Theodoric Hearst</span>
+            <span class="staff-role-cell">Admin</span>
+            <span class="mob-display-none">Male</span>
           </span>
         </a>
         <a href="./account-details.html" class="acct-summary">
-          <span class="row">
-            <span class="digit"><i class="fas fa-coins"></i> 0123456789</span>
-            <span class="acc-type mob-display-none">savings</span>
-            <span class="digit">₦12,345,6.90</span>
-            <span class="acct-inactive"><i class="fas fa-circle"></i></span>
+          <span class="row-admin">
+            <span><i class="fas fa-user-cog">&nbsp;</i>1449</span>
+            <span>Rochette Gonneau</span>
+            <span class="staff-role-cell">Cashier</span>
+            <span class="mob-display-none">Female</span>
           </span>
         </a>
       </section>

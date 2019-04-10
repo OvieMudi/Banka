@@ -65,22 +65,24 @@
         <ul class="main-navlinks" id="js-navlinks">
           <li><a href="#">Support</a></li>
           <li><a href="#">Branches</a></li>
-          <li id="admin-link" class="display-none"><a href="./dashboard-admin.html">Admin</a></li>
+          <li id="admin-link" class="display-none">
+            <a href="./dashboard-admin.html">Admin</a>
+          </li>
           <li><a href="#">Settings</a></li>
         </ul>
       </nav>
-    </header>  
+    </header>
 
     <!-- Sticky Page Navbar -->
     <div class="page-nav-container">
       <ul class="page-nav" role="navigation">
-        <li class="nav-active">
+        <li>
           <a href="./dashboard-admin.html" id="accounts-link-admin"
             ><i class="fas fa-user-shield"></i
             ><span class="sticky-nav-text"> Staff</span></a
           >
         </li>
-        <li>
+        <li class="nav-active">
           <a href="./create-staff.html"
             ><i class="fas fa-user-plus"></i
             ><span class="sticky-nav-text"> Create New</span></a
@@ -95,53 +97,44 @@
       </ul>
     </div>
 
-    <!-- Accounts -->
-    <main>
-    <!-- Staff Operations -->
-    <section class="hidden-op-section js-staff-search-section">
-      <a href="#" class="create-new js-input-tgl-btn" id=""><i class="fas fa-search"></i>&nbsp;Find Staff Account</a>
-      <div class="inputContainer">
-        <input type="number" class="txtInput" placeholder="Enter Staff ID"><!-- input -->
-        <button class="btn-border">Find</button><!-- button -->
-      </div>
-    </section><!-- End cashier section -->
+    <main class="main-form-container">
+      <!-- Create Staff Form -->
+      <section class="form-container">
+        <form action="javascript:void(0)" method="POST">
+          <h1>Create Staff Account</h1>
+          <input type="text" placeholder="Firstname" />
+          <input type="text" placeholder="Lastname" />
+          <input type="text" placeholder="Other names" />
+          <input type="email" placeholder="Email" />
+          <input type="password" placeholder="Password" />
 
-    <!-- Staff Accounts -->
-      <section class="accts-container">
-        <a href="./account-details.html" class="acct-summary">
-          <span class="row-admin">
-            <span><i class="fas fa-user-cog">&nbsp;</i>1209</span>
-            <span>Muffin Mangon</span>
-            <span class="staff-role-cell">Cashier</span>
-            <span class="mob-display-none">Female</span>
+          <span>
+            Select account type
           </span>
-        </a>
-        <a href="./account-details.html" class="acct-summary">
-          <span class="row-admin">
-            <span><i class="fas fa-user-cog">&nbsp;</i>1309</span>
-            <span>Theodoric Hearst</span>
-            <span class="staff-role-cell">Admin</span>
-            <span class="mob-display-none">Male</span>
-          </span>
-        </a>
-        <a href="./account-details.html" class="acct-summary">
-          <span class="row-admin">
-            <span><i class="fas fa-user-cog">&nbsp;</i>1449</span>
-            <span>Rochette Gonneau</span>
-            <span class="staff-role-cell">Cashier</span>
-            <span class="mob-display-none">Female</span>
-          </span>
-        </a>
-      </section>
 
-      <!-- Create Account Modal -->
-      <section class="modal-container">
-        <div class="modal-content">
-          <span class="modal-close-btn modal-x-btn">&times;</span>
-          <p>Create a new Banka account?</p>
-          <button class="modal-close-btn btn">Cancel</button>
-          <button class="btn">Proceed</button>
-        </div>
+          <div class="radio-container">
+            <input
+              type="radio"
+              id="radio-cashier"
+              name="type"
+              value="Cashier"
+              checked
+            />
+            <label for="radio-cashier">Cashier</label>
+          </div>
+
+          <div class="radio-container">
+            <input type="radio" id="radio-admin" name="type" value="Admin" />
+            <label for="radio-admin">Admin</label>
+          </div>
+
+          <div class="radio-container">
+            <input type="radio" id="radio-user" name="type" value="Client" />
+            <label for="radio-user">Client</label>
+          </div>
+
+          <button>Sign Up</button>
+        </form>
       </section>
     </main>
 
@@ -155,8 +148,17 @@
         <li><a href="#">Privacy</a></li>
         <li><a href="#">About</a></li>
       </ul>
-      <p class="copyright">&copy;2019 Banka. Designed and built with love by <a href="#">OvieMudi</a> with the support of the incredible <a href="#">LFAs</a>.</p>
-      <p class="copyright">Banka is licenced under the <a href="https://github.com/OvieMudi/Banka/blob/develop/LICENSE">MIT Licence</a>.</p>
+      <p class="copyright">
+        &copy;2019 Banka. Designed and built with love by
+        <a href="#">OvieMudi</a> with the support of the incredible
+        <a href="#">LFAs</a>.
+      </p>
+      <p class="copyright">
+        Banka is licenced under the
+        <a href="https://github.com/OvieMudi/Banka/blob/develop/LICENSE"
+          >MIT Licence</a
+        >.
+      </p>
     </footer>
     <script src="./scripts/main.js"></script>
   </body>

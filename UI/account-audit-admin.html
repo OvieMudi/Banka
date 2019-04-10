@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Profile</title>
+    <title>Admin | Audit</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="stylesheet"
@@ -58,45 +58,48 @@
           ><i class="fa fa-bars"></i
         ></span>
         <!--  Home Icon/Logo -->
-        <a href="./index.html" class="logo"
+        <a href="./dashboard-staff.html" class="logo"
           ><i class="fas fa-coins icon"></i><span class="icon">B</span>anka</a
         >
         <!--  Main navigation links -->
         <ul class="main-navlinks" id="js-navlinks">
           <li><a href="#">Support</a></li>
           <li><a href="#">Branches</a></li>
-          <li id="admin-link" class="display-none"><a href="./dashboard-admin.html">Admin</a></li>
+          <li id="admin-link" class="display-none">
+            <a href="./dashboard-admin.html">Admin</a>
+          </li>
           <li><a href="#">Settings</a></li>
         </ul>
       </nav>
-    </header>  
+    </header>
 
     <!-- Sticky Page Navbar -->
     <div class="page-nav-container">
       <ul class="page-nav" role="navigation">
         <li>
-          <a href="#" id="accounts-link"
-            ><i class="fas fa-wallet"></i
-            ><span class="sticky-nav-text">Accounts</span></a
+          <a href="./dashboard-admin.html" id="accounts-link-admin"
+            ><i class="fas fa-user-shield"></i
+            ><span class="sticky-nav-text"> Staff</span></a
           >
         </li>
         <li>
-          <a href="./transactions-all.html" id="transactions-link"
-            ><i class="fas fa-hand-holding-usd"></i
-            ><span class="sticky-nav-text">Transactions</span></a
+          <a href="./create-staff.html"
+            ><i class="fas fa-user-plus"></i
+            ><span class="sticky-nav-text"> Create New</span></a
           >
         </li>
         <li class="nav-active">
-          <a href="#" id="profile-link"
-            ><i class="fas fa-user"></i
-            ><span class="sticky-nav-text">Profile</span></a
+          <a href="./profile-user.html" id="profile-link"
+            ><i class="fas fa-users-cog"></i
+            ><span class="sticky-nav-text"> Profile</span></a
           >
         </li>
       </ul>
     </div>
 
-    <!-- Profile -->
+      
     <main>
+      <!-- Staff Profile Card -->
       <section class="card-container profile-card">
         <div class="card-main-header">Profile</div>
         <div class="profile-img-container"><img src="./images/Avatar2.PNG" class="profile-img" alt="user-img"></div>
@@ -104,13 +107,13 @@
         <div class="card-data-header">Bio</div>
         <div class="profile-bio card-data-grid">
           <p class="card-key">Name</p>
-          <span class="card-value">Chris Martin</span>
+          <span class="card-value">Muffin Mangon</span>
       
           <p class="card-key">Email</p>
           <span class="card-value">cm@coldplay.com</span>
       
           <p class="card-key">Role</p>
-          <span class="card-value">client</span>
+          <span class="card-value">Cashier</span>
       
           <p class="card-key">Registered</p>
           <span class="card-value">30-10-19</span>
@@ -127,6 +130,24 @@
         </div>
       </section>
 
+      <!-- Admin operations section-->
+      <section class="admin-acct-op hidden-op-section js-cashier-trx-section  display-none">
+        <div class="cashier-btn-container">
+          <a href="#" class="create-new js-input-tgl-btn modal-trigger" id="js-delete-btn"
+            ><i class="fas fa-trash-alt"></i>&nbsp;Delete Account</a
+          >
+        </div>
+      </section>
+  
+        <!-- Admin Confirmation Modal -->
+        <section class="modal-container">
+          <div class="modal-content">
+            <span class="modal-close-btn modal-x-btn">&times;</span>
+            <p>Do you want to <span id="js-confirmation-txt">perform operation on</span> this account?</p>
+            <button class="modal-close-btn btn">Cancel</button>
+            <button class="btn">Proceed</button>
+          </div>
+        </section>
     </main>
 
     <!-- ---------------------- PAGE FOOOTER ----------------------- -->
@@ -139,8 +160,17 @@
         <li><a href="#">Privacy</a></li>
         <li><a href="#">About</a></li>
       </ul>
-      <p class="copyright">&copy;2019 Banka. Designed and built with love by <a href="#">OvieMudi</a> with the support of the incredible <a href="#">LFAs</a>.</p>
-      <p class="copyright">Banka is licenced under the <a href="https://github.com/OvieMudi/Banka/blob/develop/LICENSE">MIT Licence</a>.</p>
+      <p class="copyright">
+        &copy;2019 Banka. Designed and built with love by
+        <a href="#">OvieMudi</a> with the support of the incredible
+        <a href="#">LFAs</a>.
+      </p>
+      <p class="copyright">
+        Banka is licenced under the
+        <a href="https://github.com/OvieMudi/Banka/blob/develop/LICENSE"
+          >MIT Licence</a
+        >.
+      </p>
     </footer>
     <script src="./scripts/main.js"></script>
   </body>

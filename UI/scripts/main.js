@@ -60,35 +60,46 @@ document.addEventListener("DOMContentLoaded", e => {
     const deditBtn = document.querySelector("#js-dedit-btn");
     const creditDebitBtn = document.querySelector("#js-credit-debit-btn");
     // Change button textcontent on click
-    creditBtn.addEventListener("click", () => {
-      acctInputContainer.classList.add("display-flex");
-      creditDebitBtn.textContent = "Credit";
-    });
-    deditBtn.addEventListener("click", () => {
-      acctInputContainer.classList.add("display-flex");
-      creditDebitBtn.textContent = "Dedit";
-    });
-
-    deditBtn.addEventListener("click", () => {
-      acctInputContainer.classList.add("display-flex");
-    });
+    if (creditBtn) {
+      creditBtn.addEventListener("click", () => {
+        acctInputContainer.classList.add("display-flex");
+        creditDebitBtn.textContent = "Credit";
+      });
+    }
+    if (deditBtn) {
+      deditBtn.addEventListener("click", () => {
+        acctInputContainer.classList.add("display-flex");
+        creditDebitBtn.textContent = "Dedit";
+      });
+    }
+    if (creditDebitBtn) {
+      deditBtn.addEventListener("click", () => {
+        acctInputContainer.classList.add("display-flex");
+      });
+    }
   }
-  // Admin operations
+  // Admin operations delete/activate/deactivate
   else if (user === "admin") {
     adminAcctOP.classList.add("display-flex");
     const activateBtn = document.querySelector("#js-activate-btn");
     const deactivateBtn = document.querySelector("#js-deactivate-btn");
     const deleteBtn = document.querySelector("#js-delete-btn");
     const confirmationTxt = document.querySelector("#js-confirmation-txt");
-    activateBtn.addEventListener("click", () => {
-      confirmationTxt.textContent = "ACTIVATE";
-    });
-    deactivateBtn.addEventListener("click", () => {
-      confirmationTxt.textContent = "DEACTIVATE";
-    });
-    deleteBtn.addEventListener("click", () => {
-      confirmationTxt.textContent = "DELETE";
-    });
+    if (activateBtn) {
+      activateBtn.addEventListener("click", () => {
+        confirmationTxt.textContent = "ACTIVATE";
+      });
+    }
+    if (deactivateBtn) {
+      deactivateBtn.addEventListener("click", () => {
+        confirmationTxt.textContent = "DEACTIVATE";
+      });
+    }
+    if (deleteBtn) {
+      deleteBtn.addEventListener("click", () => {
+        confirmationTxt.textContent = "DELETE";
+      });
+    }
   }
 
   /* -------------------------- MODAL ------------------------*/

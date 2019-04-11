@@ -271,7 +271,7 @@ header nav {
   background-color: #f6f5ff;
   border-top: 1px solid #cdd6e9;
   margin-top: 1rem;
-  min-height: 55px;
+  min-height: 3.5rem;
 }
 
 .page-nav {
@@ -629,9 +629,13 @@ i.fa-user-cog {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   overflow: hidden;
   width: 340px;
-  min-height: 560px;
+  min-height: 400px;
   margin: 3rem auto;
   padding: 1rem 0;
+}
+
+.main-form-container h1 {
+  margin-bottom: 1rem;
 }
 
 .main-form-container form {
@@ -675,6 +679,7 @@ form > input {
   letter-spacing: 1px;
   text-transform: uppercase;
   cursor: pointer;
+  margin-top: 0.5rem;
   transition: transform 80ms ease-in;
 }
 
@@ -694,7 +699,7 @@ footer {
   justify-content: flex-start;
   align-items: center;
   padding: 0 1rem;
-  min-height: calc(7rem + 3.6rem); /*plus sticky nav height*/
+  min-height: calc(7.5rem + 3.5rem); /*plus sticky nav height*/
   color: var(--black-font);
   background-color: #f6f5ff;
   font-size: 0.8em;

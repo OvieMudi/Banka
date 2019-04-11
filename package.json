@@ -1,0 +1,36 @@
+{
+  "name": "banka",
+  "version": "1.0.0",
+  "description": "Banka is a light-weight core banking application that powers banking operations like account creation, customer deposit and withdrawals.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OvieMudi/Banka.git"
+  },
+  "keywords": [
+    "Banka",
+    "banking",
+    "finance"
+  ],
+  "author": "Ovie Mudi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OvieMudi/Banka/issues"
+  },
+  "homepage": "https://github.com/OvieMudi/Banka#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "mocha": "^6.1.2"
+  }
+}

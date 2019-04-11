@@ -1,0 +1,12 @@
+{
+  "extends": ["prettier", "airbnb-base"],
+  "env": {
+    "browser": true,
+    "mocha": true
+  },
+  "rules": {
+    "linebreak-style": 0,
+    "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+    "prefer-destructuring": ["error", { "object": true, "array": false }]
+  }
+}

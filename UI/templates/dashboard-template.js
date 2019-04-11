@@ -1,6 +1,6 @@
-const navbarToggle = document.getElementById("js-navbar-toggle");
-const mainNavlinks = document.getElementById("js-navlinks");
+const navbarToggle = document.getElementById('js-navbar-toggle');
+const mainNavlinks = document.getElementById('js-navlinks');
 
-navbarToggle.addEventListener("click", () => {
-  mainNavlinks.classList.toggle("visible");
+navbarToggle.addEventListener('click', () => {
+  mainNavlinks.classList.toggle('visible');
 });

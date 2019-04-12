@@ -16,9 +16,9 @@ const usersDB = [
   {
     id: 2,
     email: 'zoulrip@gmail.com',
-    firstname: 'Grim',
+    firstname: 'Sylvester',
     lastname: 'Ripper',
-    othername: 'Dark',
+    othername: 'Drack',
     password: authHelper.hashPassword('password'),
     type: 'client',
     phone: '07044386936',

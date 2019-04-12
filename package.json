@@ -5,9 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "babel-node ./app.js",
-    "start-local": "cross-env NODE_ENV='development' nodemon --exec babel-node ./app.js",
-    "test": "cross-env NODE_ENV='test' npm run migrate&& cross-env NODE_ENV='test' mocha ./server/test --compilers js:@babel/register --recursive --timeout 3000 --exit",
-    "test-local": "cross-env NODE_ENV='test' npm run migrate&& cross-env NODE_ENV='test' mocha --compilers js:@babel/register --timeout 3000 --exit"
+    "start-local": "nodemon --exec babel-node ./app.js",
+    "test": "mocha ./server/test --require @babel/register --recursive --timeout 3000 --exit",
+    "test-local": "mocha --compilers js:@babel/register --timeout 3000 --exit"
   },
   "repository": {
     "type": "git",

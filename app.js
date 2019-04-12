@@ -16,3 +16,5 @@ app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`SERVER IS LIVE ON PORT::${port}`);
 });
+
+export default app;

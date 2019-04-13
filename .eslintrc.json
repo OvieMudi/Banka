@@ -10,7 +10,7 @@
     "prefer-destructuring": ["error", { "object": true, "array": false }],
     "no-use-before-define": 0,
     "require-jsdoc": [
-      "error",
+      "warn",
       {
         "require": {
           "FunctionDeclaration": true,

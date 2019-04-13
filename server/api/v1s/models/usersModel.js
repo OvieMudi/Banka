@@ -28,6 +28,16 @@ const usersModel = {
     return user;
   },
 
+  signIn(reqBody = {}) {
+    const { email, password } = reqBody;
+    const user = usersDB.find(usr => usr.email === email);
+    if (user) {
+      const validPassword = authHelper.comparePassword(password, user.password);
+      if (validPassword) return user;
+      throw new Error('username or password incorrect');
+    } else throw new Error('username or password incorrect');
+  },
+
   /**
    * Get all users in database
    * @returns {Array} - array of user objects

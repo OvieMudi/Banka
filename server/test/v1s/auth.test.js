@@ -7,10 +7,10 @@ const { expect } = chai;
 chai.use(chaiHttp);
 
 const userData = {
-  email: 'sylviagana@gmail.com',
-  firstname: 'Sylvia',
+  email: 'salymgana@gmail.com',
+  firstname: 'Salym',
   lastname: 'Groth',
-  othername: 'Anna',
+  othername: 'Ganna',
   password: 'password',
   phone: '070443389496',
   address: '46 Lorem Ipsum close, Sit Amet',

@@ -106,4 +106,18 @@ db.createAccNo = () => {
   return accountNumber;
 };
 
+export const sampleUser = {
+  id: 4,
+  email: 'sylvia@gmail.com',
+  firstname: 'Sylvia',
+  lastname: 'Odili',
+  othername: 'Irhi',
+  password: authHelper.hashPassword('password'),
+  type: 'client',
+  phone: '070443848023',
+  sex: 'female',
+  address: '34 Lorem Ipsum close, Sit Amet',
+  isAdmin: false,
+};
+
 export default db;

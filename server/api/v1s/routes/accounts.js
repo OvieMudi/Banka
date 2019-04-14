@@ -8,5 +8,8 @@ accountsRouter
   .route('/')
   .post(authenticateReq.verifyAuth, accountsController.create)
   .get(accountsController.getAll);
+accountsRouter
+  .route('/:acctNumber')
+  .patch(authenticateReq.verifyAuth, accountsController.changeAcctStatus);
 
 export default accountsRouter;

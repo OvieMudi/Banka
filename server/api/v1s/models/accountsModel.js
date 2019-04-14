@@ -24,7 +24,7 @@ class AccountsModel extends Model {
    * @returns {Object} - account object if success
    */
   create(reqBody = {}, reqUser = {}) {
-    const owner = parseInt(reqUser.id, 10);
+    const owner = this.parseInteger(reqUser.id);
     const type = reqBody.accType;
 
     const account = {
@@ -48,6 +48,37 @@ class AccountsModel extends Model {
       type,
       openingBalance: 0.0,
     };
+  }
+
+  /**
+   * Find account by account number
+   * @param {Number} acctNo - account number
+   * @returns {Object} - account object if success
+   */
+  getByAccountNo(acctNo = null) {
+    const account = this.accountsDB.find(acct => acct.accountNumber === acctNo);
+    return account;
+  }
+
+  /**
+   * Activate or deactivate account
+   * @param {String} acctNo - http request body
+   * @param {Object} reqBody - http request body
+   * @param {Object} reqUser - http request user object
+   * @returns {Object} - account object if success
+   * @throws {Error} - on failure
+   */
+  changeStatus(acctNo = '', reqBody = {}, reqUser = {}) {
+    const { isAdmin } = reqUser;
+    if (isAdmin) {
+      const acctNumber = this.parseInteger(acctNo);
+      if (acctNumber) {
+        const account = this.getByAccountNo(acctNumber);
+        account.status = reqBody.status;
+        return account;
+      }
+      throw new Error('account does not exist');
+    } else throw new Error('operation restricted to Admin');
   }
 }
 

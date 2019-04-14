@@ -1,25 +1,34 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../../app';
-import { sampleUser } from '../../db/v1s/db';
+import { sampleAccount, sampleClient, sampleAdmin } from '../../db/v1s/db';
 
 const { expect } = chai;
 
 chai.use(chaiHttp);
 
-const user = sampleUser;
-
-let token;
+let clientToken;
+let adminToken;
 
 before((done) => {
   chai
     .request(app)
     .post('/api/v1/auth/signin')
     .type('form')
-    .send({ email: user.email, password: 'password' })
+    .send({ email: sampleClient.email, password: 'password' })
     .end((err, res) => {
-      // eslint-disable-next-line prefer-destructuring
-      token = res.body.token;
+      clientToken = res.body.token;
+      done(err);
+    });
+});
+before((done) => {
+  chai
+    .request(app)
+    .post('/api/v1/auth/signin')
+    .type('form')
+    .send({ email: sampleAdmin.email, password: 'password' })
+    .end((err, res) => {
+      adminToken = res.body.token;
       done(err);
     });
 });
@@ -29,7 +38,7 @@ describe('POST api/v1/accounts', () => {
     chai
       .request(app)
       .post('/api/v1/accounts')
-      .set('x-access-token', token)
+      .set('x-access-token', clientToken)
       .type('form')
       .send({ accType: 'savings' })
       .end((err, res) => {
@@ -38,13 +47,13 @@ describe('POST api/v1/accounts', () => {
         expect(account).to.have.property('accountNumber');
         expect(account)
           .to.have.property('firstname')
-          .eql(user.firstname);
+          .eql(sampleClient.firstname);
         expect(account)
           .to.have.property('lastname')
-          .eql(user.lastname);
+          .eql(sampleClient.lastname);
         expect(account)
           .to.have.property('email')
-          .eql(user.email);
+          .eql(sampleClient.email);
         expect(account)
           .to.have.property('type')
           .eql('savings');
@@ -64,6 +73,56 @@ describe('GET /api/v1/accounts', () => {
         expect(res).to.have.status(200);
         expect(accounts).to.be.an('array');
         expect(accounts[0]).to.have.property('accountNumber');
+        done(err);
+      });
+  });
+});
+
+describe('PATCH /api/v1/accounts/acctNumber', () => {
+  const path = `/api/v1/accounts/${sampleAccount.accountNumber}`;
+  it('should return error if token not provided', (done) => {
+    chai
+      .request(app)
+      .patch(path)
+      .type('form')
+      .send({ status: 'dormant' })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body)
+          .to.have.property('error')
+          .eql('token not provided');
+        done(err);
+      });
+  });
+  it('should return error if not admin', (done) => {
+    chai
+      .request(app)
+      .patch(path)
+      .set('x-access-token', clientToken)
+      .type('form')
+      .send({ status: 'dormant' })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body)
+          .to.have.property('error')
+          .eql('operation restricted to Admin');
+        done(err);
+      });
+  });
+  it('should change status if admin', (done) => {
+    chai
+      .request(app)
+      .patch(path)
+      .set('x-access-token', adminToken)
+      .type('form')
+      .send({ status: 'dormant' })
+      .end((err, res) => {
+        const { data } = res.body;
+        expect(res).to.have.status(200);
+        expect(res.body).to.have.property('data');
+        expect(data)
+          .to.have.property('status')
+          .eql('dormant');
         done(err);
       });
   });

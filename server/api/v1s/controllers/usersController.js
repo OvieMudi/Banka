@@ -1,4 +1,5 @@
 import usersModel from '../models/usersModel';
+import controllerResponse from '../../helpers/controllerResponse';
 
 const usersController = {
   /**
@@ -9,16 +10,10 @@ const usersController = {
    */
   getUsers(req, res) {
     try {
-      const users = usersModel.getUsers();
-      res.status(200).json({
-        status: 200,
-        data: users,
-      });
+      const users = usersModel.getAll();
+      controllerResponse.successResponse(res, 200, users);
     } catch (error) {
-      res.status(401).json({
-        status: 401,
-        error,
-      });
+      controllerResponse.errorResponse(res, 401, error);
     }
   },
 };

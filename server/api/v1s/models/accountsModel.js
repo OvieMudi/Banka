@@ -38,7 +38,7 @@ class AccountsModel extends Model {
     };
     this.accountsDB.push(account);
 
-    const user = usersModel.getOne(owner);
+    const user = usersModel.getById(owner);
     return {
       accountNumber: account.accountNumber,
       firstname: user.firstname,
@@ -69,15 +69,36 @@ class AccountsModel extends Model {
    * @throws {Error} - on failure
    */
   changeStatus(acctNo = '', reqBody = {}, reqUser = {}) {
-    const { isAdmin } = reqUser;
-    if (isAdmin) {
+    if (reqUser.isAdmin) {
       const acctNumber = this.parseInteger(acctNo);
-      if (acctNumber) {
-        const account = this.getByAccountNo(acctNumber);
+      const account = this.getByAccountNo(acctNumber);
+      if (account) {
         account.status = reqBody.status;
         return account;
       }
-      throw new Error('account does not exist');
+      throw new Error('account not found');
+    } else throw new Error('operation restricted to Admin');
+  }
+
+  /**
+   * Activate or deactivate account
+   * @param {String} acctNo - http request body
+   * @param {Object} reqUser - http request user object
+   * @returns {Object} - account object if success
+   * @throws {Error} - on failure
+   */
+  deleteByAcctNo(acctNo = '', reqUser = {}) {
+    if (reqUser.isAdmin) {
+      const acctNumber = this.parseInteger(acctNo);
+      if (acctNumber) {
+        this.accountsDB.find((acct, idx) => {
+          const match = acct.accountNumber === acctNumber;
+          if (match) this.accountsDB.splice(idx, 1);
+          return match;
+        });
+        return 'Account deleted successfully';
+      }
+      throw new Error('account not found');
     } else throw new Error('operation restricted to Admin');
   }
 }

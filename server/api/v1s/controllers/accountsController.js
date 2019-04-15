@@ -46,6 +46,15 @@ const accountsController = {
       controllerResponse.errorResponse(res, 400, error);
     }
   },
+
+  delete(req, res) {
+    try {
+      const deleted = accountsModel.deleteByAcctNo(req.params.acctNumber, req.user);
+      controllerResponse.messageResponse(res, 200, deleted);
+    } catch (error) {
+      controllerResponse.errorResponse(res, 400, error);
+    }
+  },
 };
 
 export default accountsController;

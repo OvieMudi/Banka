@@ -6,7 +6,8 @@ const controllerResponse = {
     });
   },
 
-  errorResponse(res = {}, status = 400, error = '' || {}) {
+  errorResponse(res = {}, statusCode = 400, error = '' || {}) {
+    const status = error.message.includes('not found') ? 404 : statusCode;
     if (typeof error === 'object') {
       // eslint-disable-next-line no-console
       console.log(error);

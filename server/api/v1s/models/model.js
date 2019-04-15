@@ -28,7 +28,7 @@ class Model {
    * @returns {Object} - if recource is found
    * @returns {undefined} - if resource is not found
    */
-  getOne(idString = '') {
+  getById(idString = '') {
     const id = parseInt(Number(idString), 10);
     const account = db[`${this.dbName}`].find(acct => acct.id === id);
     return account;

@@ -9,7 +9,7 @@ const authenticateReq = {
     if (token) {
       try {
         const decoded = jwt.verify(token, process.env.SECRET_STRING);
-        const user = usersModel.getOne(decoded.userId);
+        const user = usersModel.getById(decoded.userId);
         if (user) {
           req.user = { id: decoded.userId, isAdmin: decoded.isAdmin };
           next();

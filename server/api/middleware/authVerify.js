@@ -11,7 +11,7 @@ const authenticateReq = {
         const decoded = jwt.verify(token, process.env.SECRET_STRING);
         const user = usersModel.getById(decoded.userId);
         if (user) {
-          req.user = { id: decoded.userId, isAdmin: decoded.isAdmin };
+          req.user = { id: user.id, userType: user.type, isAdmin: user.isAdmin };
           next();
         } else controllerResponse.errorResponse(res, 404, 'user not found');
       } catch (err) {

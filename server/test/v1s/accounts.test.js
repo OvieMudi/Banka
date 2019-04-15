@@ -127,3 +127,43 @@ describe('PATCH /api/v1/accounts/acctNumber', () => {
       });
   });
 });
+
+describe('DELETE /api/v1/accounts/acctNumber', () => {
+  const path = `/api/v1/accounts/${sampleAccount.accountNumber}`;
+  it('should return error if token not provided', (done) => {
+    chai
+      .request(app)
+      .delete(path)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body)
+          .to.have.property('error')
+          .eql('token not provided');
+        done(err);
+      });
+  });
+  it('should return error if not admin', (done) => {
+    chai
+      .request(app)
+      .delete(path)
+      .set('x-access-token', clientToken)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body)
+          .to.have.property('error')
+          .eql('operation restricted to Admin');
+        done(err);
+      });
+  });
+  it('should delete account if admin', (done) => {
+    chai
+      .request(app)
+      .delete(path)
+      .set('x-access-token', adminToken)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.have.property('message').eql('Account deleted successfully');
+        done(err);
+      });
+  });
+});

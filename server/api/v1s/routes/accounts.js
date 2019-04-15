@@ -10,6 +10,7 @@ accountsRouter
   .get(accountsController.getAll);
 accountsRouter
   .route('/:acctNumber')
-  .patch(authenticateReq.verifyAuth, accountsController.changeAcctStatus);
+  .patch(authenticateReq.verifyAuth, accountsController.changeAcctStatus)
+  .delete(authenticateReq.verifyAuth, accountsController.delete);
 
 export default accountsRouter;

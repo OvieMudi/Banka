@@ -31,20 +31,17 @@ class TransactionsModel extends Model {
     if (reqUser.userType === 'cashier') {
       const account = accountsModel.getByAccountNo(accountNumber);
       if (account) {
-        const accountCopy = { ...account };
-        const oldBalance = accountCopy.balance;
-        account.balance += amount;
-        const newBalance = account.balance + amount;
         const transaction = {
-          id: this.transactionDB.length,
+          id: this.transactionDB.length + 1,
           createdOn: new Date(),
           type: 'credit',
           accountNumber,
           cashier: reqUser.id,
           amount,
-          oldBalance,
-          newBalance,
+          oldBalance: account.balance,
+          newBalance: account.balance + amount,
         };
+        account.balance += amount;
         this.transactionDB.push(transaction);
         return {
           transactionId: transaction.id,

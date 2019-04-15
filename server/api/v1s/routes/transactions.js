@@ -7,7 +7,7 @@ const transactionsRouter = express.Router();
 transactionsRouter.route('/').get(transactionsController.getAll);
 
 transactionsRouter
-  .route('/:acctNumber')
+  .route('/:acctNumber/credit')
   .post(authenticateReq.verifyAuth, transactionsController.creditAccount);
 
 export default transactionsRouter;

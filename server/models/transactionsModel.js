@@ -30,7 +30,7 @@ class TransactionsModel extends Model {
     const accountNumber = this.parseInteger(acctNumber);
     const amount = this.parseToFloat(reqBody.amount);
     if (reqUser.userType === 'cashier') {
-      const account = accountsModel.getByAccountNo(accountNumber);
+      const account = accountsModel.getByAccountNumber(accountNumber);
       if (account) {
         const transaction = {
           id: this.transactionDB.length + 1,

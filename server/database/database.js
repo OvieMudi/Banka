@@ -131,7 +131,7 @@ const db = {
  * Function for generating account numbers
  * @returns {Number} - Generated account
  */
-db.createAccNo = () => {
+db.createAccNumber = () => {
   const defaultNum = 1002003000;
   const accountNumber = defaultNum + db.accountsDB.length + 1;
   return accountNumber;

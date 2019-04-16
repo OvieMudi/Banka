@@ -31,7 +31,7 @@ class AccountsModel extends Model {
 
     const account = {
       id: this.accountsDB.length + 1,
-      accountNumber: db.createAccNo(),
+      accountNumber: db.createAccNumber(),
       createdOn: new Date(),
       owner,
       type,
@@ -57,7 +57,7 @@ class AccountsModel extends Model {
    * @param {Number} acctNumber - account number
    * @returns {Object} - account object if success
    */
-  getByAccountNo(acctNumber = null) {
+  getByAccountNumber(acctNumber = null) {
     const account = this.accountsDB.find(acct => acct.accountNumber === acctNumber);
     return account;
   }
@@ -73,7 +73,7 @@ class AccountsModel extends Model {
   changeStatus(acctNumber = '', reqBody = {}, reqUser = {}) {
     if (reqUser.isAdmin) {
       const accountNumber = this.parseInteger(acctNumber);
-      const account = this.getByAccountNo(accountNumber);
+      const account = this.getByAccountNumber(accountNumber);
       if (account) {
         account.status = reqBody.status;
         return account;
@@ -89,7 +89,7 @@ class AccountsModel extends Model {
    * @returns {Object} - account object if success
    * @throws {Error} - on failure
    */
-  deleteByAcctNo(acctNumber = '', reqUser = {}) {
+  deleteByAcctNumber(acctNumber = '', reqUser = {}) {
     if (reqUser.isAdmin) {
       const accountNumber = this.parseInteger(acctNumber);
       if (accountNumber) {

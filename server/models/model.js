@@ -1,4 +1,4 @@
-import db from '../../../db/v1s/db';
+import db from '../database/database';
 
 /**
  * Database model class

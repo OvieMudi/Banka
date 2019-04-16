@@ -1,6 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../../../app';
+import server from '../server';
 
 const { expect } = chai;
 
@@ -20,7 +20,7 @@ const userData = {
 describe('POST /auth/signup', () => {
   it('should #create a user and #generate jwt', (done) => {
     chai
-      .request(app)
+      .request(server)
       .post('/api/v1/auth/signup')
       .type('form')
       .send(userData)
@@ -55,7 +55,7 @@ describe('POST /auth/signup', () => {
 describe('POST /auth/signin', () => {
   it('should #sign in a user and #generate jwt', (done) => {
     chai
-      .request(app)
+      .request(server)
       .post('/api/v1/auth/signin')
       .type('form')
       .send({

@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../../../app';
-import { sampleClient, sampleCashier } from '../../db/v1s/db';
+import server from '../server';
+import { sampleClient, sampleCashier } from '../database/database';
 
 const { expect } = chai;
 
@@ -12,7 +12,7 @@ let cashierToken;
 
 before((done) => {
   chai
-    .request(app)
+    .request(server)
     .post('/api/v1/auth/signin')
     .type('form')
     .send({ email: sampleClient.email, password: 'password' })
@@ -23,7 +23,7 @@ before((done) => {
 });
 before((done) => {
   chai
-    .request(app)
+    .request(server)
     .post('/api/v1/auth/signin')
     .type('form')
     .send({ email: sampleCashier.email, password: 'password' })
@@ -40,7 +40,7 @@ describe('POST /api/v1/transactions/:acctNumber/credit', () => {
   const path = `/api/v1/transactions/${accountNumber}/credit`;
   it('should return error if token not provided', (done) => {
     chai
-      .request(app)
+      .request(server)
       .post(path)
       .type('form')
       .send({ amount: 300000 })
@@ -54,7 +54,7 @@ describe('POST /api/v1/transactions/:acctNumber/credit', () => {
   });
   it('should return error if not cashier', (done) => {
     chai
-      .request(app)
+      .request(server)
       .post(path)
       .set('x-access-token', clientToken)
       .type('form')
@@ -70,7 +70,7 @@ describe('POST /api/v1/transactions/:acctNumber/credit', () => {
   });
   it('should perform credit transaction if cashier', (done) => {
     chai
-      .request(app)
+      .request(server)
       .post(path)
       .set('x-access-token', cashierToken)
       .type('form')

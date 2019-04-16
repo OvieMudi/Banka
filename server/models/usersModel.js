@@ -1,5 +1,5 @@
-import authHelper from '../../helpers/authHelper';
-import db from '../../../db/v1s/db';
+import authHelper from '../helpers/authHelper';
+import db from '../database/database';
 import Model from './model';
 
 /**

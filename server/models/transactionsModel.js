@@ -1,6 +1,6 @@
 import Model from './model';
 import accountsModel from './accountsModel';
-import db from '../../../db/v1s/db';
+import db from '../database/database';
 
 /**
  * accounts model

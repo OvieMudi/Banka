@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import controllerResponse from '../helpers/controllerResponse';
-import usersModel from '../v1s/models/usersModel';
+import usersModel from '../models/usersModel';
 
 const authenticateReq = {
   verifyAuth(req, res, next) {

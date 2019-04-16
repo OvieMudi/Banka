@@ -1,4 +1,4 @@
-import authHelper from '../../api/helpers/authHelper';
+import authHelper from '../helpers/authHelper';
 
 export const sampleClient = {
   id: 3,

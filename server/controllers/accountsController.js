@@ -1,5 +1,5 @@
 import accountsModel from '../models/accountsModel';
-import controllerResponse from '../../helpers/controllerResponse';
+import controllerResponse from '../helpers/controllerResponse';
 
 const accountsController = {
   /**

@@ -1,4 +1,4 @@
-import controllerResponse from '../../helpers/controllerResponse';
+import controllerResponse from '../helpers/controllerResponse';
 import transactionsModel from '../models/transactionsModel';
 
 const transactionsController = {

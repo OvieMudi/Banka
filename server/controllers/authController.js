@@ -1,4 +1,4 @@
-import authHelper from '../../helpers/authHelper';
+import authHelper from '../helpers/authHelper';
 import usersModel from '../models/usersModel';
 
 const authController = {

@@ -1,6 +1,6 @@
 import express from 'express';
 import transactionsController from '../controllers/transactionsController';
-import authenticateReq from '../../middleware/authVerify';
+import authenticateReq from '../middleware/authVerify';
 
 const transactionsRouter = express.Router();
 

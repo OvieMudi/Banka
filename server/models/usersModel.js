@@ -1,5 +1,5 @@
-import authHelper from '../../helpers/authHelper';
-import db from '../../../db/v1s/db';
+import authHelper from '../helpers/authHelper';
+import db from '../database/database';
 import Model from './model';
 
 /**
@@ -23,7 +23,7 @@ class UsersModel extends Model {
    * @returns {Object} - User object if success
    * @throws {Error} - Error object if object already exists
    */
-  create(reqBody = {}) {
+  create(reqBody) {
     this.checkDuplicate(reqBody);
     const user = {
       id: this.usersDB.length + 1,
@@ -49,7 +49,7 @@ class UsersModel extends Model {
    * @returns {Object} - user object on success
    * @throws {Error} - error on failure
    */
-  signIn(reqBody = {}) {
+  signIn(reqBody) {
     const { email, password } = reqBody;
     const user = this.usersDB.find(usr => usr.email === email);
     if (user) {
@@ -66,7 +66,7 @@ class UsersModel extends Model {
    * @returns {Object} - on success
    * @throws {Error} - on failure
    */
-  updateUser(idString = '', reqBody = {}) {
+  updateUser(idString, reqBody) {
     const id = parseInt(Number(idString), 10);
     const user = this.usersDB.find(usr => usr.id === id);
     user.phone = reqBody.phone || user.phone;
@@ -89,4 +89,4 @@ class UsersModel extends Model {
   }
 }
 
-export default new UsersModel();
+export default UsersModel;

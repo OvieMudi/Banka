@@ -1,4 +1,4 @@
-import authHelper from '../../api/helpers/authHelper';
+import authHelper from '../helpers/authHelper';
 
 export const sampleClient = {
   id: 3,
@@ -131,15 +131,15 @@ const db = {
  * Function for generating account numbers
  * @returns {Number} - Generated account
  */
-db.createAccNo = () => {
+db.createAccNumber = () => {
   const defaultNum = 1002003000;
   const accountNumber = defaultNum + db.accountsDB.length + 1;
   return accountNumber;
 };
 
-db.createTrxId = () => {
-  const trxId = db.transactionsDB.length + 1;
-  return trxId;
+db.createTransactionId = () => {
+  const transactionId = db.transactionsDB.length + 1;
+  return transactionId;
 };
 
 export default db;

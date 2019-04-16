@@ -124,10 +124,11 @@ form {
   text-align: center;
 }
 
-input {
+input,
+select {
   background-color: #f0f0f0;
   border: none;
-  padding: 12px 15px;
+  padding: 9px 11px;
   margin: 8px 0;
   width: 100%;
 }
@@ -141,19 +142,13 @@ form span.mobile-tgl {
   display: none;
 }
 
-form .social-container {
-  margin: 20px 0;
+.select-gender {
+  color: #333;
+  margin-bottom: 30px;
 }
 
-.social-container a {
-  border: 1px solid #dddddd;
-  border-radius: 50%;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 5px;
-  height: 40px;
-  width: 40px;
+.select {
+  width: 200px;
 }
 
 /* --------- OVERLAY STYLES ----------- */
@@ -220,12 +215,33 @@ form .social-container {
   transform: translateX(20%);
 }
 
+h1 {
+  margin-bottom: 30px;
+}
+
 .overlay p {
   font-size: 14px;
   font-weight: 100;
   line-height: 1.5;
   letter-spacing: 0.5px;
+}
+
+.overlay p.alt {
   margin: 20px 0 30px;
+}
+
+.logo {
+  display: inline-block;
+  font-size: 1.5em;
+}
+
+.icon {
+  color: #f3c943;
+  font-family: "Libre Baskerville", serif;
+}
+
+.overlay span.icon-text {
+  color: #f7e1b8;
 }
 
 @media only screen and (max-width: 639px) {

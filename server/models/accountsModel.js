@@ -1,6 +1,8 @@
 import Model from './model';
-import db from '../../../db/v1s/db';
-import usersModel from './usersModel';
+import db from '../database/database';
+import UsersModel from './usersModel';
+
+const usersModel = new UsersModel();
 
 /**
  * accounts model
@@ -23,13 +25,13 @@ class AccountsModel extends Model {
    * @param {Object} reqUser - http request user object
    * @returns {Object} - account object if success
    */
-  create(reqBody = {}, reqUser = {}) {
+  create(reqBody, reqUser) {
     const owner = this.parseInteger(reqUser.id);
     const type = reqBody.accType;
 
     const account = {
       id: this.accountsDB.length + 1,
-      accountNumber: db.createAccNo(),
+      accountNumber: db.createAccNumber(),
       createdOn: new Date(),
       owner,
       type,
@@ -52,26 +54,26 @@ class AccountsModel extends Model {
 
   /**
    * Find account by account number
-   * @param {Number} acctNo - account number
+   * @param {Number} acctNumber - account number
    * @returns {Object} - account object if success
    */
-  getByAccountNo(acctNo = null) {
-    const account = this.accountsDB.find(acct => acct.accountNumber === acctNo);
+  getByAccountNumber(acctNumber) {
+    const account = this.accountsDB.find(acct => acct.accountNumber === acctNumber);
     return account;
   }
 
   /**
    * Activate or deactivate account
-   * @param {String} acctNo - http request body
+   * @param {String} acctNumber - http request body
    * @param {Object} reqBody - http request body
    * @param {Object} reqUser - http request user object
    * @returns {Object} - account object if success
    * @throws {Error} - on failure
    */
-  changeStatus(acctNo = '', reqBody = {}, reqUser = {}) {
+  changeStatus(acctNumber, reqBody, reqUser) {
     if (reqUser.isAdmin) {
-      const acctNumber = this.parseInteger(acctNo);
-      const account = this.getByAccountNo(acctNumber);
+      const accountNumber = this.parseInteger(acctNumber);
+      const account = this.getByAccountNumber(accountNumber);
       if (account) {
         account.status = reqBody.status;
         return account;
@@ -82,17 +84,17 @@ class AccountsModel extends Model {
 
   /**
    * Activate or deactivate account
-   * @param {String} acctNo - http request body
+   * @param {String} acctNumber - http request body
    * @param {Object} reqUser - http request user object
    * @returns {Object} - account object if success
    * @throws {Error} - on failure
    */
-  deleteByAcctNo(acctNo = '', reqUser = {}) {
+  deleteByAcctNumber(acctNumber, reqUser) {
     if (reqUser.isAdmin) {
-      const acctNumber = this.parseInteger(acctNo);
-      if (acctNumber) {
+      const accountNumber = this.parseInteger(acctNumber);
+      if (accountNumber) {
         this.accountsDB.find((acct, idx) => {
-          const match = acct.accountNumber === acctNumber;
+          const match = acct.accountNumber === accountNumber;
           if (match) this.accountsDB.splice(idx, 1);
           return match;
         });
@@ -103,4 +105,4 @@ class AccountsModel extends Model {
   }
 }
 
-export default new AccountsModel();
+export default AccountsModel;

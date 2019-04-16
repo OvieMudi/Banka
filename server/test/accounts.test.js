@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../../../app';
-import { sampleAccount, sampleClient, sampleAdmin } from '../../db/v1s/db';
+import server from '../server';
+import { sampleAccount, sampleClient, sampleAdmin } from '../database/database';
 
 const { expect } = chai;
 
@@ -12,7 +12,7 @@ let adminToken;
 
 before((done) => {
   chai
-    .request(app)
+    .request(server)
     .post('/api/v1/auth/signin')
     .type('form')
     .send({ email: sampleClient.email, password: 'password' })
@@ -23,7 +23,7 @@ before((done) => {
 });
 before((done) => {
   chai
-    .request(app)
+    .request(server)
     .post('/api/v1/auth/signin')
     .type('form')
     .send({ email: sampleAdmin.email, password: 'password' })
@@ -36,7 +36,7 @@ before((done) => {
 describe('POST api/v1/accounts', () => {
   it('should create a new bank account', (done) => {
     chai
-      .request(app)
+      .request(server)
       .post('/api/v1/accounts')
       .set('x-access-token', clientToken)
       .type('form')
@@ -66,7 +66,7 @@ describe('POST api/v1/accounts', () => {
 describe('GET /api/v1/accounts', () => {
   it('should get all bank accounts from db', (done) => {
     chai
-      .request(app)
+      .request(server)
       .get('/api/v1/accounts')
       .end((err, res) => {
         const accounts = res.body.data;
@@ -78,11 +78,11 @@ describe('GET /api/v1/accounts', () => {
   });
 });
 
-describe('PATCH /api/v1/accounts/acctNumber', () => {
+describe('PATCH /api/v1/accounts/accountNumber', () => {
   const path = `/api/v1/accounts/${sampleAccount.accountNumber}`;
   it('should return error if token not provided', (done) => {
     chai
-      .request(app)
+      .request(server)
       .patch(path)
       .type('form')
       .send({ status: 'dormant' })
@@ -96,7 +96,7 @@ describe('PATCH /api/v1/accounts/acctNumber', () => {
   });
   it('should return error if not admin', (done) => {
     chai
-      .request(app)
+      .request(server)
       .patch(path)
       .set('x-access-token', clientToken)
       .type('form')
@@ -111,7 +111,7 @@ describe('PATCH /api/v1/accounts/acctNumber', () => {
   });
   it('should change status if admin', (done) => {
     chai
-      .request(app)
+      .request(server)
       .patch(path)
       .set('x-access-token', adminToken)
       .type('form')
@@ -128,11 +128,11 @@ describe('PATCH /api/v1/accounts/acctNumber', () => {
   });
 });
 
-describe('DELETE /api/v1/accounts/acctNumber', () => {
+describe('DELETE /api/v1/accounts/accountNumber', () => {
   const path = `/api/v1/accounts/${sampleAccount.accountNumber}`;
   it('should return error if token not provided', (done) => {
     chai
-      .request(app)
+      .request(server)
       .delete(path)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -144,7 +144,7 @@ describe('DELETE /api/v1/accounts/acctNumber', () => {
   });
   it('should return error if not admin', (done) => {
     chai
-      .request(app)
+      .request(server)
       .delete(path)
       .set('x-access-token', clientToken)
       .end((err, res) => {
@@ -157,7 +157,7 @@ describe('DELETE /api/v1/accounts/acctNumber', () => {
   });
   it('should delete account if admin', (done) => {
     chai
-      .request(app)
+      .request(server)
       .delete(path)
       .set('x-access-token', adminToken)
       .end((err, res) => {

@@ -1,5 +1,7 @@
-import usersModel from '../models/usersModel';
-import controllerResponse from '../../helpers/controllerResponse';
+import UsersModel from '../models/usersModel';
+import controllerResponse from '../helpers/controllerResponse';
+
+const usersModel = new UsersModel();
 
 const usersController = {
   /**

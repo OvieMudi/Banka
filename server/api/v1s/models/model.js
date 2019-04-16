@@ -12,6 +12,7 @@ class Model {
   constructor(dbName = '') {
     this.dbName = dbName;
     this.parseInteger = aString => parseInt(Number(aString), 10);
+    this.parseToFloat = aString => parseFloat(Number(aString), 10);
   }
 
   /**

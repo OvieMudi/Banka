@@ -102,6 +102,29 @@ const db = {
       balance: 0.0,
     },
   ],
+
+  transactionsDB: [
+    {
+      id: 1,
+      createdOn: new Date(),
+      type: 'credit',
+      accountNumber: sampleAccount.accountNumber,
+      cashier: sampleCashier.id,
+      amount: 300000.0,
+      oldBalance: 0.0,
+      newBalance: 300000.0,
+    },
+    {
+      id: 2,
+      createdOn: new Date(),
+      type: 'debit',
+      accountNumber: sampleAccount.accountNumber,
+      cashier: sampleCashier.id,
+      amount: 300000.0,
+      oldBalance: 300000.0,
+      newBalance: 300000.0 + 300000.0,
+    },
+  ],
 };
 
 /**
@@ -112,6 +135,11 @@ db.createAccNo = () => {
   const defaultNum = 1002003000;
   const accountNumber = defaultNum + db.accountsDB.length + 1;
   return accountNumber;
+};
+
+db.createTrxId = () => {
+  const trxId = db.transactionsDB.length + 1;
+  return trxId;
 };
 
 export default db;

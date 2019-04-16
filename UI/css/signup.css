@@ -124,10 +124,11 @@ form {
   text-align: center;
 }
 
-input {
+input,
+select {
   background-color: #f0f0f0;
   border: none;
-  padding: 12px 15px;
+  padding: 9px 11px;
   margin: 8px 0;
   width: 100%;
 }
@@ -139,6 +140,15 @@ form span {
 
 form span.mobile-tgl {
   display: none;
+}
+
+.select-gender {
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.select {
+  width: 200px;
 }
 
 /* --------- OVERLAY STYLES ----------- */
@@ -205,7 +215,7 @@ form span.mobile-tgl {
   transform: translateX(20%);
 }
 
-.overlay h1 {
+h1 {
   margin-bottom: 30px;
 }
 

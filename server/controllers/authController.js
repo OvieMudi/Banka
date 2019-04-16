@@ -1,5 +1,6 @@
 import authHelper from '../helpers/authHelper';
 import UsersModel from '../models/usersModel';
+import controllerResponse from '../helpers/controllerResponse';
 
 const usersModel = new UsersModel();
 
@@ -14,13 +15,9 @@ const authController = {
     try {
       const user = usersModel.create(req.body);
       const token = authHelper.generateToken(user);
-      res.status(201).json({
-        status: 201,
-        token,
-        data: user,
-      });
+      controllerResponse.successResponse(res, 201, user, token);
     } catch (error) {
-      returnError(400, error, res);
+      controllerResponse.errorResponse(res, 400, error);
     }
   },
 
@@ -34,31 +31,11 @@ const authController = {
     try {
       const user = usersModel.signIn(req.body);
       const token = authHelper.generateToken(user);
-      res.status(200).json({
-        status: 200,
-        token,
-        data: user,
-      });
+      controllerResponse.successResponse(res, 200, user, token);
     } catch (error) {
-      returnError(400, error, res);
+      controllerResponse.errorResponse(res, 400, error);
     }
   },
 };
-
-/**
- *
- * @param {Number} errorCode - error code
- * @param {Object} error - error Object
- * @param {Object} res - res object
- * @returns {JSON} res - a custum res object
- */
-function returnError(errorCode = 400, error, res) {
-  // eslint-disable-next-line no-console
-  console.log(error);
-  return res.status(errorCode).json({
-    status: errorCode,
-    error: error.message,
-  });
-}
 
 export default authController;

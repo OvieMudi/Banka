@@ -1,7 +1,8 @@
 const controllerResponse = {
-  successResponse(res = {}, status = 200, data = {}) {
+  successResponse(res = {}, status = 200, data = {}, token) {
     return res.status(status).json({
       status,
+      token,
       data,
     });
   },

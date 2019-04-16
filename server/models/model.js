@@ -9,7 +9,7 @@ class Model {
    * @param {String} dbName - database name
    * @returns {Object} - constructed model object
    */
-  constructor(dbName = '') {
+  constructor(dbName) {
     this.dbName = dbName;
     this.parseInteger = aString => parseInt(Number(aString), 10);
     this.parseToFloat = aString => parseFloat(Number(aString), 10);
@@ -29,7 +29,7 @@ class Model {
    * @returns {Object} - if recource is found
    * @returns {undefined} - if resource is not found
    */
-  getById(idString = '') {
+  getById(idString) {
     const id = parseInt(Number(idString), 10);
     const account = db[`${this.dbName}`].find(acct => acct.id === id);
     return account;
@@ -41,7 +41,7 @@ class Model {
    * @returns {Object} - on success
    * @returns {undefined} - on failure
    */
-  delete(idString = '') {
+  delete(idString) {
     const id = parseInt(Number(idString), 10);
     const dbArray = db[`${this.dbName}`];
     const deleted = dbArray.find((user, index) => {

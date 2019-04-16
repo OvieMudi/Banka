@@ -25,7 +25,7 @@ class AccountsModel extends Model {
    * @param {Object} reqUser - http request user object
    * @returns {Object} - account object if success
    */
-  create(reqBody = {}, reqUser = {}) {
+  create(reqBody, reqUser) {
     const owner = this.parseInteger(reqUser.id);
     const type = reqBody.accType;
 
@@ -57,7 +57,7 @@ class AccountsModel extends Model {
    * @param {Number} acctNumber - account number
    * @returns {Object} - account object if success
    */
-  getByAccountNumber(acctNumber = null) {
+  getByAccountNumber(acctNumber) {
     const account = this.accountsDB.find(acct => acct.accountNumber === acctNumber);
     return account;
   }
@@ -70,7 +70,7 @@ class AccountsModel extends Model {
    * @returns {Object} - account object if success
    * @throws {Error} - on failure
    */
-  changeStatus(acctNumber = '', reqBody = {}, reqUser = {}) {
+  changeStatus(acctNumber, reqBody, reqUser) {
     if (reqUser.isAdmin) {
       const accountNumber = this.parseInteger(acctNumber);
       const account = this.getByAccountNumber(accountNumber);
@@ -89,7 +89,7 @@ class AccountsModel extends Model {
    * @returns {Object} - account object if success
    * @throws {Error} - on failure
    */
-  deleteByAcctNumber(acctNumber = '', reqUser = {}) {
+  deleteByAcctNumber(acctNumber, reqUser) {
     if (reqUser.isAdmin) {
       const accountNumber = this.parseInteger(acctNumber);
       if (accountNumber) {

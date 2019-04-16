@@ -26,7 +26,7 @@ class TransactionsModel extends Model {
    * @param {Object} reqUser - http request user object
    * @returns {Object} - account object if success
    */
-  credit(acctNumber = '', reqBody = {}, reqUser = {}) {
+  credit(acctNumber, reqBody, reqUser) {
     const accountNumber = this.parseInteger(acctNumber);
     const amount = this.parseToFloat(reqBody.amount);
     if (reqUser.userType === 'cashier') {

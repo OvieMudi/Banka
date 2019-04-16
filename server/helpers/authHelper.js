@@ -10,7 +10,7 @@ const authHelper = {
    * @param {string} password
    * @returns {string} hashed password
    */
-  hashPassword(password = '') {
+  hashPassword(password) {
     const saltRounds = 8;
     return bcrypt.hashSync(password, bcrypt.genSaltSync(saltRounds));
   },
@@ -21,7 +21,7 @@ const authHelper = {
    * @param {string} hashPassword
    * @returns {Boolean} True or False
    */
-  comparePassword(password = '', hashPassword = '') {
+  comparePassword(password, hashPassword) {
     if (password && hashPassword) return bcrypt.compareSync(password, hashPassword);
     return false;
   },
@@ -31,7 +31,7 @@ const authHelper = {
    * @param {Object} user
    * @returns {string} token
    */
-  generateToken(user = {}) {
+  generateToken(user) {
     const token = jwt.sign(
       {
         userId: user.id.toString(),

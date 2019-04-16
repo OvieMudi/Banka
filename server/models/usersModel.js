@@ -89,4 +89,4 @@ class UsersModel extends Model {
   }
 }
 
-export default new UsersModel();
+export default UsersModel;

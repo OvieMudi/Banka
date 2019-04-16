@@ -1,6 +1,8 @@
 import Model from './model';
-import accountsModel from './accountsModel';
+import AccountsModel from './accountsModel';
 import db from '../database/database';
+
+const accountsModel = new AccountsModel();
 
 /**
  * accounts model
@@ -57,4 +59,4 @@ class TransactionsModel extends Model {
   }
 }
 
-export default new TransactionsModel();
+export default TransactionsModel;

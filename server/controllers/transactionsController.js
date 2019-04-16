@@ -1,5 +1,7 @@
 import controllerResponse from '../helpers/controllerResponse';
-import transactionsModel from '../models/transactionsModel';
+import TransactionsModel from '../models/transactionsModel';
+
+const transactionsModel = new TransactionsModel();
 
 const transactionsController = {
   creditAccount(req, res) {

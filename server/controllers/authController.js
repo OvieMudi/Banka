@@ -1,5 +1,7 @@
 import authHelper from '../helpers/authHelper';
-import usersModel from '../models/usersModel';
+import UsersModel from '../models/usersModel';
+
+const usersModel = new UsersModel();
 
 const authController = {
   /**

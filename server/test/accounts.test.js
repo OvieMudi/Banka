@@ -78,7 +78,7 @@ describe('GET /api/v1/accounts', () => {
   });
 });
 
-describe('PATCH /api/v1/accounts/acctNumber', () => {
+describe('PATCH /api/v1/accounts/accountNumber', () => {
   const path = `/api/v1/accounts/${sampleAccount.accountNumber}`;
   it('should return error if token not provided', (done) => {
     chai
@@ -128,7 +128,7 @@ describe('PATCH /api/v1/accounts/acctNumber', () => {
   });
 });
 
-describe('DELETE /api/v1/accounts/acctNumber', () => {
+describe('DELETE /api/v1/accounts/accountNumber', () => {
   const path = `/api/v1/accounts/${sampleAccount.accountNumber}`;
   it('should return error if token not provided', (done) => {
     chai

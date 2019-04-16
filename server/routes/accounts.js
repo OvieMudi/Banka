@@ -9,7 +9,7 @@ accountsRouter
   .post(authenticateReq.verifyAuth, accountsController.create)
   .get(accountsController.getAll);
 accountsRouter
-  .route('/:acctNumber')
+  .route('/:accountNumber')
   .patch(authenticateReq.verifyAuth, accountsController.changeAcctStatus)
   .delete(authenticateReq.verifyAuth, accountsController.delete);
 

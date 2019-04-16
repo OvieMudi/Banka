@@ -21,13 +21,13 @@ class TransactionsModel extends Model {
   /**
    * Create a new credit transaction
    * Assign a unique id to account
-   * @param {Object} acctNo - account
+   * @param {Object} acctNumber - account
    * @param {Object} reqBody - account
    * @param {Object} reqUser - http request user object
    * @returns {Object} - account object if success
    */
-  credit(acctNo = '', reqBody = {}, reqUser = {}) {
-    const accountNumber = this.parseInteger(acctNo);
+  credit(acctNumber = '', reqBody = {}, reqUser = {}) {
+    const accountNumber = this.parseInteger(acctNumber);
     const amount = this.parseToFloat(reqBody.amount);
     if (reqUser.userType === 'cashier') {
       const account = accountsModel.getByAccountNo(accountNumber);

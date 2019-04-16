@@ -6,7 +6,7 @@ const transactionsModel = new TransactionsModel();
 const transactionsController = {
   creditAccount(req, res) {
     try {
-      const transaction = transactionsModel.credit(req.params.acctNumber, req.body, req.user);
+      const transaction = transactionsModel.credit(req.params.accountNumber, req.body, req.user);
       controllerResponse.successResponse(res, 201, transaction);
     } catch (error) {
       controllerResponse.errorResponse(res, 400, error);

@@ -42,7 +42,7 @@ const accountsController = {
    */
   changeAcctStatus(req, res) {
     try {
-      const account = accountsModel.changeStatus(req.params.acctNumber, req.body, req.user);
+      const account = accountsModel.changeStatus(req.params.accountNumber, req.body, req.user);
       controllerResponse.successResponse(res, 200, account);
     } catch (error) {
       controllerResponse.errorResponse(res, 400, error);
@@ -51,7 +51,7 @@ const accountsController = {
 
   delete(req, res) {
     try {
-      const deleted = accountsModel.deleteByAcctNo(req.params.acctNumber, req.user);
+      const deleted = accountsModel.deleteByAcctNo(req.params.accountNumber, req.user);
       controllerResponse.messageResponse(res, 200, deleted);
     } catch (error) {
       controllerResponse.errorResponse(res, 400, error);

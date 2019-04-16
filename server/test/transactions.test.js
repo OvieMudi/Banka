@@ -36,7 +36,7 @@ before((done) => {
 
 const accountNumber = 1002003002;
 
-describe('POST /api/v1/transactions/:acctNumber/credit', () => {
+describe('POST /api/v1/transactions/:accountNumber/credit', () => {
   const path = `/api/v1/transactions/${accountNumber}/credit`;
   it('should return error if token not provided', (done) => {
     chai

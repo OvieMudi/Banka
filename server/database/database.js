@@ -137,9 +137,9 @@ db.createAccNo = () => {
   return accountNumber;
 };
 
-db.createTrxId = () => {
-  const trxId = db.transactionsDB.length + 1;
-  return trxId;
+db.createTransactionId = () => {
+  const transactionId = db.transactionsDB.length + 1;
+  return transactionId;
 };
 
 export default db;

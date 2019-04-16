@@ -54,26 +54,26 @@ class AccountsModel extends Model {
 
   /**
    * Find account by account number
-   * @param {Number} acctNo - account number
+   * @param {Number} acctNumber - account number
    * @returns {Object} - account object if success
    */
-  getByAccountNo(acctNo = null) {
-    const account = this.accountsDB.find(acct => acct.accountNumber === acctNo);
+  getByAccountNo(acctNumber = null) {
+    const account = this.accountsDB.find(acct => acct.accountNumber === acctNumber);
     return account;
   }
 
   /**
    * Activate or deactivate account
-   * @param {String} acctNo - http request body
+   * @param {String} acctNumber - http request body
    * @param {Object} reqBody - http request body
    * @param {Object} reqUser - http request user object
    * @returns {Object} - account object if success
    * @throws {Error} - on failure
    */
-  changeStatus(acctNo = '', reqBody = {}, reqUser = {}) {
+  changeStatus(acctNumber = '', reqBody = {}, reqUser = {}) {
     if (reqUser.isAdmin) {
-      const acctNumber = this.parseInteger(acctNo);
-      const account = this.getByAccountNo(acctNumber);
+      const accountNumber = this.parseInteger(acctNumber);
+      const account = this.getByAccountNo(accountNumber);
       if (account) {
         account.status = reqBody.status;
         return account;
@@ -84,17 +84,17 @@ class AccountsModel extends Model {
 
   /**
    * Activate or deactivate account
-   * @param {String} acctNo - http request body
+   * @param {String} acctNumber - http request body
    * @param {Object} reqUser - http request user object
    * @returns {Object} - account object if success
    * @throws {Error} - on failure
    */
-  deleteByAcctNo(acctNo = '', reqUser = {}) {
+  deleteByAcctNo(acctNumber = '', reqUser = {}) {
     if (reqUser.isAdmin) {
-      const acctNumber = this.parseInteger(acctNo);
-      if (acctNumber) {
+      const accountNumber = this.parseInteger(acctNumber);
+      if (accountNumber) {
         this.accountsDB.find((acct, idx) => {
-          const match = acct.accountNumber === acctNumber;
+          const match = acct.accountNumber === accountNumber;
           if (match) this.accountsDB.splice(idx, 1);
           return match;
         });

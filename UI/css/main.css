@@ -650,7 +650,8 @@ i.fa-user-cog {
   text-align: center;
 }
 
-form > input {
+form > input,
+form select {
   background-color: #f0f0f0;
   border: none;
   padding: 12px 15px;

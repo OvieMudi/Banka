@@ -102,38 +102,75 @@
       <section class="form-container">
         <form action="javascript:void(0)" method="POST">
           <h1>Create Staff Account</h1>
-          <input type="text" placeholder="Firstname" />
-          <input type="text" placeholder="Lastname" />
-          <input type="text" placeholder="Other names" />
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
+          <input
+            type="text"
+            name="firstname"
+            placeholder="Firstname"
+            minlength="3"
+            maxlength="16"
+            pattern="^[a-zA-Z]+$"
+            required
+          />
+          <input
+            type="text"
+            name="lastname"
+            placeholder="Lastname"
+            minlength="3"
+            maxlength="16"
+            pattern="^[a-zA-Z]+$"
+            required
+          />
+          <input
+            type="text"
+            name="othername"
+            placeholder="Othername"
+            minlength="3"
+            maxlength="16"
+            pattern="^[a-zA-Z]+$"
+          />
+          <input type="email" name="email" placeholder="Email" required />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+            pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$"
+            id="passwordInput1"
+          />
+          <input
+            type="password"
+            placeholder="Re-enter password"
+            required
+            pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$"
+            id="passwordInput2"
+          />
+          <input
+            type="text"
+            name="phoneNumber"
+            placeholder="Phone number"
+            required
+            minlength="10"
+            maxlength="15"
+            pattern="^\d+$"
+          />
 
-          <span>
-            Select account type
-          </span>
-
-          <div class="radio-container">
-            <input
-              type="radio"
-              id="radio-cashier"
-              name="type"
-              value="Cashier"
-              checked
-            />
-            <label for="radio-cashier">Cashier</label>
+          <div class="select-gender">
+            <select name="sex" class="select form-control" required="">
+              <option value="" selected>select gender...</option>
+              <option value="male">male</option>
+              <option value="female">female</option>
+            </select>
           </div>
 
-          <div class="radio-container">
-            <input type="radio" id="radio-admin" name="type" value="Admin" />
-            <label for="radio-admin">Admin</label>
+          <div class="select-account">
+            <select name="type" class="select form-control" required="">
+              <option value="" selected>select account type...</option>
+              <option value="cashier">Cashier</option>
+              <option value="admin">Admin</option>
+            </select>
           </div>
 
-          <div class="radio-container">
-            <input type="radio" id="radio-user" name="type" value="Client" />
-            <label for="radio-user">Client</label>
-          </div>
-
-          <button>Sign Up</button>
+          <button>Create</button>
         </form>
       </section>
     </main>
@@ -161,5 +198,6 @@
       </p>
     </footer>
     <script src="./scripts/main.js"></script>
+    <script src="./scripts/formValidation.js"></script>
   </body>
 </html>

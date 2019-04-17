@@ -1,18 +1,116 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Banka|Welcome</title>
+    <title>Banka | Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" media="screen" href="home.css" />
-    <script src="main.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="./css/main.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="./css/index.css"
+    />
+    <!--   favicons -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="./favicon/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="./favicon/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+    <!--   google fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Libre+Baskerville"
+      rel="stylesheet"
+    />
+    <!--   font-awesome icons -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
   </head>
+
   <body>
-    <h1>Welcome to Banka!</h1>
-    <section>
-      <a href="./signin.html">signin!</a><br /><br />
-      <a href="./signup.html">signup!</a>
-    </section>
+    <main>
+      <div class="section1">
+        <nav>
+          <ul class="homepage-navlinks">
+            <!--  Home Icon/Logo -->
+            <a href="./index.html" class="logo"
+              ><i class="fas fa-coins icon"></i
+              ><span class="icon">B</span>anka</a
+            >
+            <li><a href="https://github.com/OvieMudi/Banka">Support</a></li>
+            <li><a href="https://github.com/OvieMudi/Banka">Contact</a></li>
+            <li><a href="https://github.com/OvieMudi/Banka">FAQ</a></li>
+          </ul>
+        </nav>
+        <div class="hero-text-box hero1">
+          <h1 class="hero-text hero-text-big">
+            Your internet banking just got smarter
+          </h1>
+          <p class="hero-text">
+            Banka provides a robust platform that allows you manage all your
+            bank accounts online.
+          </p>
+
+          <button onclick="window.location.href = './signup.html';">
+            GET STARTED
+          </button>
+        </div>
+      </div>
+      <section class="section2">
+        <div class="hero-text-box hero2">
+          <h2 class="hero-text hero-text-medium">
+            Visit our branch near you to withdraw or make deposits.
+          </h2>
+        </div>
+      </section>
+      <section class="section3">
+        <div class="hero-text-box hero3">
+          <h2 class="hero-text hero-text-medium">
+            Find us in major cities nationwide or an agent near you.
+          </h2>
+        </div>
+      </section>
+      <section class="section4">
+        <div class="hero-text-box hero4">
+          <h3 class="hero-text hero-text-big">
+            Our job is done when you're happy!
+          </h3>
+          <button onclick="window.location.href = './signup.html';">
+            Register Now
+          </button>
+        </div>
+      </section>
+    </main>
+    <!-- ---------------------- PAGE FOOOTER ----------------------- -->
   </body>
 </html>

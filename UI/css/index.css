@@ -1,0 +1,177 @@
+/* ---------- GENERAL STYLES ---------*/
+button {
+  border-radius: 20px;
+  border: 1px solid #ff4b2b;
+  background-color: #ff4b2b;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 0.8rem;
+  transition: transform 80ms ease-in;
+}
+
+button:hover {
+  opacity: 0.7;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+button:focus {
+  outline: none;
+}
+
+ul.homepage-navlinks {
+  height: 3rem;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+  list-style-type: none;
+  font-size: 0.7em;
+}
+
+.homepage-navlinks a {
+  color: #cccccc;
+}
+
+.homepage-navlinks a:hover {
+  opacity: 0.7;
+}
+
+/* ------------- MAIN STYLES ------------- */
+
+main {
+  display: grid;
+  grid-template-columns: 50vw 1fr;
+  grid-template-rows: 50vh 50vh auto;
+  grid-template-areas:
+    "section1 section2"
+    "section1 section3"
+    "section4 section4";
+  color: #e0e0e0;
+}
+
+/* ------------- SECTION 1 ------------- */
+
+.section1 {
+  grid-area: section1;
+  background-image: url("../images/ocean.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-text-box {
+  width: 80%;
+}
+
+.hero-text-box p {
+  color: #f5e3c2;
+}
+
+.hero-text {
+  margin-bottom: 1rem;
+  word-spacing: 3px;
+  letter-spacing: 1px;
+}
+
+.hero-text-big {
+  font-size: 2.3em;
+  font-weight: 700;
+}
+
+.hero1 {
+  margin: 20% auto;
+}
+
+/* ------------- SECTION 2 ------------- */
+
+.section2 {
+  grid-area: section2;
+  background-size: cover;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("../images/banktellerprv.jpg");
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.hero-text-medium {
+  font-size: 1.4em;
+  font-weight: 400;
+  color: #b8b8b8;
+}
+
+.hero2 {
+  text-align: right;
+  width: 40%;
+  margin-right: 2rem;
+}
+
+.section3 {
+  grid-area: section3;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("../images/Architecture-Building.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.hero3 {
+  /* text-align: left; */
+  width: 30%;
+  margin-left: 2rem;
+}
+
+.section4 {
+  grid-area: section4;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("../images/An_innovative.png");
+  background-size: cover;
+  background-position: top;
+}
+
+.hero4 {
+  width: 40%;
+  margin: 40% auto 10% auto;
+  color: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero4 button {
+  align-self: center;
+  font-size: 1.6em;
+  background-color: transparent;
+  border: 1px solid var(--icon-yellow);
+  color: var(--light-theme-yellow);
+  text-transform: unset;
+}
+
+@media only screen and (max-width: 640px) {
+  main {
+    grid-template-columns: 100vw;
+    grid-template-rows: 100vh 40vh 40vh 100vh;
+    grid-template-areas:
+      "section1"
+      "section2"
+      "section3"
+      "section4";
+  }
+
+  .hero4 {
+    width: 90%;
+    margin-top: 60%;
+  }
+}

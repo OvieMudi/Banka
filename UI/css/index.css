@@ -1,5 +1,5 @@
 * {
-  /* border: 0.5px solid black; */
+  border: 0.5px solid black;
 }
 
 /* ---------- GENERAL STYLES ---------*/
@@ -53,7 +53,7 @@ ul.homepage-navlinks {
 main {
   display: grid;
   grid-template-columns: 50vw 1fr;
-  grid-template-rows: 50vh 50vh 100vh;
+  grid-template-rows: 50vh 50vh auto;
   grid-template-areas:
     "section1 section2"
     "section1 section3"
@@ -146,8 +146,8 @@ main {
 }
 
 .hero4 {
-  width: 60%;
-  margin: 40% auto 0 auto;
+  width: 40%;
+  margin: 40% auto 10% auto;
   color: #f7f7f7;
   display: flex;
   flex-direction: column;
@@ -172,5 +172,10 @@ main {
       "section2"
       "section3"
       "section4";
+  }
+
+  .hero4 {
+    width: 90%;
+    margin-top: 60%;
   }
 }

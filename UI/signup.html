@@ -59,23 +59,68 @@
   <body>
     <main class="container" id="js-container">
       <section class="form-container signup-container">
-        <form action="javascript:void(0)" method="POST">
+        <form id="signup-form" action="#" method="POST">
           <h1>Sign Up for Banka</h1>
-          <input type="text" placeholder="Firstname" />
-          <input type="text" placeholder="Lastname" />
-          <input type="text" placeholder="Othername" />
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <input type="number" placeholder="Phone number" />
+          <input
+            type="text"
+            name="firstname"
+            placeholder="Firstname"
+            minlength="3"
+            maxlength="16"
+            pattern="^[a-zA-Z]+$"
+            required
+          />
+          <input
+            type="text"
+            name="lastname"
+            placeholder="Lastname"
+            minlength="3"
+            maxlength="16"
+            pattern="^[a-zA-Z]+$"
+            required
+          />
+          <input
+            type="text"
+            name="othername"
+            placeholder="Othername"
+            minlength="3"
+            maxlength="16"
+            pattern="^[a-zA-Z]+$"
+          />
+          <input type="email" name="email" placeholder="Email" required />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+            pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$"
+            id="passwordInput1"
+          />
+          <input
+            type="password"
+            placeholder="Re-enter password"
+            required
+            pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$"
+            id="passwordInput2"
+          />
+          <input
+            type="text"
+            name="phoneNumber"
+            placeholder="Phone number"
+            required
+            minlength="10"
+            maxlength="15"
+            pattern="^\d+$"
+          />
           <!-------------- select  -------------->
           <div class="select-gender">
-            <select name="select" class="select">
-              <option disabled selected>select gender...</option>
-              <option>male</option>
-              <option>female</option>
+            <select name="select" class="select form-control" required="">
+              <option value="" selected>select gender...</option>
+              <option value="male">male</option>
+              <option value="female">female</option>
             </select>
           </div>
-          <button>Sign Up</button>
+          <button id="signup-btn">Sign Up</button>
           <span class="mobile-tgl"
             >Have an account?&nbsp;<a href="#" class="alt js-tgl-form"
               >Sign in</a
@@ -88,8 +133,8 @@
         <form action="javascript:void(0)" method="POST">
           <h1>Sign In</h1>
           <span>continue with your email</span>
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
+          <input type="email" placeholder="Email" required />
+          <input type="password" placeholder="Password" required />
           <button>Sign In</button>
           <span class="mobile-tgl"
             >Don't have an account?&nbsp;<a href="#" class="alt js-tgl-form"
@@ -105,7 +150,7 @@
             <h1>Hello there!</h1>
             <p>
               Register with
-              <a href="./dashboard-staff.html" class="logo"
+              <a href="./index.html" class="logo"
                 ><i class="fas fa-coins icon"></i><span class="icon">B</span
                 ><span class="icon-text">anka</span>
               </a>
@@ -121,7 +166,7 @@
             <h1>Welcome Back!</h1>
             <p>
               Please sign in to access your
-              <a href="./dashboard-staff.html" class="logo"
+              <a href="./index.html" class="logo"
                 ><i class="fas fa-coins icon"></i><span class="icon">B</span
                 ><span class="icon-text">anka</span>
               </a>
@@ -137,6 +182,7 @@
         </div>
       </section>
     </main>
-    <script src="./scripts/signin.js"></script>
+    <script src="./scripts/signup.js"></script>
+    <script src="./scripts/formValidation.js"></script>
   </body>
 </html>

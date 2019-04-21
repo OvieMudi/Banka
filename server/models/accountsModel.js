@@ -1,5 +1,5 @@
 import Model from './model';
-import db from '../database/database';
+import db from '../database/sampleData';
 import UsersModel from './usersModel';
 
 const usersModel = new UsersModel();

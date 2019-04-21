@@ -34,8 +34,8 @@ const authHelper = {
   generateToken(user) {
     const token = jwt.sign(
       {
-        userId: user.id.toString(),
-        isAdmin: user.isAdmin,
+        userId: user.id,
+        type: user.type,
       },
       process.env.SECRET_STRING,
       { expiresIn: '7h' },

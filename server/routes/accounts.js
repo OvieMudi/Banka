@@ -1,6 +1,6 @@
 import express from 'express';
 import accountsController from '../controllers/accountsController';
-import authenticateReq from '../middleware/authVerify';
+import authenticateReq from '../middleware/authenticator';
 
 const accountsRouter = express.Router();
 

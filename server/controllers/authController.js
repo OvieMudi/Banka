@@ -11,9 +11,9 @@ const authController = {
    * @param {Object} res - server response object
    * @returns {JSON} res - custom server response
    */
-  signUp(req, res) {
+  async signUp(req, res) {
     try {
-      const user = usersModel.create(req.body);
+      const user = await usersModel.create(req.body);
       const token = authHelper.generateToken(user);
       controllerResponse.successResponse(res, 201, user, token);
     } catch (error) {
@@ -27,9 +27,9 @@ const authController = {
    * @param {Object} res - server response object
    * @returns {JSON} res - custom server response
    */
-  signIn(req, res) {
+  async signIn(req, res) {
     try {
-      const user = usersModel.signIn(req.body);
+      const user = await usersModel.signIn(req.body);
       const token = authHelper.generateToken(user);
       controllerResponse.successResponse(res, 200, user, token);
     } catch (error) {

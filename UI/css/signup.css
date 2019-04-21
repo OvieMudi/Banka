@@ -51,7 +51,8 @@ button:active {
   transform: scale(0.95);
 }
 
-button:focus {
+button:focus,
+input:focus {
   outline: none;
 }
 
@@ -133,6 +134,10 @@ select {
   width: 100%;
 }
 
+.errorInput {
+  background-color: #ffe9e9;
+}
+
 form span {
   font-size: 0.8em;
   margin: 10px auto;
@@ -142,7 +147,8 @@ form span.mobile-tgl {
   display: none;
 }
 
-.select-gender {
+.select-gender,
+.select-account {
   color: #333;
   margin-bottom: 30px;
 }
@@ -247,6 +253,7 @@ h1 {
 @media only screen and (max-width: 639px) {
   .container {
     width: 320px;
+    min-height: 600px;
   }
 
   .overlay-container {

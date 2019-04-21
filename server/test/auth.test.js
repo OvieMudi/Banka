@@ -11,10 +11,10 @@ const userData = {
   firstname: 'Salym',
   lastname: 'Groth',
   othername: 'Ganna',
-  password: 'password',
-  phone: '070443389496',
+  password: 'Password1',
+  sex: 'male',
+  phoneNumber: '070443389496',
   address: '46 Lorem Ipsum close, Sit Amet',
-  isAdmin: false,
 };
 
 describe('POST /auth/signup', () => {
@@ -41,8 +41,8 @@ describe('POST /auth/signup', () => {
           .to.have.property('email')
           .eql(userData.email);
         expect(user)
-          .to.have.property('phone')
-          .eql(userData.phone);
+          .to.have.property('phoneNumber')
+          .eql(userData.phoneNumber);
         expect(user).to.have.property('registered');
         expect(user)
           .to.have.property('isAdmin')
@@ -80,8 +80,8 @@ describe('POST /auth/signin', () => {
           .to.have.property('othername')
           .eql(userData.othername);
         expect(user)
-          .to.have.property('phone')
-          .eql(userData.phone);
+          .to.have.property('phoneNumber')
+          .eql(userData.phoneNumber);
         expect(user).to.have.property('registered');
         expect(user)
           .to.have.property('isAdmin')

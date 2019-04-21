@@ -1,6 +1,6 @@
 import Model from './model';
 import AccountsModel from './accountsModel';
-import db from '../database/database';
+import db from '../database/sampleData';
 
 const accountsModel = new AccountsModel();
 
@@ -27,6 +27,7 @@ class TransactionsModel extends Model {
    * @returns {Object} - account object if success
    */
   credit(acctNumber, reqBody, reqUser) {
+    console.log(reqUser);
     const accountNumber = this.parseInteger(acctNumber);
     const amount = this.parseToFloat(reqBody.amount);
     if (reqUser.userType === 'cashier') {
@@ -43,6 +44,48 @@ class TransactionsModel extends Model {
           newBalance: account.balance + amount,
         };
         account.balance += amount;
+        this.transactionDB.push(transaction);
+        return {
+          transactionId: transaction.id,
+          accountNumber,
+          amount,
+          cashier: reqUser.id,
+          transactionType: transaction.type,
+          accountBalance: transaction.newBalance,
+        };
+      }
+      throw new Error('account not found');
+    }
+    throw new Error('operation restricted to Cashier');
+  }
+
+  /**
+   * Create a new debit transaction
+   * Assign a unique id to account
+   * @param {Object} acctNumber - account
+   * @param {Object} reqBody - account
+   * @param {Object} reqUser - http request user object
+   * @returns {Object} - account object if success
+   */
+  debit(acctNumber, reqBody, reqUser) {
+    const accountNumber = this.parseInteger(acctNumber);
+    const amount = this.parseToFloat(reqBody.amount);
+    if (reqUser.userType === 'cashier') {
+      const account = accountsModel.getByAccountNumber(accountNumber);
+      if (account) {
+        if (account.balance < amount) throw new Error('minimum balance exceeded');
+        const transaction = {
+          id: this.transactionDB.length + 1,
+          createdOn: new Date(),
+          type: 'debit',
+          accountNumber,
+          cashier: reqUser.id,
+          amount,
+          oldBalance: account.balance,
+          newBalance: account.balance - amount,
+        };
+
+        account.balance -= amount;
         this.transactionDB.push(transaction);
         return {
           transactionId: transaction.id,

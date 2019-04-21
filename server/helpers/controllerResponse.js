@@ -23,20 +23,26 @@ const controllerResponse = {
    * @returns {JSON} res - custom server response
    */
   errorResponse(res, statusCode, error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
     let status;
-    if (typeof error === 'object') {
-      // eslint-disable-next-line no-console
-      console.log(error);
-      status = error.message.includes('not found') ? 404 : statusCode;
-      return res.status(status).json({
-        status,
-        error: error.message,
-      });
+
+    const notFound = error.message.includes('not found');
+    if (error.code) {
+      if (error.code === '23505') {
+        error.message = error.detail;
+      }
     }
-    status = error.includes('not found') ? 404 : statusCode;
+
+    if (notFound) {
+      status = 404;
+    } else {
+      status = statusCode;
+    }
+
     return res.status(status).json({
       status,
-      error,
+      error: error.message,
     });
   },
 

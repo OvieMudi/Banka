@@ -3,6 +3,8 @@ node_js:
   - "10.15.3"
 services:
   - postgresql
+addons:
+  postgresql: "10"
 before_script:
   - psql -c 'create database banka_test;' -U postgres
 after_success:

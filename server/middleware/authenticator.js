@@ -4,6 +4,8 @@ import UsersModel from '../models/usersModel';
 
 const usersModel = new UsersModel();
 
+const unauthorized = new Error('unauthorized to access this resource');
+
 const authenticator = {
   async verifyAuth(req, res, next) {
     let token = req.headers['x-access-token'] || req.headers.authorization || '';
@@ -11,9 +13,16 @@ const authenticator = {
     if (token) {
       try {
         const decoded = jwt.verify(token, process.env.SECRET_STRING);
-        const user = await usersModel.getById(decoded.userId);
+        const user = await usersModel.getById(decoded.id);
         if (user) {
-          req.user = { id: user.id, type: user.type };
+          req.user = {
+            id: user.id,
+            email: user.email,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            othername: user.othername,
+            type: user.type,
+          };
           next();
         } else controllerResponse.errorResponse(res, 404, new Error('user not found'));
       } catch (error) {
@@ -29,11 +38,7 @@ const authenticator = {
     if (user.type === 'admin') {
       next();
     } else {
-      controllerResponse.errorResponse(
-        res,
-        403,
-        new Error('not authorized to access this resource'),
-      );
+      controllerResponse.errorResponse(res, 403, unauthorized);
     }
   },
 
@@ -42,11 +47,7 @@ const authenticator = {
     if (user.type === 'cashier') {
       next();
     } else {
-      controllerResponse.errorResponse(
-        res,
-        403,
-        new Error('not authorized to access this resource'),
-      );
+      controllerResponse.errorResponse(res, 403, unauthorized);
     }
   },
 
@@ -55,11 +56,16 @@ const authenticator = {
     if (user.type === 'admin' || user.type === 'cashier') {
       next();
     } else {
-      controllerResponse.errorResponse(
-        res,
-        403,
-        new Error('not authorized to access this resource'),
-      );
+      controllerResponse.errorResponse(res, 403, unauthorized);
+    }
+  },
+
+  async verifyClient(req, res, next) {
+    const { user } = req;
+    if (user.type === 'client') {
+      next();
+    } else {
+      controllerResponse.errorResponse(res, 403, unauthorized);
     }
   },
 };

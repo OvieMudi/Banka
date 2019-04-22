@@ -10,12 +10,22 @@ const accountsController = {
    * @param {Object} res - custom server response
    * @returns {null} -
    */
-  create(req, res) {
+  async create(req, res) {
     try {
-      const account = accountsModel.create(req.body, req.user);
-      controllerResponse.successResponse(res, 201, account);
+      const { user } = req;
+      const account = await accountsModel.create(req.body);
+      const response = {
+        accountNumber: account.accountNumber,
+        email: user.email,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        othername: user.othername,
+        type: account.type,
+        openingBalance: account.balance,
+      };
+      controllerResponse.successResponse(res, 201, response);
     } catch (error) {
-      controllerResponse.errorResponse(res, 400, error.message);
+      controllerResponse.errorResponse(res, 400, error);
     }
   },
 
@@ -25,9 +35,9 @@ const accountsController = {
    * @param {Object} res - custom server response
    * @returns {null} -
    */
-  getAll(req, res) {
+  async getAll(req, res) {
     try {
-      const accounts = accountsModel.getAll();
+      const accounts = await accountsModel.getAll();
       controllerResponse.successResponse(res, 200, accounts);
     } catch (error) {
       controllerResponse.errorResponse(res, 500, error);
@@ -40,19 +50,23 @@ const accountsController = {
    * @param {Object} res - custom server response
    * @returns {null} -
    */
-  changeAcctStatus(req, res) {
+  async updateAccount(req, res) {
     try {
-      const account = accountsModel.changeStatus(req.params.accountNumber, req.body, req.user);
+      const account = await accountsModel.findAndUpdate(
+        'accountNumber',
+        req.params.accountNumber,
+        req.body,
+      );
       controllerResponse.successResponse(res, 200, account);
     } catch (error) {
       controllerResponse.errorResponse(res, 400, error);
     }
   },
 
-  delete(req, res) {
+  async delete(req, res) {
     try {
-      const deleted = accountsModel.deleteByAcctNumber(req.params.accountNumber, req.user);
-      controllerResponse.messageResponse(res, 200, deleted);
+      await accountsModel.findAndDelete('accountNumber', req.params.accountNumber);
+      controllerResponse.messageResponse(res, 200, 'account deleted successfully');
     } catch (error) {
       controllerResponse.errorResponse(res, 400, error);
     }

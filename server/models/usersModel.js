@@ -35,8 +35,8 @@ class UsersModel extends Model {
    * @returns {Object} - if recource is found
    */
   async getByEmail(email) {
-    const user = await this.searchDatabase('email', email);
-    return user[0];
+    const { rows: users } = await this.searchDatabase('email', email);
+    return users[0];
   }
 }
 

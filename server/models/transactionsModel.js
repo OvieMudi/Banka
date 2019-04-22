@@ -1,6 +1,7 @@
+/* eslint-disable class-methods-use-this */
 import Model from './model';
 import AccountsModel from './accountsModel';
-import db from '../database/sampleData';
+import database from '../database/database';
 
 const accountsModel = new AccountsModel();
 
@@ -10,95 +11,69 @@ const accountsModel = new AccountsModel();
 class TransactionsModel extends Model {
   /**
    * model constructor
-   * @param {String} dbName - database name
+   * @param {String} tableName - database name
    * @returns {Object} - constructed model object
    */
-  constructor(dbName = 'transactionsDB') {
-    super(dbName);
-    this.transactionDB = db[dbName];
+  constructor(tableName = 'transactions') {
+    super(tableName);
   }
 
   /**
    * Create a new credit transaction
    * Assign a unique id to account
-   * @param {Object} acctNumber - account
-   * @param {Object} reqBody - account
-   * @param {Object} reqUser - http request user object
+   * @param {Object} accountNumber - account
+   * @param {Object} amount - account
+   * @param {Object} userId - id of the current user
    * @returns {Object} - account object if success
    */
-  credit(acctNumber, reqBody, reqUser) {
-    console.log(reqUser);
-    const accountNumber = this.parseInteger(acctNumber);
-    const amount = this.parseToFloat(reqBody.amount);
-    if (reqUser.userType === 'cashier') {
-      const account = accountsModel.getByAccountNumber(accountNumber);
-      if (account) {
-        const transaction = {
-          id: this.transactionDB.length + 1,
-          createdOn: new Date(),
-          type: 'credit',
-          accountNumber,
-          cashier: reqUser.id,
-          amount,
-          oldBalance: account.balance,
-          newBalance: account.balance + amount,
-        };
-        account.balance += amount;
-        this.transactionDB.push(transaction);
-        return {
-          transactionId: transaction.id,
-          accountNumber,
-          amount,
-          cashier: reqUser.id,
-          transactionType: transaction.type,
-          accountBalance: transaction.newBalance,
-        };
+  async credit(accountNumber, amount, userId) {
+    try {
+      const { rows: accounts, rowCount: count } = await accountsModel.searchDatabase(
+        'accountNumber',
+        accountNumber,
+      );
+      if (count) {
+        const account = accounts[0];
+        const queryString = `
+          SELECT * 
+          FROM credit_account(${account.accountNumber}, ${amount}, ${userId});
+        `;
+        const { rows } = await database.query(queryString);
+        return rows[0];
       }
       throw new Error('account not found');
+    } catch (error) {
+      throw error;
     }
-    throw new Error('operation restricted to Cashier');
   }
 
   /**
-   * Create a new debit transaction
+   * Create a new credit transaction
    * Assign a unique id to account
-   * @param {Object} acctNumber - account
-   * @param {Object} reqBody - account
-   * @param {Object} reqUser - http request user object
+   * @param {Object} accountNumber - account
+   * @param {Object} amount - account
+   * @param {Object} userId - id of the current user
    * @returns {Object} - account object if success
    */
-  debit(acctNumber, reqBody, reqUser) {
-    const accountNumber = this.parseInteger(acctNumber);
-    const amount = this.parseToFloat(reqBody.amount);
-    if (reqUser.userType === 'cashier') {
-      const account = accountsModel.getByAccountNumber(accountNumber);
-      if (account) {
-        if (account.balance < amount) throw new Error('minimum balance exceeded');
-        const transaction = {
-          id: this.transactionDB.length + 1,
-          createdOn: new Date(),
-          type: 'debit',
-          accountNumber,
-          cashier: reqUser.id,
-          amount,
-          oldBalance: account.balance,
-          newBalance: account.balance - amount,
-        };
-
-        account.balance -= amount;
-        this.transactionDB.push(transaction);
-        return {
-          transactionId: transaction.id,
-          accountNumber,
-          amount,
-          cashier: reqUser.id,
-          transactionType: transaction.type,
-          accountBalance: transaction.newBalance,
-        };
+  async debit(accountNumber, amount, userId) {
+    try {
+      const { rows: accounts, rowCount: count } = await accountsModel.searchDatabase(
+        'accountNumber',
+        accountNumber,
+      );
+      if (count) {
+        const account = accounts[0];
+        const queryString = `
+          SELECT * 
+          FROM debit_account(${account.accountNumber}, ${amount}, ${userId});
+        `;
+        const { rows } = await database.query(queryString);
+        return rows[0];
       }
       throw new Error('account not found');
+    } catch (error) {
+      throw error;
     }
-    throw new Error('operation restricted to Cashier');
   }
 }
 

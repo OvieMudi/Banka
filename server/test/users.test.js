@@ -61,7 +61,7 @@ describe('GET /api/v1/users/:id', () => {
         expect(res).to.have.status(403);
         expect(body)
           .to.have.property('error')
-          .contains('not authorized');
+          .contains('unauthorized');
         done(err);
       });
   });
@@ -105,7 +105,7 @@ describe('GET /api/v1/users', () => {
         expect(res).to.have.status(403);
         expect(body)
           .to.have.property('error')
-          .contains('not authorized');
+          .contains('unauthorized');
         done(err);
       });
   });
@@ -153,7 +153,7 @@ describe('PATCH /api/v1/users/:id', () => {
         expect(res).to.have.status(403);
         expect(body)
           .to.have.property('error')
-          .contains('not authorized');
+          .contains('unauthorized');
         done(err);
       });
   });
@@ -201,7 +201,7 @@ describe('DELETE /api/v1/users/:id', () => {
         expect(res).to.have.status(403);
         expect(body)
           .to.have.property('error')
-          .contains('not authorized');
+          .contains('unauthorized');
         done(err);
       });
   });

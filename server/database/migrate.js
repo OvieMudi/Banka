@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import { Pool } from 'pg';
 import authHelper from '../helpers/authHelper';
-import { sampleAccount, sampleCashier } from './sampleData';
 import { databaseURL } from './database';
 
 const pool = new Pool({

@@ -30,42 +30,43 @@ const props = {
     .error(new Error('please enter valid phone number digits: XXXXXXXXXX')),
   sex: joi
     .string()
+    .trim()
     .lowercase()
     .valid(['male', 'female', 'm', 'f']),
   address: joi
     .string()
+    .trim()
     .lowercase()
     .min(10)
     .max(120)
     .error(new Error('only letters and characters are allowed')),
   amount: joi
     .number()
-    .min(0.1)
-    .precision(2)
+    .min(0.01)
+    .precision(5)
     .required(),
-  accounType: joi
+  accountType: joi
     .string()
+    .trim()
     .lowercase()
     .valid(['savings', 'current']),
   accountStatus: joi
     .string()
+    .trim()
     .lowercase()
-    .valid(['draft', 'active', 'dormant'])
-    .required(),
+    .valid(['draft', 'active', 'dormant']),
   userType: joi
     .string()
+    .trim()
     .lowercase()
     .valid(['', 'client', 'cashier', 'admin']),
 };
 
 const validator = {
   validate: (object, req, res, next) => {
-    const authSchema = joi.object().keys(object);
-    const validationOptions = {
-      allowUnknown: true,
-      stripUnknown: true,
-    };
-    joi.validate(req.body, authSchema, validationOptions, (error, data) => {
+    const authSchema = joi.object(object).required();
+
+    joi.validate(req.body, authSchema, (error, data) => {
       if (!error) {
         req.body = data;
         next();
@@ -110,17 +111,26 @@ const validator = {
     validator.validate(userProps, req, res, next);
   },
 
-  validateAccountType(req, res, next) {
+  validateAccountCreate(req, res, next) {
     const accountProps = {
-      type: props.accounType.required(),
+      type: props.accountType,
     };
 
     validator.validate(accountProps, req, res, next);
   },
 
-  validateAccountStatus(req, res, next) {
+  validateAccountUpdate(req, res, next) {
     const accountProps = {
       status: props.accountStatus,
+      type: props.accountType,
+    };
+
+    validator.validate(accountProps, req, res, next);
+  },
+
+  validateTransaction(req, res, next) {
+    const accountProps = {
+      amount: props.amount,
     };
 
     validator.validate(accountProps, req, res, next);

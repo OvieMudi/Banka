@@ -33,14 +33,45 @@ before((done) => {
     });
 });
 
-describe.skip('POST api/v1/accounts', () => {
+describe('POST api/v1/accounts', () => {
+  it('should not create account if no JWT', (done) => {
+    chai
+      .request(server)
+      .post('/api/v1/accounts')
+      .type('form')
+      .send({ type: 'savings' })
+      .end((err, res) => {
+        const { body } = res;
+        expect(res).to.have.status(401);
+        expect(body)
+          .to.have.property('error')
+          .eql('token not provided');
+        done(err);
+      });
+  });
+  it('should not create account if not client', (done) => {
+    chai
+      .request(server)
+      .post('/api/v1/accounts')
+      .set('x-access-token', adminToken)
+      .type('form')
+      .send({ type: 'savings' })
+      .end((err, res) => {
+        const { body } = res;
+        expect(res).to.have.status(403);
+        expect(body)
+          .to.have.property('error')
+          .contains('unauthorized');
+        done(err);
+      });
+  });
   it('should create a new bank account', (done) => {
     chai
       .request(server)
       .post('/api/v1/accounts')
       .set('x-access-token', clientToken)
       .type('form')
-      .send({ accType: 'savings' })
+      .send({ type: 'savings' })
       .end((err, res) => {
         const account = res.body.data;
         expect(res).to.have.status(201);
@@ -63,6 +94,7 @@ describe.skip('POST api/v1/accounts', () => {
   });
 });
 
+/* =================================================================================== */
 describe.skip('GET /api/v1/accounts', () => {
   it('should get all bank accounts from db', (done) => {
     chai
@@ -78,7 +110,8 @@ describe.skip('GET /api/v1/accounts', () => {
   });
 });
 
-describe.skip('PATCH /api/v1/accounts/accountNumber', () => {
+/* ===================================================================================== */
+describe('PATCH /api/v1/accounts/accountNumber', () => {
   const path = `/api/v1/accounts/${sampleAccount.accountNumber}`;
   it('should return error if token not provided', (done) => {
     chai
@@ -87,7 +120,7 @@ describe.skip('PATCH /api/v1/accounts/accountNumber', () => {
       .type('form')
       .send({ status: 'dormant' })
       .end((err, res) => {
-        expect(res).to.have.status(400);
+        expect(res).to.have.status(401);
         expect(res.body)
           .to.have.property('error')
           .eql('token not provided');
@@ -102,10 +135,10 @@ describe.skip('PATCH /api/v1/accounts/accountNumber', () => {
       .type('form')
       .send({ status: 'dormant' })
       .end((err, res) => {
-        expect(res).to.have.status(400);
+        expect(res).to.have.status(403);
         expect(res.body)
           .to.have.property('error')
-          .eql('operation restricted to Admin');
+          .includes('unauthorized');
         done(err);
       });
   });
@@ -128,14 +161,15 @@ describe.skip('PATCH /api/v1/accounts/accountNumber', () => {
   });
 });
 
-describe.skip('DELETE /api/v1/accounts/accountNumber', () => {
+/* ======================================================================== */
+describe('DELETE /api/v1/accounts/accountNumber', () => {
   const path = `/api/v1/accounts/${sampleAccount.accountNumber}`;
   it('should return error if token not provided', (done) => {
     chai
       .request(server)
       .delete(path)
       .end((err, res) => {
-        expect(res).to.have.status(400);
+        expect(res).to.have.status(401);
         expect(res.body)
           .to.have.property('error')
           .eql('token not provided');
@@ -148,10 +182,10 @@ describe.skip('DELETE /api/v1/accounts/accountNumber', () => {
       .delete(path)
       .set('x-access-token', clientToken)
       .end((err, res) => {
-        expect(res).to.have.status(400);
+        expect(res).to.have.status(403);
         expect(res.body)
           .to.have.property('error')
-          .eql('operation restricted to Admin');
+          .include('unauthorized');
         done(err);
       });
   });
@@ -164,7 +198,7 @@ describe.skip('DELETE /api/v1/accounts/accountNumber', () => {
         expect(res).to.have.status(200);
         expect(res.body)
           .to.have.property('message')
-          .eql('Account deleted successfully');
+          .eql('account deleted successfully');
         done(err);
       });
   });

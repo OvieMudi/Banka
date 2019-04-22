@@ -1,16 +1,27 @@
 import express from 'express';
 import accountsController from '../controllers/accountsController';
-import authenticateReq from '../middleware/authenticator';
+import auth from '../middleware/authenticator';
+import validator from '../middleware/requestValidator';
 
 const accountsRouter = express.Router();
 
 accountsRouter
   .route('/')
-  .post(authenticateReq.verifyAuth, accountsController.create)
+  .post(
+    auth.verifyAuth,
+    auth.verifyClient,
+    validator.validateAccountCreate,
+    accountsController.create,
+  )
   .get(accountsController.getAll);
 accountsRouter
   .route('/:accountNumber')
-  .patch(authenticateReq.verifyAuth, accountsController.changeAcctStatus)
-  .delete(authenticateReq.verifyAuth, accountsController.delete);
+  .patch(
+    auth.verifyAuth,
+    auth.verifyAdmin,
+    validator.validateAccountUpdate,
+    accountsController.updateAccount,
+  )
+  .delete(auth.verifyAuth, auth.verifyAdmin, accountsController.delete);
 
 export default accountsRouter;

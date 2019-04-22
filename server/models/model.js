@@ -61,9 +61,9 @@ class Model {
    */
   async searchDatabase(search, value) {
     const queryString = `SELECT * FROM ${this.tableName} 
-      WHERE ${search}='${value}'`;
-    const { rows } = await database.query(queryString);
-    return rows;
+      WHERE "${search}"='${value}'`;
+    const { rows, rowCount } = await database.query(queryString);
+    return { rows, rowCount };
   }
 
   /**
@@ -89,17 +89,17 @@ class Model {
 
   /**
    * Find and Update existing resources in database
-   * @param {String} property - table column property
-   * @param {String} value - property value
-   * @param {String} reqBody - http request.body
+   * @param {String} columnName - table column property
+   * @param {String} columnValue - property value
+   * @param {Object} reqBody - http request.body
    * @returns {Object} - on success
    */
-  async findAndUpdate(property, value, reqBody) {
+  async findAndUpdate(columnName, columnValue, reqBody) {
     const entries = tableEntries.updateTableEntries(reqBody);
     const queryString = `
       UPDATE ${this.tableName} 
       SET ${entries}
-      WHERE ${property} = '${value}'
+      WHERE "${columnName}" = '${columnValue}'
       RETURNING *;
     `;
     const { rows, rowCount } = await database.query(queryString);
@@ -130,19 +130,19 @@ class Model {
 
   /**
    * Find and Update existing resources in database
-   * @param {String} property - property - table column property
-   * @param {String} value - property value
+   * @param {String} columnName - property - table column property
+   * @param {String} columnValue - property value
    * @returns {Object} - on success
    */
-  async findAndDelete(property, value) {
+  async findAndDelete(columnName, columnValue) {
     const queryString = `
       DELETE FROM ${this.tableName}
-      WHERE ${property} = '${value}'
+      WHERE "${columnName}" = '${columnValue}'
       RETURNING *;
     `;
     const { rowCount } = await database.query(queryString);
     if (rowCount) {
-      return rowCount;
+      return null;
     }
     throw new Error(`${this.tableName} not found`);
   }

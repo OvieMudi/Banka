@@ -1,6 +1,7 @@
 import express from 'express';
 import transactionsController from '../controllers/transactionsController';
-import authenticateReq from '../middleware/authenticator';
+import auth from '../middleware/authenticator';
+import validator from '../middleware/requestValidator';
 
 const transactionsRouter = express.Router();
 
@@ -8,7 +9,20 @@ transactionsRouter.route('/').get(transactionsController.getAll);
 
 transactionsRouter
   .route('/:accountNumber/credit')
-  .post(authenticateReq.verifyAuth, transactionsController.creditAccount)
-  .post(authenticateReq.verifyAuth, transactionsController.deditAccount);
+  .post(
+    auth.verifyAuth,
+    auth.verifyCashier,
+    validator.validateTransaction,
+    transactionsController.credit,
+  );
+
+transactionsRouter
+  .route('/:accountNumber/debit')
+  .post(
+    auth.verifyAuth,
+    auth.verifyCashier,
+    validator.validateTransaction,
+    transactionsController.debit,
+  );
 
 export default transactionsRouter;

@@ -4,12 +4,12 @@ import TransactionsModel from '../models/transactionsModel';
 const transactionsModel = new TransactionsModel();
 
 const transactionsController = {
-  creditAccount(req, res) {
+  async credit(req, res) {
     try {
-      const creditTransaction = transactionsModel.credit(
+      const creditTransaction = await transactionsModel.credit(
         req.params.accountNumber,
-        req.body,
-        req.user,
+        req.body.amount,
+        req.user.id,
       );
       controllerResponse.successResponse(res, 201, creditTransaction);
     } catch (error) {
@@ -17,12 +17,12 @@ const transactionsController = {
     }
   },
 
-  deditAccount(req, res) {
+  async debit(req, res) {
     try {
-      const debitTransaction = transactionsModel.debit(
+      const debitTransaction = await transactionsModel.debit(
         req.params.accountNumber,
-        req.body,
-        req.user,
+        req.body.amount,
+        req.user.id,
       );
       controllerResponse.successResponse(res, 201, debitTransaction);
     } catch (error) {
@@ -30,9 +30,9 @@ const transactionsController = {
     }
   },
 
-  getAll(req, res) {
+  async getAll(req, res) {
     try {
-      const transactions = transactionsModel.getAll();
+      const transactions = await transactionsModel.getAll();
       controllerResponse.successResponse(res, 200, transactions);
     } catch (error) {
       controllerResponse.errorResponse(res, 500, error);

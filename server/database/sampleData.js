@@ -1,5 +1,3 @@
-import authHelper from '../helpers/authHelper';
-
 export const sampleClient = {
   id: 3,
   email: 'sylvia@gmail.com',
@@ -49,97 +47,26 @@ export const sampleAccount = {
   owner: 3,
   type: 'savings',
   status: 'active',
-  balance: 60134600.65,
+  balance: 60134600,
 };
 
-const db = {
-  users: [
-    sampleAdmin,
-    sampleCashier,
-    sampleClient,
-    {
-      id: 4,
-      email: 'cm@gmail.com',
-      firstname: 'Chris',
-      lastname: 'Martin',
-      othername: '',
-      password: authHelper.hashPassword('password'),
-      type: 'client',
-      phone: '07044386936',
-      sex: 'male',
-      address: '46 Lorem Ipsum close, Sit Amet',
-      isAdmin: false,
-    },
-  ],
-
-  accountsDB: [
-    sampleAccount,
-    {
-      id: 2,
-      accountNumber: 1002003002,
-      createdOn: new Date(),
-      owner: 3,
-      type: 'current',
-      status: 'active',
-      balance: 20134600.65,
-    },
-    {
-      id: 3,
-      accountNumber: 1002003003,
-      createdOn: new Date(),
-      owner: 4,
-      type: 'current',
-      status: 'dormant',
-      balance: 10134600.65,
-    },
-    {
-      id: 4,
-      accountNumber: 1002003004,
-      createdOn: new Date(),
-      owner: 4,
-      type: 'current',
-      status: 'draft',
-      balance: 0.0,
-    },
-  ],
-
-  transactionsDB: [
-    {
-      id: 1,
-      createdOn: new Date(),
-      type: 'credit',
-      accountNumber: sampleAccount.accountNumber,
-      cashier: sampleCashier.id,
-      amount: 300000.0,
-      oldBalance: 0.0,
-      newBalance: 300000.0,
-    },
-    {
-      id: 2,
-      createdOn: new Date(),
-      type: 'debit',
-      accountNumber: sampleAccount.accountNumber,
-      cashier: sampleCashier.id,
-      amount: 300000.0,
-      oldBalance: 300000.0,
-      newBalance: 300000.0 + 300000.0,
-    },
-  ],
+export const sampleAccount2 = {
+  id: 1,
+  accountNumber: 1002003002,
+  createdOn: new Date(),
+  owner: 3,
+  type: 'savings',
+  status: 'active',
+  balance: 20000,
 };
 
-// /**
-//  * Function for generating account numbers
-//  * @returns {Number} - Generated account
-//  */
-// db.createAccNumber = () => {
-//   const defaultNum = 1002003000;
-//   const accountNumber = defaultNum + db.accountsDB.length + 1;
-//   return accountNumber;
-// };
-
-// db.createTransactionId = () => {
-//   const transactionId = db.transactionsDB.length + 1;
-//   return transactionId;
-// };
-
-export default db;
+export const sampleTransaction = {
+  id: 1,
+  createdOn: new Date(),
+  type: 'credit',
+  accountNumber: sampleAccount.accountNumber,
+  cashier: sampleCashier.id,
+  amount: 300000.0,
+  oldBalance: 0.0,
+  newBalance: 300000.0,
+};

@@ -28,9 +28,12 @@ const controllerResponse = {
     let status;
 
     const notFound = error.message.includes('not found');
+
     if (error.code) {
-      if (error.code === '23505') {
+      if (error.code === '23505' || error.code === 'P0001') {
         error.message = error.detail;
+      } else if (error.code === '42601') {
+        error.message = 'input cannot be empty';
       }
     }
 

@@ -4,19 +4,23 @@ import authHelper from '../helpers/authHelper';
 import { sampleAccount, sampleCashier } from './sampleData';
 import { databaseURL } from './database';
 
+const pool = new Pool({
+  connectionString: databaseURL,
+});
 const database = {
-  pool: new Pool({
-    connectionString: databaseURL,
-  }),
-
-  async createAllTables() {
+  async migrate() {
     console.log(`CONNECTING TO DB: ${databaseURL}`);
-    this.pool.on('connect', () => {
+    pool.on('connect', () => {
       console.log('CONNECTED TO DATABASE');
     });
 
+    // prettier-ignore
     const queryCommand = `
-    DROP TABLE IF EXISTS users, accounts, transactions, rsvps CASCADE;
+    -- =============================== TABLES ==================================
+
+    DROP TABLE IF EXISTS users CASCADE;
+    DROP TABLE IF EXISTS accounts CASCADE;
+    DROP TABLE IF EXISTS transactions CASCADE;
 
     CREATE TABLE IF NOT EXISTS
       users(
@@ -37,7 +41,7 @@ const database = {
     CREATE TABLE IF NOT EXISTS
       accounts(
         "id" SERIAL,
-        "accountNumber" INTEGER UNIQUE PRIMARY KEY,
+        "accountNumber" INTEGER GENERATED ALWAYS AS IDENTITY (START WITH 1002003001) PRIMARY KEY,
         "createdOn" TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
         "owner" INTEGER REFERENCES users (id) ON DELETE CASCADE,
         "type" VARCHAR(16) DEFAULT 'savings' NOT NULL,
@@ -55,86 +59,198 @@ const database = {
         "newBalance" NUMERIC NOT NULL,
         "createdOn" TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL
       );
+
+      -- ================================= VIEWS ====================================
       
       CREATE VIEW users_view 
         AS SELECT  
           "id", "email", "firstname", "lastname", "othername", "type", "sex", "phoneNumber", "address", "registered", "isAdmin"
         FROM users;
-      `;
+      
 
-    await this.pool
-      .query(queryCommand)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  },
+      -- ============================= FUNCTIONS ========================================
+      
+      CREATE OR REPLACE FUNCTION credit_account (acct_no int, amnt numeric, cashierId int)
+      RETURNS TABLE (
+        "transactionId" int, "accountNumber" int, amount numeric, cashier int, "transactionType" varchar(16), "accountBalance" numeric)
+      AS $$
+        DECLARE
+          credit_amount numeric := amnt::numeric;
+          old_record accounts % ROWTYPE;
+          new_record accounts % ROWTYPE;
+          outputs record;
+        BEGIN
+          IF credit_amount <= 0 THEN
+            RAISE EXCEPTION 'Invalid credit transaction of %', credit_amount
+            USING ERRCODE = '22000';
+          END IF;
+          SELECT
+            * INTO old_record
+          FROM
+            accounts a
+          WHERE
+            a. "accountNumber" = acct_no;
+          --  add the amount
+          UPDATE
+            accounts a
+          SET
+            balance = balance + credit_amount
+          WHERE
+            a. "accountNumber" = acct_no
+          RETURNING
+            * INTO new_record;
+          --  create transaction
+          INSERT INTO transactions (TYPE, "accountNumber", cashier, amount, "oldBalance", "newBalance")
+            VALUES ('credit', acct_no, cashierId, credit_amount, old_record.balance, new_record.balance)
+          RETURNING
+            * INTO outputs;
+          CREATE temp TABLE credit_alert (
+            "transactionId" int,
+            "accountNumber" int,
+            amount numeric,
+            cashier int,
+            "transactionType" varchar(16 ),
+            "accountBalance" numeric
+          );
+          INSERT INTO credit_alert
+            VALUES (outputs.id, acct_no, credit_amount, outputs.cashier, outputs.type, new_record.balance);
+          --  return table
+          RETURN query
+          SELECT
+            *
+          FROM
+            credit_alert;
+          DROP TABLE credit_alert;
+        END;
+      $$
+      LANGUAGE plpgsql;
 
-  // prettier-ignore
-  async seedAllTables() {
-    const queryCommand = `
+
+      CREATE OR REPLACE FUNCTION debit_account (acct_no int, amnt numeric, cashierId int)
+      RETURNS TABLE (
+        "transactionId" int, "accountNumber" int, amount numeric, cashier int, "transactionType" varchar(16), "accountBalance" numeric)
+      AS $$
+        DECLARE
+          debit_amount numeric := amnt::numeric;
+          old_record accounts % ROWTYPE;
+          new_record accounts % ROWTYPE;
+          outputs record;
+        BEGIN
+          IF debit_amount <= 0 THEN
+            RAISE EXCEPTION 'Invalid debit transaction of %', debit_amount
+              USING ERRCODE = '22000';
+          END IF;
+          SELECT
+            * INTO old_record
+          FROM
+            accounts a
+          WHERE
+            a. "accountNumber" = acct_no;
+          --  check for minimum balance
+          IF debit_amount > old_record.balance THEN
+            RAISE EXCEPTION 'Invalid debit of %. Minimum balance exceeded', debit_amount
+              USING ERRCODE = '22000';
+          END IF;
+            --  subtract the amount
+          UPDATE
+            accounts a
+          SET
+            balance = balance - debit_amount
+          WHERE
+            a. "accountNumber" = acct_no
+          RETURNING
+            * INTO new_record;
+          --  create transaction
+          INSERT INTO transactions (TYPE, "accountNumber", cashier, amount, "oldBalance", "newBalance")
+            VALUES ('debit', acct_no, cashierId, debit_amount, old_record.balance::numeric, new_record.balance)
+          RETURNING
+            * INTO outputs;
+          CREATE temp TABLE debit_alert (
+            "transactionId" int,
+            "accountNumber" int,
+            amount numeric,
+            cashier int,
+            "transactionType" varchar(16 ),
+            "accountBalance" numeric
+          );
+          INSERT INTO debit_alert
+            VALUES (outputs.id, acct_no, debit_amount, outputs.cashier, outputs.type, new_record.balance);
+          --  return table
+          RETURN query
+          SELECT
+            *
+          FROM
+            debit_alert;
+          DROP TABLE debit_alert;
+        END;
+        $$
+        LANGUAGE plpgsql;
+
+      -- ================================ INSERT ==================================
 
       INSERT INTO users(
       email, firstname, lastname, othername, password, type, sex, "phoneNumber", address, "isAdmin"
-      ) VALUES('admin@banka.com', 'Ryan', 'Toddler', 'Crade', '${authHelper.hashPassword('Password1')}', 'admin', 'male', '3368656197', '1 Sage Drive', true); 
+      ) VALUES('admin@banka.com', 'Ryan', 'Toddler', 'Crade', '${authHelper.hashPassword(
+    'Password1',
+  )}', 'admin', 'male', '3368656197', '1 Sage Drive', true); 
 
       INSERT INTO users(email, firstname, lastname, password, type, sex, "phoneNumber", address
-      ) VALUES('cashier@banka.com', 'Ashley', 'Bouman', '${authHelper.hashPassword('Password1')}', 'cashier', 'male', '9045938609', '3731 Stang Plaza'); 
+      ) VALUES('cashier@banka.com', 'Ashley', 'Bouman', '${authHelper.hashPassword(
+    'Password1',
+  )}', 'cashier', 'male', '9045938609', '3731 Stang Plaza'); 
 
       INSERT INTO users(
       email, firstname, lastname, othername, password, type, sex, "phoneNumber", address
-      ) VALUES('sylvia@gmail.com', 'Sylvia', 'Odili', 'Irhi', '${authHelper.hashPassword('Password1')}','client', '070318414898', 'female', '34 Lorem Ipsum close, Sit Amet');
+      ) VALUES('sylvia@gmail.com', 'Sylvia', 'Odili', 'Irhi', '${authHelper.hashPassword(
+    'Password1',
+  )}','client', '070318414898', 'female', '34 Lorem Ipsum close, Sit Amet');
 
       INSERT INTO users(
       email, firstname, lastname, password, type, sex, "phoneNumber", address
-      ) VALUES('jkausche2@diigo.com', 'Jeniece', 'Kausche', '${authHelper.hashPassword('Password1')}', 'client', 'female', '2454035282', '8 Carberry Street');
+      ) VALUES('jkausche2@diigo.com', 'Jeniece', 'Kausche', '${authHelper.hashPassword(
+    'Password1',
+  )}', 'client', 'female', '2454035282', '8 Carberry Street');
 
       INSERT INTO users(
       email, firstname, lastname, othername, password, type, sex, "phoneNumber", address
-      ) VALUES('rstaddom3@chicagotribune.com', 'Raquel', 'Staddom', 'Smith', '${authHelper.hashPassword('Password1')}', 'client', 'female', '9023724602', '20 Armistice Drive');
+      ) VALUES('rstaddom3@chicagotribune.com', 'Raquel', 'Staddom', 'Smith', '${authHelper.hashPassword(
+    'Password1',
+  )}', 'client', 'female', '9023724602', '20 Armistice Drive');
 
       
       
       
       INSERT INTO accounts(
-        "accountNumber", owner
+        owner
       ) VALUES(
-        '1002003001', 3
+        3
       );
 
       INSERT INTO accounts(
-        "accountNumber", owner
+        owner, type, balance
       ) VALUES(
-        '1002003002', 4
+        4, 'current', 20000.0
       );
 
       INSERT INTO accounts(
-        "accountNumber", owner
+        owner
       ) VALUES(
-        '1002003003', 5
+        5
       );
-     
       
-      INSERT INTO transactions(
-        type, "accountNumber", cashier, amount, "oldBalance", "newBalance"
-      ) VALUES(
-        'credit', '${sampleAccount.accountNumber}', '${sampleCashier.id}', 500000, '${sampleAccount.balance}', '${sampleAccount.balance + 500000}'
-      );
     `;
 
-    await this.createAllTables();
-    await this.pool
-      .query(queryCommand)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.error(err);
+    try {
+      const res = pool.query(queryCommand);
+      await res;
+      pool.end().then(() => {
+        console.log('POOL TERMINATED SUCCESSFULLY');
       });
-    await this.pool.end();
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   },
 };
 
-database.seedAllTables();
+database.migrate();

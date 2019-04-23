@@ -57,7 +57,7 @@ export const sampleAccount2 = {
   owner: 3,
   type: 'savings',
   status: 'active',
-  balance: 20000,
+  balance: 740000.0,
 };
 
 export const sampleTransaction = {

@@ -1,5 +1,11 @@
 import AccountsModel from '../models/accountsModel';
 import controllerResponse from '../helpers/controllerResponse';
+import TransactionsModel from '../models/transactionsModel';
+import UsersModel from '../models/usersModel';
+
+const usersModel = new UsersModel();
+
+const transactionsModel = new TransactionsModel();
 
 const accountsModel = new AccountsModel();
 
@@ -12,7 +18,7 @@ const accountsController = {
    */
   async create(req, res) {
     try {
-      const { user } = req;
+      const user = await usersModel.getById(req.user.id);
       const account = await accountsModel.create(req.body);
       const response = {
         accountNumber: account.accountNumber,
@@ -63,6 +69,30 @@ const accountsController = {
     }
   },
 
+  /**
+   * Gets  transaction history of a bank account
+   * @param {Object} req - Server request
+   * @param {Object} res - custom server response
+   * @returns {null} -
+   */
+  async getAccountHistory(req, res) {
+    try {
+      const { rows: transactions } = await transactionsModel.searchDatabase(
+        'accountNumber',
+        req.params.accountNumber,
+      );
+      controllerResponse.successResponse(res, 200, transactions);
+    } catch (error) {
+      controllerResponse.errorResponse(res, 404, error);
+    }
+  },
+
+  /**
+   * deletes a bank account
+   * @param {Object} req - Server request
+   * @param {Object} res - custom server response
+   * @returns {null} -
+   */
   async delete(req, res) {
     try {
       await accountsModel.findAndDelete('accountNumber', req.params.accountNumber);

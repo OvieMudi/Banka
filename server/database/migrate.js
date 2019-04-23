@@ -99,7 +99,7 @@ const database = {
           RETURNING
             * INTO new_record;
           --  create transaction
-          INSERT INTO transactions (TYPE, "accountNumber", cashier, amount, "oldBalance", "newBalance")
+          INSERT INTO transactions (type, "accountNumber", cashier, amount, "oldBalance", "newBalance")
             VALUES ('credit', acct_no, cashierId, credit_amount, old_record.balance, new_record.balance)
           RETURNING
             * INTO outputs;
@@ -160,7 +160,7 @@ const database = {
           RETURNING
             * INTO new_record;
           --  create transaction
-          INSERT INTO transactions (TYPE, "accountNumber", cashier, amount, "oldBalance", "newBalance")
+          INSERT INTO transactions (type, "accountNumber", cashier, amount, "oldBalance", "newBalance")
             VALUES ('debit', acct_no, cashierId, debit_amount, old_record.balance::numeric, new_record.balance)
           RETURNING
             * INTO outputs;
@@ -216,8 +216,20 @@ const database = {
     'Password1',
   )}', 'client', 'female', '9023724602', '20 Armistice Drive');
 
+      INSERT INTO users(
+      email, firstname, lastname, othername, password, type, sex, "phoneNumber", address
+      ) VALUES('creatre@chicagotribune.com', 'Ruby', 'Staddom', 'Smith', '${authHelper.hashPassword(
+    'Password1',
+  )}', 'client', 'female', '90237246025', '20 Armistice Drive');
+
+      INSERT INTO users(
+      email, firstname, lastname, othername, password, type, sex, "phoneNumber", address
+      ) VALUES('mayparker@chicagotribune.com', 'Aunt', 'May', 'Parker', '${authHelper.hashPassword(
+    'Password1',
+  )}', 'client', 'female', '90257226025', '10 Armistice Drive');
+
       
-      
+      -- ====================================================================================
       
       INSERT INTO accounts(
         owner
@@ -227,17 +239,95 @@ const database = {
 
       INSERT INTO accounts(
         owner, type, balance
-      ) VALUES(
-        4, 'current', 20000.0
-      );
+      ) VALUES(4, 'savings', 740000.0);
+
+      INSERT INTO accounts(
+        owner, type, balance
+      ) VALUES(6, 'current', 970000.0);
+
+      INSERT INTO accounts(
+        owner, type, balance
+      ) VALUES(5, 'current', 90838300.0);
+
+      INSERT INTO accounts(
+        owner, type, balance
+      ) VALUES(4, 'current', 208300.0);
+
+      INSERT INTO accounts(
+        owner, type, balance
+      ) VALUES(3, 'savings', 33700.0);
+
+      INSERT INTO accounts(
+        owner, type, balance
+      ) VALUES(7, 'savings', 2063700.0);
+
+      INSERT INTO accounts(
+        owner, type, balance
+      ) VALUES(6, 'savings', 274400.0);
 
       INSERT INTO accounts(
         owner
-      ) VALUES(
-        5
-      );
+      ) VALUES(5);
+
+      -- =====================================================================================
+
+      INSERT INTO transactions(type, "accountNumber", cashier, amount, "oldBalance", "newBalance"
+      ) VALUES ('credit', 1002003001, 2, 30000, 10000, 40000);
       
-    `;
+      INSERT INTO transactions(type, "accountNumber", cashier, amount, "oldBalance", "newBalance"
+      ) VALUES ('credit', 1002003005, 2, 30000, 10000, 40000);
+
+      INSERT INTO transactions(type, "accountNumber", cashier, amount, "oldBalance", "newBalance"
+      ) VALUES ('credit', 1002003002, 2, 30000, 10000, 40000);
+
+      INSERT INTO transactions(type, "accountNumber", cashier, amount, "oldBalance", "newBalance"
+      ) VALUES ('credit', 1002003004, 2, 30000, 10000, 40000);
+
+      INSERT INTO transactions(type, "accountNumber", cashier, amount, "oldBalance", "newBalance"
+      ) VALUES ('credit', 1002003002, 2, 30000, 10000, 40000);
+
+      INSERT INTO transactions(type, "accountNumber", cashier, amount, "oldBalance", "newBalance"
+      ) VALUES ('credit', 1002003005, 2, 30000, 10000, 40000);
+
+      INSERT INTO transactions(type, "accountNumber", cashier, amount, "oldBalance", "newBalance"
+      ) VALUES ('credit', 1002003004, 2, 30000, 10000, 40000);
+
+      INSERT INTO transactions(type, "accountNumber", cashier, amount, "oldBalance", "newBalance"
+      ) VALUES ('credit', 1002003003, 2, 30000, 10000, 40000);
+
+      INSERT INTO transactions(type, "accountNumber", cashier, amount, "oldBalance", "newBalance"
+      ) VALUES ('credit', 1002003002, 2, 30000, 10000, 40000);
+
+      INSERT INTO transactions(type, "accountNumber", cashier, amount, "oldBalance", "newBalance"
+      ) VALUES ('credit', 1002003004, 2, 30000, 10000, 40000);
+
+      INSERT INTO transactions(type, "accountNumber", cashier, amount, "oldBalance", "newBalance"
+      ) VALUES ('credit', 1002003005, 2, 30000, 10000, 40000);
+
+      INSERT INTO transactions(type, "accountNumber", cashier, amount, "oldBalance", "newBalance"
+      ) VALUES ('credit', 1002003001, 2, 30000, 10000, 40000);
+
+      INSERT INTO transactions(type, "accountNumber", cashier, amount, "oldBalance", "newBalance"
+      ) VALUES ('credit', 1002003004, 2, 30000, 10000, 40000);
+
+      INSERT INTO transactions(type, "accountNumber", cashier, amount, "oldBalance", "newBalance"
+      ) VALUES ('credit', 1002003003, 2, 30000, 10000, 40000);
+
+      INSERT INTO transactions(type, "accountNumber", cashier, amount, "oldBalance", "newBalance"
+      ) VALUES ('credit', 1002003005, 2, 30000, 10000, 40000);
+
+      INSERT INTO transactions(type, "accountNumber", cashier, amount, "oldBalance", "newBalance"
+      ) VALUES ('credit', 1002003004, 2, 30000, 10000, 40000);
+
+      INSERT INTO transactions(type, "accountNumber", cashier, amount, "oldBalance", "newBalance"
+      ) VALUES ('credit', 1002003007, 2, 30000, 10000, 40000);
+
+      INSERT INTO transactions(type, "accountNumber", cashier, amount, "oldBalance", "newBalance"
+      ) VALUES ('credit', 1002003003, 2, 30000, 10000, 40000);
+
+      INSERT INTO transactions(type, "accountNumber", cashier, amount, "oldBalance", "newBalance"
+      ) VALUES ('credit', 1002003005, 2, 30000, 10000, 40000);
+`;
 
     try {
       const res = pool.query(queryCommand);

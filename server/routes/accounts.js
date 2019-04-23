@@ -14,6 +14,7 @@ accountsRouter
     accountsController.create,
   )
   .get(accountsController.getAll);
+
 accountsRouter
   .route('/:accountNumber')
   .patch(
@@ -23,5 +24,9 @@ accountsRouter
     accountsController.updateAccount,
   )
   .delete(auth.verifyAuth, auth.verifyAdmin, accountsController.delete);
+
+accountsRouter
+  .route('/:accountNumber/transactions')
+  .get(auth.verifyAuth, auth.verifyAccountOwner, accountsController.getAccountHistory);
 
 export default accountsRouter;

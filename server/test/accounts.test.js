@@ -1,13 +1,16 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../server';
-import { sampleAccount, sampleClient, sampleAdmin } from '../database/sampleData';
+import {
+  sampleAccount, sampleClient, sampleAdmin, sampleCashier,
+} from '../database/sampleData';
 
 const { expect } = chai;
 
 chai.use(chaiHttp);
 
 let clientToken;
+let cashierToken;
 let adminToken;
 
 before((done) => {
@@ -18,6 +21,17 @@ before((done) => {
     .send({ email: sampleClient.email, password: 'Password1' })
     .end((err, res) => {
       clientToken = res.body.token;
+      done(err);
+    });
+});
+before((done) => {
+  chai
+    .request(server)
+    .post('/api/v1/auth/signin')
+    .type('form')
+    .send({ email: sampleCashier.email, password: 'Password1' })
+    .end((err, res) => {
+      cashierToken = res.body.token;
       done(err);
     });
 });
@@ -161,7 +175,101 @@ describe('PATCH /api/v1/accounts/accountNumber', () => {
   });
 });
 
-/* ======================================================================== */
+/* ===================================================================================== */
+describe('PATCH /api/v1/accounts/accountNumber', () => {
+  const path = `/api/v1/accounts/${sampleAccount.accountNumber}`;
+  it('should return error if token not provided', (done) => {
+    chai
+      .request(server)
+      .patch(path)
+      .type('form')
+      .send({ status: 'dormant' })
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body)
+          .to.have.property('error')
+          .eql('token not provided');
+        done(err);
+      });
+  });
+  it('should return error if not admin', (done) => {
+    chai
+      .request(server)
+      .patch(path)
+      .set('x-access-token', clientToken)
+      .type('form')
+      .send({ status: 'dormant' })
+      .end((err, res) => {
+        expect(res).to.have.status(403);
+        expect(res.body)
+          .to.have.property('error')
+          .includes('unauthorized');
+        done(err);
+      });
+  });
+  it('should change status if admin', (done) => {
+    chai
+      .request(server)
+      .patch(path)
+      .set('x-access-token', adminToken)
+      .type('form')
+      .send({ status: 'dormant' })
+      .end((err, res) => {
+        const { data } = res.body;
+        expect(res).to.have.status(200);
+        expect(res.body).to.have.property('data');
+        expect(data)
+          .to.have.property('status')
+          .eql('dormant');
+        done(err);
+      });
+  });
+});
+
+/* ================================================================================== */
+describe('GET /api/v1/accounts/:accountNumber/transctions', () => {
+  const path = `/api/v1/accounts/${sampleAccount.accountNumber}/transactions`;
+  it('should return error if token not provided', (done) => {
+    chai
+      .request(server)
+      .get(path)
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body)
+          .to.have.property('error')
+          .eql('token not provided');
+        done(err);
+      });
+  });
+  it('should return error if user is not owner or cashier', (done) => {
+    chai
+      .request(server)
+      .get(path)
+      .set('x-access-token', adminToken)
+      .end((err, res) => {
+        expect(res).to.have.status(403);
+        expect(res.body)
+          .to.have.property('error')
+          .include('unauthorized');
+        done(err);
+      });
+  });
+  it('get transaction history if owner or cashier', (done) => {
+    chai
+      .request(server)
+      .get(path)
+      .set('x-access-token', cashierToken)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body)
+          .to.have.property('data')
+          .is.an('array');
+        done(err);
+      });
+  });
+});
+
+/* ================================================================================== */
 describe('DELETE /api/v1/accounts/accountNumber', () => {
   const path = `/api/v1/accounts/${sampleAccount.accountNumber}`;
   it('should return error if token not provided', (done) => {

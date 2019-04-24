@@ -13,7 +13,7 @@ accountsRouter
     validator.validateAccountCreate,
     accountsController.create,
   )
-  .get(accountsController.getAll);
+  .get(auth.verifyAuth, auth.verifyStaff, accountsController.getAll);
 
 accountsRouter
   .route('/:accountNumber')

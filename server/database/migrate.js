@@ -246,12 +246,12 @@ const database = {
       ) VALUES(6, 'current', 970000.0);
 
       INSERT INTO accounts(
-        owner, type, balance
-      ) VALUES(5, 'current', 90838300.0);
+        owner, type, status, balance
+      ) VALUES(5, 'current', 'active', 90838300.0);
 
       INSERT INTO accounts(
-        owner, type, balance
-      ) VALUES(4, 'current', 208300.0);
+        owner, type, status, balance
+      ) VALUES(4, 'current', 'dormant', 208300.0);
 
       INSERT INTO accounts(
         owner, type, status, balance
@@ -267,7 +267,7 @@ const database = {
 
       INSERT INTO accounts(
         owner, type, status, balance
-      ) VALUES(3, 'savings', 'active', 274400.0);
+      ) VALUES(3, 'savings', 'dormant', 274400.0);
 
       INSERT INTO accounts(
         owner, type, status, balance

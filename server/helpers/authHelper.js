@@ -11,7 +11,7 @@ const authHelper = {
    * @returns {string} hashed password
    */
   hashPassword(password) {
-    const saltRounds = 8;
+    const saltRounds = 4;
     return bcrypt.hashSync(password, bcrypt.genSaltSync(saltRounds));
   },
 

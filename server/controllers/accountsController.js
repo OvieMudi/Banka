@@ -49,6 +49,13 @@ const accountsController = {
       } catch (error) {
         controllerResponse.errorResponse(res, 500, error);
       }
+    } else if (req.query.status === 'dormant') {
+      try {
+        const { rows: accounts } = await accountsModel.searchDatabase('status', 'dormant');
+        controllerResponse.successResponse(res, 200, accounts);
+      } catch (error) {
+        controllerResponse.errorResponse(res, 500, error);
+      }
     } else {
       try {
         const accounts = await accountsModel.getAll();

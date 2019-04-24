@@ -109,11 +109,38 @@ describe('POST api/v1/accounts', () => {
 });
 
 /* =================================================================================== */
-describe.skip('GET /api/v1/accounts', () => {
-  it('should get all bank accounts from db', (done) => {
+describe('GET /api/v1/accounts', () => {
+  const path = '/api/v1/accounts';
+  it('should return authentication error if no token/invalid', (done) => {
     chai
       .request(server)
-      .get('/api/v1/accounts')
+      .get(path)
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body)
+          .property('error')
+          .eql('token not provided');
+        done(err);
+      });
+  });
+  it('should return authorization error if user is not staff', (done) => {
+    chai
+      .request(server)
+      .get(path)
+      .set('x-access-token', clientToken)
+      .end((err, res) => {
+        expect(res).to.have.status(403);
+        expect(res.body)
+          .property('error')
+          .includes('unauthorized');
+        done(err);
+      });
+  });
+  it('should get all accounts if user is staff', (done) => {
+    chai
+      .request(server)
+      .get(path)
+      .set('x-access-token', adminToken)
       .end((err, res) => {
         const accounts = res.body.data;
         expect(res).to.have.status(200);

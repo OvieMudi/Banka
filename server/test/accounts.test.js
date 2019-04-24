@@ -2,7 +2,11 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../server';
 import {
-  sampleAccount, sampleClient, sampleAdmin, sampleCashier,
+  sampleAccount,
+  sampleClient,
+  sampleAdmin,
+  sampleCashier,
+  sampleAccount2,
 } from '../database/sampleData';
 
 const { expect } = chai;
@@ -146,6 +150,50 @@ describe('GET /api/v1/accounts', () => {
         expect(res).to.have.status(200);
         expect(accounts).to.be.an('array');
         expect(accounts[0]).to.have.property('accountNumber');
+        done(err);
+      });
+  });
+});
+
+/* =================================================================================== */
+describe('GET /api/v1/accounts/:accountNumber', () => {
+  const path = `/api/v1/accounts/${sampleAccount2.accountNumber}`;
+  it('should return authentication error if no token/invalid', (done) => {
+    chai
+      .request(server)
+      .get(path)
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body)
+          .property('error')
+          .eql('token not provided');
+        done(err);
+      });
+  });
+  it('should return authorization error if user is not staff', (done) => {
+    chai
+      .request(server)
+      .get(path)
+      .set('x-access-token', clientToken)
+      .end((err, res) => {
+        expect(res).to.have.status(403);
+        expect(res.body)
+          .property('error')
+          .includes('unauthorized');
+        done(err);
+      });
+  });
+  it('should get all account if user is staff', (done) => {
+    chai
+      .request(server)
+      .get(path)
+      .set('x-access-token', adminToken)
+      .end((err, res) => {
+        const account = res.body.data;
+        expect(res).to.have.status(200);
+        expect(account)
+          .to.have.property('accountNumber')
+          .eql(sampleAccount2.accountNumber);
         done(err);
       });
   });

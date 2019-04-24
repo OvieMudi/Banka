@@ -61,12 +61,12 @@ export const sampleAccount2 = {
 };
 
 export const sampleTransaction = {
-  id: 1,
+  id: 3,
   createdOn: new Date(),
   type: 'credit',
-  accountNumber: sampleAccount.accountNumber,
+  accountNumber: sampleAccount2.accountNumber,
   cashier: sampleCashier.id,
-  amount: 300000.0,
-  oldBalance: 0.0,
-  newBalance: 300000.0,
+  amount: 30000,
+  oldBalance: 10000,
+  newBalance: 40000,
 };

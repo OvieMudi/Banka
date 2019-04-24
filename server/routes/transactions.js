@@ -7,6 +7,8 @@ const transactionsRouter = express.Router();
 
 transactionsRouter.route('/').get(transactionsController.getAll);
 
+transactionsRouter.route('/:transactionId').get(auth.verifyAuth, transactionsController.getById);
+
 transactionsRouter
   .route('/:accountNumber/credit')
   .post(

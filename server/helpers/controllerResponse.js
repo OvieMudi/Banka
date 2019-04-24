@@ -24,6 +24,8 @@ const controllerResponse = {
    */
   errorResponse(res, statusCode, error) {
     // eslint-disable-next-line no-console
+    // console.log(error);
+
     let status;
 
     const notFound = error.message.includes('not found');

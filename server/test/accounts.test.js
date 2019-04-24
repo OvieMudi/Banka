@@ -168,6 +168,21 @@ describe('GET /api/v1/accounts', () => {
         done(err);
       });
   });
+  it('should get all dormant account', (done) => {
+    chai
+      .request(server)
+      .get(`${path}?status=dormant`)
+      .set('x-access-token', adminToken)
+      .end((err, res) => {
+        const accounts = res.body.data;
+        expect(res).to.have.status(200);
+        expect(accounts).to.be.an('array');
+        expect(accounts[0])
+          .to.have.property('status')
+          .eql('dormant');
+        done(err);
+      });
+  });
 });
 
 /* =================================================================================== */

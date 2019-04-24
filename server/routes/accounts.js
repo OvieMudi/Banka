@@ -17,6 +17,7 @@ accountsRouter
 
 accountsRouter
   .route('/:accountNumber')
+  .get(auth.verifyAuth, auth.verifyStaff, accountsController.getByAccountNumber)
   .patch(
     auth.verifyAuth,
     auth.verifyAdmin,

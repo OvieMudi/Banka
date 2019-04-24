@@ -51,6 +51,21 @@ const accountsController = {
   },
 
   /**
+   * Gets all bank accounts
+   * @param {Object} req - Server request
+   * @param {Object} res - custom server response
+   * @returns {null} -
+   */
+  async getByAccountNumber(req, res) {
+    try {
+      const accounts = await accountsModel.getByAccountNumber(req.params.accountNumber);
+      controllerResponse.successResponse(res, 200, accounts);
+    } catch (error) {
+      controllerResponse.errorResponse(res, 500, error);
+    }
+  },
+
+  /**
    * Activate or deactivates a bank account
    * @param {Object} req - Server request
    * @param {Object} res - custom server response

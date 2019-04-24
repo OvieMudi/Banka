@@ -42,11 +42,20 @@ const accountsController = {
    * @returns {Object} -
    */
   async getAll(req, res) {
-    try {
-      const accounts = await accountsModel.getAll();
-      controllerResponse.successResponse(res, 200, accounts);
-    } catch (error) {
-      controllerResponse.errorResponse(res, 500, error);
+    if (req.query.status === 'active') {
+      try {
+        const { rows: accounts } = await accountsModel.searchDatabase('status', 'active');
+        controllerResponse.successResponse(res, 200, accounts);
+      } catch (error) {
+        controllerResponse.errorResponse(res, 500, error);
+      }
+    } else {
+      try {
+        const accounts = await accountsModel.getAll();
+        controllerResponse.successResponse(res, 200, accounts);
+      } catch (error) {
+        controllerResponse.errorResponse(res, 500, error);
+      }
     }
   },
 

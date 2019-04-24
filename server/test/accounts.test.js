@@ -199,6 +199,51 @@ describe('GET /api/v1/accounts/:accountNumber', () => {
   });
 });
 
+/* =================================================================================== */
+describe('GET /api/v1/user/:userEmail/accounts', () => {
+  const path = `/api/v1/user/${sampleClient.email}/accounts`;
+  it('should return authentication error if no token/invalid', (done) => {
+    chai
+      .request(server)
+      .get(path)
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body)
+          .property('error')
+          .eql('token not provided');
+        done(err);
+      });
+  });
+  it('should return authorization error if user is not staff', (done) => {
+    chai
+      .request(server)
+      .get(path)
+      .set('x-access-token', clientToken)
+      .end((err, res) => {
+        expect(res).to.have.status(403);
+        expect(res.body)
+          .property('error')
+          .includes('unauthorized');
+        done(err);
+      });
+  });
+  it('should get all account if user is staff', (done) => {
+    chai
+      .request(server)
+      .get(path)
+      .set('x-access-token', adminToken)
+      .end((err, res) => {
+        const account = res.body.data;
+        expect(res).to.have.status(200);
+        expect(account).to.be.a('array');
+        expect(account[0])
+          .to.have.property('accountNumber')
+          .eql(sampleAccount.accountNumber);
+        done(err);
+      });
+  });
+});
+
 /* ===================================================================================== */
 describe('PATCH /api/v1/accounts/accountNumber', () => {
   const path = `/api/v1/accounts/${sampleAccount.accountNumber}`;

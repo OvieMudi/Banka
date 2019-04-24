@@ -39,7 +39,7 @@ const accountsController = {
    * Gets all bank accounts
    * @param {Object} req - Server request
    * @param {Object} res - custom server response
-   * @returns {null} -
+   * @returns {Object} -
    */
   async getAll(req, res) {
     try {
@@ -51,14 +51,29 @@ const accountsController = {
   },
 
   /**
-   * Gets all bank accounts
+   * Gets single bank account
    * @param {Object} req - Server request
    * @param {Object} res - custom server response
-   * @returns {null} -
+   * @returns {Object} - Success or error response
    */
   async getByAccountNumber(req, res) {
     try {
       const accounts = await accountsModel.getByAccountNumber(req.params.accountNumber);
+      controllerResponse.successResponse(res, 200, accounts);
+    } catch (error) {
+      controllerResponse.errorResponse(res, 500, error);
+    }
+  },
+
+  /**
+   * Gets all bank accounts of an email
+   * @param {Object} req - Server request
+   * @param {Object} res - custom server response
+   * @returns {Object} -
+   */
+  async getAllByEmail(req, res) {
+    try {
+      const accounts = await accountsModel.getAllByEmail(req.params.userEmail);
       controllerResponse.successResponse(res, 200, accounts);
     } catch (error) {
       controllerResponse.errorResponse(res, 500, error);

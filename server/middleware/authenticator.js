@@ -1,8 +1,10 @@
 import jwt from 'jsonwebtoken';
 import controllerResponse from '../helpers/controllerResponse';
 import UsersModel from '../models/usersModel';
+import AccountsModel from '../models/accountsModel';
 
 const usersModel = new UsersModel();
+const accountsModel = new AccountsModel();
 
 const unauthorized = new Error('unauthorized to access this resource');
 
@@ -17,10 +19,6 @@ const authenticator = {
         if (user) {
           req.user = {
             id: user.id,
-            email: user.email,
-            firstname: user.firstname,
-            lastname: user.lastname,
-            othername: user.othername,
             type: user.type,
           };
           next();
@@ -66,6 +64,19 @@ const authenticator = {
       next();
     } else {
       controllerResponse.errorResponse(res, 403, unauthorized);
+    }
+  },
+
+  async verifyAccountOwner(req, res, next) {
+    try {
+      const account = await accountsModel.getByAccountNumber(req.params.accountNumber);
+      if (req.user.id === account.owner || req.user.type === 'cashier') {
+        next();
+      } else {
+        controllerResponse.errorResponse(res, 403, unauthorized);
+      }
+    } catch (error) {
+      controllerResponse.errorResponse(res, 400, error);
     }
   },
 };

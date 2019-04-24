@@ -24,10 +24,10 @@ const controllerResponse = {
    */
   errorResponse(res, statusCode, error) {
     // eslint-disable-next-line no-console
-    console.log(error);
     let status;
 
     const notFound = error.message.includes('not found');
+    const notAuthorized = error.message.includes('unauthorized');
 
     if (error.code) {
       if (error.code === '23505' || error.code === 'P0001') {
@@ -37,7 +37,9 @@ const controllerResponse = {
       }
     }
 
-    if (notFound) {
+    if (notAuthorized) {
+      status = 403;
+    } else if (notFound) {
       status = 404;
     } else {
       status = statusCode;

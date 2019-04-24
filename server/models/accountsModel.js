@@ -12,6 +12,16 @@ class AccountsModel extends Model {
   constructor(tableName = 'accounts') {
     super(tableName);
   }
+
+  /**
+   *
+   * @param {Object} accountNumber - account number
+   * @returns {Object} accountNumber - account details
+   */
+  async getByAccountNumber(accountNumber) {
+    const { rows } = await this.searchDatabase('accountNumber', accountNumber);
+    return rows[0];
+  }
 }
 
 export default AccountsModel;

@@ -63,7 +63,10 @@ class Model {
     const queryString = `SELECT * FROM ${this.tableName} 
       WHERE "${search}"='${value}'`;
     const { rows, rowCount } = await database.query(queryString);
-    return { rows, rowCount };
+    if (rowCount) {
+      return { rows, rowCount };
+    }
+    throw new Error(`${this.tableName} not found`);
   }
 
   /**

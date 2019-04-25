@@ -34,12 +34,16 @@ class TransactionsModel extends Model {
       );
       if (count) {
         const account = accounts[0];
-        const queryString = `
+
+        if (account.status === 'active') {
+          const queryString = `
           SELECT * 
           FROM credit_account(${account.accountNumber}, ${amount}, ${userId});
         `;
-        const { rows } = await database.query(queryString);
-        return rows[0];
+          const { rows } = await database.query(queryString);
+          return rows[0];
+        }
+        throw new Error('account is not active');
       }
       throw new Error('account not found');
     } catch (error) {
@@ -51,7 +55,7 @@ class TransactionsModel extends Model {
    * Create a new credit transaction
    * Assign a unique id to account
    * @param {Object} accountNumber - account
-   * @param {Object} amount - account
+   * @param {Object} amount - credit amount
    * @param {Object} userId - id of the current user
    * @returns {Object} - account object if success
    */
@@ -63,12 +67,15 @@ class TransactionsModel extends Model {
       );
       if (count) {
         const account = accounts[0];
-        const queryString = `
+        if (account.status === 'active') {
+          const queryString = `
           SELECT * 
           FROM debit_account(${account.accountNumber}, ${amount}, ${userId});
         `;
-        const { rows } = await database.query(queryString);
-        return rows[0];
+          const { rows } = await database.query(queryString);
+          return rows[0];
+        }
+        throw new Error('account is not active');
       }
       throw new Error('account not found');
     } catch (error) {

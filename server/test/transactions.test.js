@@ -97,6 +97,7 @@ describe('POST /api/v1/transactions/:accountNumber/credit', () => {
 /* ================================================================================== */
 describe('POST /api/v1/transactions/:accountNumber/debit', () => {
   const path = `/api/v1/transactions/${accountNumber}/debit`;
+  const inactivePath = '/api/v1/transactions/1002003005';
   it('should return error if token not provided', (done) => {
     chai
       .request(server)
@@ -128,7 +129,7 @@ describe('POST /api/v1/transactions/:accountNumber/debit', () => {
       });
   });
 
-  it('should perform credit transaction if cashier', (done) => {
+  it('should perform debit transaction if cashier', (done) => {
     chai
       .request(server)
       .post(path)
@@ -141,6 +142,73 @@ describe('POST /api/v1/transactions/:accountNumber/debit', () => {
         expect(res).status(201);
         expect(data).property('transactionId');
         expect(data).property('accountBalance');
+        done(err);
+      });
+  });
+
+  it('should not perform credit transactions if not active', (done) => {
+    chai
+      .request(server)
+      .post(`${inactivePath}/credit`)
+      .set('x-access-token', cashierToken)
+      .type('form')
+      .send(transactionAmount)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res).status(400);
+        expect(body)
+          .property('error')
+          .includes('not active');
+        done(err);
+      });
+  });
+
+  it('should not perform debit transactions if not active', (done) => {
+    chai
+      .request(server)
+      .post(`${inactivePath}/debit`)
+      .set('x-access-token', cashierToken)
+      .type('form')
+      .send(transactionAmount)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res).status(400);
+        expect(body)
+          .property('error')
+          .includes('not active');
+        done(err);
+      });
+  });
+  /* =================== 404 ======================== */
+  it('should return 404 error if not found', (done) => {
+    chai
+      .request(server)
+      .post('/api/v1/transactions/100011/credit')
+      .set('x-access-token', cashierToken)
+      .type('form')
+      .send(transactionAmount)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res).status(404);
+        expect(body)
+          .property('error')
+          .includes('not found');
+        done(err);
+      });
+  });
+  it('should return 404 error if not found', (done) => {
+    chai
+      .request(server)
+      .post('/api/v1/transactions/000011/debit')
+      .set('x-access-token', cashierToken)
+      .type('form')
+      .send(transactionAmount)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res).status(404);
+        expect(body)
+          .property('error')
+          .includes('not found');
         done(err);
       });
   });

@@ -238,8 +238,8 @@ const database = {
       );
 
       INSERT INTO accounts(
-        owner, type, balance
-      ) VALUES(4, 'savings', 740000.0);
+        owner, type, status, balance
+      ) VALUES(4, 'savings', 'active', 740000.0);
 
       INSERT INTO accounts(
         owner, type, balance

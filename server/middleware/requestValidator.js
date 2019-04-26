@@ -32,14 +32,22 @@ const props = {
     .string()
     .trim()
     .lowercase()
-    .valid(['male', 'female', 'm', 'f']),
+    .valid(['male', 'female'])
+    .error(new Error('gender should be either male or female')),
   address: joi
     .string()
     .trim()
     .lowercase()
     .min(10)
     .max(120)
-    .error(new Error('only letters and characters are allowed')),
+    .error(new Error('only letters and digits are allowed')),
+  staffType: joi
+    .string()
+    .trim()
+    .lowercase()
+    .valid(['cashier', 'admin'])
+    .error(new Error('user type of cashier or admin is required')),
+  //= ==========================================================
   amount: joi
     .number()
     .min(0.01)
@@ -55,11 +63,17 @@ const props = {
     .trim()
     .lowercase()
     .valid(['draft', 'active', 'dormant']),
-  userType: joi
+  accountNumber: joi
     .string()
     .trim()
-    .lowercase()
-    .valid(['', 'client', 'cashier', 'admin']),
+    .length(10)
+    .regex(/^[0-9]+$/)
+    .error(new Error('invalid params')),
+  number: joi
+    .string()
+    .trim()
+    .regex(/^[0-9]+$/)
+    .error(new Error('invalid params')),
 };
 
 const validator = {
@@ -74,6 +88,31 @@ const validator = {
         controllerResponse.errorResponse(res, 400, error);
       }
     });
+  },
+  validateParmas: (object, req, res, next) => {
+    const authSchema = joi.object(object);
+
+    joi.validate(req.params, authSchema, (error, data) => {
+      try {
+        if (!error) {
+          req.params = data;
+          next();
+        } else {
+          throw error;
+        }
+      } catch (err) {
+        controllerResponse.errorResponse(res, 400, err);
+      }
+    });
+  },
+
+  validateSignIn(req, res, next) {
+    const userProps = {
+      email: props.email.required(),
+      password: props.password.required(),
+    };
+
+    validator.validate(userProps, req, res, next);
   },
 
   validateSignUp(req, res, next) {
@@ -91,10 +130,17 @@ const validator = {
     validator.validate(userProps, req, res, next);
   },
 
-  validateSignIn(req, res, next) {
+  validateCreateStaff(req, res, next) {
     const userProps = {
       email: props.email.required(),
+      firstname: props.genericName.required(),
+      lastname: props.genericName.required(),
+      othername: props.genericName,
       password: props.password.required(),
+      type: props.staffType.required(),
+      sex: props.sex.required(),
+      phoneNumber: props.phoneNumber.required(),
+      address: props.address,
     };
 
     validator.validate(userProps, req, res, next);
@@ -134,6 +180,26 @@ const validator = {
     };
 
     validator.validate(accountProps, req, res, next);
+  },
+
+  validateAccountParams(req, res, next) {
+    const numberProps = { accountNumber: props.accountNumber };
+    validator.validateParmas(numberProps, req, res, next);
+  },
+
+  validateIdParams(req, res, next) {
+    const numberProps = { id: props.number };
+    validator.validateParmas(numberProps, req, res, next);
+  },
+
+  validateTrxParams(req, res, next) {
+    const trxProps = { transactionId: props.number };
+    validator.validateParmas(trxProps, req, res, next);
+  },
+
+  validateEmailParams(req, res, next) {
+    const emailProps = { userEmail: props.email };
+    validator.validateParmas(emailProps, req, res, next);
   },
 };
 

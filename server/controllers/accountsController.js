@@ -19,6 +19,8 @@ const accountsController = {
   async create(req, res) {
     try {
       const user = await usersModel.getById(req.user.id);
+      req.body.owner = user.id;
+
       const account = await accountsModel.create(req.body);
       const response = {
         accountNumber: account.accountNumber,

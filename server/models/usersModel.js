@@ -22,6 +22,7 @@ class UsersModel extends Model {
   async signIn(reqBody) {
     const { email, password } = reqBody;
     const user = await this.getByEmail(email);
+
     if (user) {
       const validPassword = authHelper.comparePassword(password, user.password);
       if (validPassword) return user;
@@ -36,6 +37,7 @@ class UsersModel extends Model {
    */
   async getByEmail(email) {
     const { rows: users } = await this.searchDatabase('email', email);
+
     return users[0];
   }
 }

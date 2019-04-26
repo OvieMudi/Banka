@@ -1,13 +1,14 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../server';
-import { sampleAdmin, sampleClient } from '../database/sampleData';
+import { sampleAdmin, sampleClient, sampleClient2 } from '../database/sampleData';
 
 const { expect } = chai;
 
 chai.use(chaiHttp);
 
 let clientToken;
+let clientToken2;
 let adminToken;
 let id;
 
@@ -19,6 +20,19 @@ before((done) => {
     .send({ email: sampleClient.email, password: 'Password1' })
     .end((err, res) => {
       clientToken = res.body.token;
+      // eslint-disable-next-line prefer-destructuring
+      id = res.body.data.id;
+      done(err);
+    });
+});
+before((done) => {
+  chai
+    .request(server)
+    .post('/api/v1/auth/signin')
+    .type('form')
+    .send({ email: sampleClient2.email, password: 'Password1' })
+    .end((err, res) => {
+      clientToken2 = res.body.token;
       // eslint-disable-next-line prefer-destructuring
       id = res.body.data.id;
       done(err);
@@ -51,7 +65,7 @@ describe('GET /api/v1/users/:id', () => {
         done(err);
       });
   });
-  it('should return error #403 user is not staff', (done) => {
+  it('should return error #403 user is not staff or owner', (done) => {
     chai
       .request(server)
       .get('/api/v1/users')
@@ -65,7 +79,7 @@ describe('GET /api/v1/users/:id', () => {
         done(err);
       });
   });
-  it('should get resource if user is staff', (done) => {
+  it('should get resource if user is staff or owner', (done) => {
     chai
       .request(server)
       .get('/api/v1/users')
@@ -109,18 +123,30 @@ describe('GET /api/v1/users', () => {
         done(err);
       });
   });
-  it('should get resource if user is staff', (done) => {
-    chai
-      .request(server)
-      .get(`/api/v1/users/${1}`)
-      .set('x-access-token', adminToken)
-      .end((err, res) => {
-        const { data } = res.body;
-        expect(res).to.have.status(200);
-        expect(data).to.have.property('email');
-        done(err);
-      });
-  });
+});
+it('should return resource if user is owner or staff', (done) => {
+  chai
+    .request(server)
+    .get(`/api/v1/users/${sampleClient2.id}`)
+    .set('x-access-token', clientToken2)
+    .end((err, res) => {
+      const { body } = res;
+      expect(res).to.have.status(200);
+      expect(body.data).to.have.property('email');
+      done(err);
+    });
+});
+it('should get resource if user is staff', (done) => {
+  chai
+    .request(server)
+    .get(`/api/v1/users/${1}`)
+    .set('x-access-token', adminToken)
+    .end((err, res) => {
+      const { data } = res.body;
+      expect(res).to.have.status(200);
+      expect(data).to.have.property('email');
+      done(err);
+    });
 });
 
 /* ================================================================== */

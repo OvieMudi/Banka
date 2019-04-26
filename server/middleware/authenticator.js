@@ -16,9 +16,11 @@ const authenticator = {
       try {
         const decoded = jwt.verify(token, process.env.SECRET_STRING);
         const user = await usersModel.getById(decoded.id);
+
         if (user) {
           req.user = {
             id: user.id,
+            email: user.email,
             type: user.type,
           };
           next();
@@ -40,7 +42,7 @@ const authenticator = {
     }
   },
 
-  async verifyCashier(req, res, next) {
+  verifyCashier(req, res, next) {
     const { user } = req;
     if (user.type === 'cashier') {
       next();
@@ -49,7 +51,7 @@ const authenticator = {
     }
   },
 
-  async verifyStaff(req, res, next) {
+  verifyStaff(req, res, next) {
     const { user } = req;
     if (user.type === 'admin' || user.type === 'cashier') {
       next();
@@ -58,9 +60,18 @@ const authenticator = {
     }
   },
 
-  async verifyClient(req, res, next) {
+  verifyClient(req, res, next) {
     const { user } = req;
     if (user.type === 'client') {
+      next();
+    } else {
+      controllerResponse.errorResponse(res, 403, unauthorized);
+    }
+  },
+
+  verifyClientAndStaff(req, res, next) {
+    const { user } = req;
+    if (user.id == req.params.id || user.type === 'admin' || user.type === 'cashier') {
       next();
     } else {
       controllerResponse.errorResponse(res, 403, unauthorized);
@@ -77,6 +88,18 @@ const authenticator = {
       }
     } catch (error) {
       controllerResponse.errorResponse(res, 400, error);
+    }
+  },
+
+  verifyEmailOwner(req, res, next) {
+    if (
+      req.user.email === req.params.userEmail
+      || req.user.type === 'cashier'
+      || req.user.type === 'admin'
+    ) {
+      next();
+    } else {
+      controllerResponse.errorResponse(res, 403, unauthorized);
     }
   },
 };

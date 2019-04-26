@@ -42,7 +42,7 @@ const database = {
         "id" SERIAL,
         "accountNumber" INTEGER GENERATED ALWAYS AS IDENTITY (START WITH 1002003001) PRIMARY KEY,
         "createdOn" TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-        "owner" INTEGER REFERENCES users (id) ON DELETE CASCADE,
+        "owner" INTEGER NOT NULL REFERENCES users (id) ON DELETE CASCADE,
         "type" VARCHAR(16) DEFAULT 'savings' NOT NULL,
         "status" VARCHAR(16) DEFAULT 'draft' NOT NULL,
         "balance" NUMERIC DEFAULT 0 NOT NULL
@@ -65,6 +65,12 @@ const database = {
         AS SELECT  
           "id", "email", "firstname", "lastname", "othername", "type", "sex", "phoneNumber", "address", "registered", "isAdmin"
         FROM users;
+      
+      CREATE VIEW accounts_view
+        AS SELECT * FROM accounts;
+      
+      CREATE VIEW transactions_view
+        AS SELECT * FROM transactions;
       
 
       -- ============================= FUNCTIONS ========================================
@@ -212,7 +218,7 @@ const database = {
 
       INSERT INTO users(
       email, firstname, lastname, othername, password, type, sex, "phoneNumber", address
-      ) VALUES('rstaddom3@chicagotribune.com', 'Raquel', 'Staddom', 'Smith', '${authHelper.hashPassword(
+      ) VALUES('client2@gmail.com', 'Raquel', 'Staddom', 'Smith', '${authHelper.hashPassword(
     'Password1',
   )}', 'client', 'female', '9023724602', '20 Armistice Drive');
 
@@ -271,7 +277,7 @@ const database = {
 
       INSERT INTO accounts(
         owner, type, status, balance
-      ) VALUES(2, 'savings', 'active', 274400.0);
+      ) VALUES(4, 'savings', 'active', 274400.0);
 
       INSERT INTO accounts(
         owner

@@ -22,8 +22,11 @@ class AccountsModel extends Model {
    * @returns {Object} accountNumber - account details
    */
   async getByAccountNumber(accountNumber) {
-    const { rows } = await this.searchDatabase('accountNumber', accountNumber);
-    return rows[0];
+    if (this.validParam(accountNumber)) {
+      const { rows } = await this.searchDatabase('accountNumber', accountNumber);
+      return rows[0];
+    }
+    throw new Error('account not found');
   }
 
   /**

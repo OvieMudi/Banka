@@ -6,7 +6,7 @@ const usersModel = new UsersModel();
 
 const authController = {
   /**
-   * User sign up handler
+   * User(client) sign up handler
    * @param {Object} req - server request object
    * @param {Object} res - server response object
    * @returns {JSON} res - custom server response
@@ -14,8 +14,26 @@ const authController = {
   async signUp(req, res) {
     try {
       const user = await usersModel.create(req.body);
+      user.password = undefined;
       const token = authHelper.generateToken(user);
       controllerResponse.successResponse(res, 201, user, token);
+    } catch (error) {
+      controllerResponse.errorResponse(res, 400, error);
+    }
+  },
+
+  /**
+   * Create new staff handler
+   * @param {Object} req - server request object
+   * @param {Object} res - server response object
+   * @returns {JSON} res - custom server response
+   */
+  async createStaff(req, res) {
+    try {
+      const staff = await usersModel.create(req.body);
+      staff.password = undefined;
+      const token = authHelper.generateToken(staff);
+      controllerResponse.successResponse(res, 201, staff, token);
     } catch (error) {
       controllerResponse.errorResponse(res, 400, error);
     }

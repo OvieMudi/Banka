@@ -12,6 +12,7 @@ transactionsRouter.route('/:transactionId').get(auth.verifyAuth, transactionsCon
 transactionsRouter
   .route('/:accountNumber/credit')
   .post(
+    validator.validateAccountParams,
     auth.verifyAuth,
     auth.verifyCashier,
     validator.validateTransaction,
@@ -21,6 +22,7 @@ transactionsRouter
 transactionsRouter
   .route('/:accountNumber/debit')
   .post(
+    validator.validateAccountParams,
     auth.verifyAuth,
     auth.verifyCashier,
     validator.validateTransaction,

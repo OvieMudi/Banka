@@ -244,16 +244,18 @@ describe('GET /api/v1/user/:userEmail/accounts', () => {
         done(err);
       });
   });
-  it('should return authorization error if user is not staff', (done) => {
+  it('should get account error if user is owner', (done) => {
     chai
       .request(server)
       .get(path)
       .set('x-access-token', clientToken)
       .end((err, res) => {
-        expect(res).to.have.status(403);
-        expect(res.body)
-          .property('error')
-          .includes('unauthorized');
+        const account = res.body.data;
+        expect(res).to.have.status(200);
+        expect(account).to.be.a('array');
+        expect(account[0])
+          .to.have.property('accountNumber')
+          .eql(sampleAccount.accountNumber);
         done(err);
       });
   });

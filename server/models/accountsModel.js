@@ -22,11 +22,8 @@ class AccountsModel extends Model {
    * @returns {Object} accountNumber - account details
    */
   async getByAccountNumber(accountNumber) {
-    if (this.validParam(accountNumber)) {
-      const { rows } = await this.searchDatabase('accountNumber', accountNumber);
-      return rows[0];
-    }
-    throw new Error('account not found');
+    const { rows } = await this.searchDatabase('accountNumber', accountNumber);
+    return rows[0];
   }
 
   /**
@@ -36,11 +33,8 @@ class AccountsModel extends Model {
    */
   async getAllByEmail(userEmail) {
     const user = await usersModel.getByEmail(userEmail);
-    if (user) {
-      const { rows } = await this.searchDatabase('owner', user.id);
-      return rows;
-    }
-    throw new Error('user not found');
+    const { rows } = await this.searchDatabase('owner', user.id);
+    return rows;
   }
 }
 

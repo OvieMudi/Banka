@@ -17,24 +17,20 @@ const accountsController = {
    * @returns {null} -
    */
   async create(req, res) {
-    try {
-      const user = await usersModel.getById(req.user.id);
-      req.body.owner = user.id;
+    const user = await usersModel.getById(req.user.id);
+    req.body.owner = user.id;
 
-      const account = await accountsModel.create(req.body);
-      const response = {
-        accountNumber: account.accountNumber,
-        email: user.email,
-        firstname: user.firstname,
-        lastname: user.lastname,
-        othername: user.othername,
-        type: account.type,
-        openingBalance: account.balance,
-      };
-      controllerResponse.successResponse(res, 201, response);
-    } catch (error) {
-      controllerResponse.errorResponse(res, 400, error);
-    }
+    const account = await accountsModel.create(req.body);
+    const response = {
+      accountNumber: account.accountNumber,
+      email: user.email,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      othername: user.othername,
+      type: account.type,
+      openingBalance: account.balance,
+    };
+    controllerResponse.successResponse(res, 201, response);
   },
 
   /**
@@ -45,19 +41,11 @@ const accountsController = {
    */
   async getAll(req, res) {
     if (req.query.status === 'active') {
-      try {
-        const { rows: accounts } = await accountsModel.searchDatabase('status', 'active');
-        controllerResponse.successResponse(res, 200, accounts);
-      } catch (error) {
-        controllerResponse.errorResponse(res, 500, error);
-      }
+      const { rows: accounts } = await accountsModel.searchDatabase('status', 'active');
+      controllerResponse.successResponse(res, 200, accounts);
     } else if (req.query.status === 'dormant') {
-      try {
-        const { rows: accounts } = await accountsModel.searchDatabase('status', 'dormant');
-        controllerResponse.successResponse(res, 200, accounts);
-      } catch (error) {
-        controllerResponse.errorResponse(res, 500, error);
-      }
+      const { rows: accounts } = await accountsModel.searchDatabase('status', 'dormant');
+      controllerResponse.successResponse(res, 200, accounts);
     } else {
       try {
         const accounts = await accountsModel.getAll();

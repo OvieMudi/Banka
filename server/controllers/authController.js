@@ -48,6 +48,7 @@ const authController = {
   async signIn(req, res) {
     try {
       const user = await usersModel.signIn(req.body);
+      user.password = undefined;
       const token = authHelper.generateToken(user);
       controllerResponse.successResponse(res, 200, user, token);
     } catch (error) {

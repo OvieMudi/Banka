@@ -20,7 +20,10 @@ const props = {
         'password should contain at least, 6 characters, 1 uppercase and 1 lowercase character',
       ),
     ),
-  email: joi.string().email({ minDomainAtoms: 2 }),
+  email: joi
+    .string()
+    .email({ minDomainAtoms: 2 })
+    .error(new Error('email address not valid')),
   phoneNumber: joi
     .string()
     .trim()
@@ -46,34 +49,37 @@ const props = {
     .trim()
     .lowercase()
     .valid(['cashier', 'admin'])
-    .error(new Error('user type of cashier or admin is required')),
+    .error(new Error('required cashier or admin')),
   //= ==========================================================
   amount: joi
     .number()
     .min(0.01)
     .precision(5)
-    .required(),
+    .required()
+    .error(new Error('please enter a valid amount')),
   accountType: joi
     .string()
     .trim()
     .lowercase()
-    .valid(['savings', 'current']),
+    .valid(['savings', 'current'])
+    .error(new Error('required savings or current account type')),
   accountStatus: joi
     .string()
     .trim()
     .lowercase()
-    .valid(['draft', 'active', 'dormant']),
+    .valid(['draft', 'active', 'dormant'])
+    .error(new Error('required active or dormant')),
   accountNumber: joi
     .string()
     .trim()
     .length(10)
     .regex(/^[0-9]+$/)
-    .error(new Error('invalid params')),
+    .error(new Error('invalid account number')),
   number: joi
     .string()
     .trim()
-    .regex(/^[0-9]+$/)
-    .error(new Error('invalid params')),
+    .error(new Error('invalid parameter for number'))
+    .regex(/^[0-9]+$/),
 };
 
 const validator = {
@@ -89,19 +95,15 @@ const validator = {
       }
     });
   },
-  validateParmas: (object, req, res, next) => {
+  validateParams: (object, req, res, next) => {
     const authSchema = joi.object(object);
 
     joi.validate(req.params, authSchema, (error, data) => {
-      try {
-        if (!error) {
-          req.params = data;
-          next();
-        } else {
-          throw error;
-        }
-      } catch (err) {
-        controllerResponse.errorResponse(res, 400, err);
+      if (!error) {
+        req.params = data;
+        next();
+      } else {
+        controllerResponse.errorResponse(res, 400, error);
       }
     });
   },
@@ -184,22 +186,22 @@ const validator = {
 
   validateAccountParams(req, res, next) {
     const numberProps = { accountNumber: props.accountNumber };
-    validator.validateParmas(numberProps, req, res, next);
+    validator.validateParams(numberProps, req, res, next);
   },
 
   validateIdParams(req, res, next) {
     const numberProps = { id: props.number };
-    validator.validateParmas(numberProps, req, res, next);
+    validator.validateParams(numberProps, req, res, next);
   },
 
   validateTrxParams(req, res, next) {
     const trxProps = { transactionId: props.number };
-    validator.validateParmas(trxProps, req, res, next);
+    validator.validateParams(trxProps, req, res, next);
   },
 
   validateEmailParams(req, res, next) {
     const emailProps = { userEmail: props.email };
-    validator.validateParmas(emailProps, req, res, next);
+    validator.validateParams(emailProps, req, res, next);
   },
 };
 

@@ -10,7 +10,7 @@ chai.use(chaiHttp);
 let clientToken;
 let clientToken2;
 let adminToken;
-let id;
+let { id } = sampleClient2;
 
 before((done) => {
   chai
@@ -20,8 +20,7 @@ before((done) => {
     .send({ email: sampleClient.email, password: 'Password1' })
     .end((err, res) => {
       clientToken = res.body.token;
-      // eslint-disable-next-line prefer-destructuring
-      id = res.body.data.id;
+
       done(err);
     });
 });
@@ -50,8 +49,8 @@ before((done) => {
     });
 });
 
-/* ================================================================================== */
-describe('GET /api/v1/users/:id', () => {
+/* ==================================== GET ALL ============================================== */
+describe('GET /api/v1/users/', () => {
   it('should return error #401 if token not provided', (done) => {
     chai
       .request(server)
@@ -94,12 +93,13 @@ describe('GET /api/v1/users/:id', () => {
   });
 });
 
-/* ================================================================== */
-describe('GET /api/v1/users', () => {
+/* ============================ GET ONE ====================================== */
+describe('GET /api/v1/users/:id', () => {
+  const path = `/api/v1/users/${id}`;
   it('should return error #401 if token not provided', (done) => {
     chai
       .request(server)
-      .get(`/api/v1/users/${id}`)
+      .get(path)
       .end((err, res) => {
         const { body } = res;
         expect(res).to.have.status(401);
@@ -112,7 +112,7 @@ describe('GET /api/v1/users', () => {
   it('should return error #403 user is not staff', (done) => {
     chai
       .request(server)
-      .get(`/api/v1/users/${id}`)
+      .get(path)
       .set('x-access-token', clientToken)
       .end((err, res) => {
         const { body } = res;
@@ -123,39 +123,53 @@ describe('GET /api/v1/users', () => {
         done(err);
       });
   });
-});
-it('should return resource if user is owner or staff', (done) => {
-  chai
-    .request(server)
-    .get(`/api/v1/users/${sampleClient2.id}`)
-    .set('x-access-token', clientToken2)
-    .end((err, res) => {
-      const { body } = res;
-      expect(res).to.have.status(200);
-      expect(body.data).to.have.property('email');
-      done(err);
-    });
-});
-it('should get resource if user is staff', (done) => {
-  chai
-    .request(server)
-    .get(`/api/v1/users/${1}`)
-    .set('x-access-token', adminToken)
-    .end((err, res) => {
-      const { data } = res.body;
-      expect(res).to.have.status(200);
-      expect(data).to.have.property('email');
-      done(err);
-    });
+
+  it('should return 404 if not found', (done) => {
+    chai
+      .request(server)
+      .get('/api/v1/users/999999')
+      .set('x-access-token', adminToken)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res).status(404);
+        expect(body).property('error');
+        done(err);
+      });
+  });
+  it('should return resource if user is owner or staff', (done) => {
+    chai
+      .request(server)
+      .get(`/api/v1/users/${sampleClient2.id}`)
+      .set('x-access-token', clientToken2)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res).to.have.status(200);
+        expect(body.data).to.have.property('email');
+        done(err);
+      });
+  });
+  it('should get resource if user is staff', (done) => {
+    chai
+      .request(server)
+      .get(`/api/v1/users/${1}`)
+      .set('x-access-token', adminToken)
+      .end((err, res) => {
+        const { data } = res.body;
+        expect(res).to.have.status(200);
+        expect(data).to.have.property('email');
+        done(err);
+      });
+  });
 });
 
-/* ================================================================== */
+/* =========================== PATCH ======================================= */
 describe('PATCH /api/v1/users/:id', () => {
+  const path = `/api/v1/users/${id}`;
   const updateData = { lastname: 'Zaxxi' };
   it('should return error #401 if token not provided', (done) => {
     chai
       .request(server)
-      .patch(`/api/v1/users/${id}`)
+      .patch(path)
       .type('form')
       .send(updateData)
       .end((err, res) => {
@@ -170,7 +184,7 @@ describe('PATCH /api/v1/users/:id', () => {
   it('should return error #403 user is not staff', (done) => {
     chai
       .request(server)
-      .patch(`/api/v1/users/${id}`)
+      .patch(path)
       .set('x-access-token', clientToken)
       .type('form')
       .send(updateData)
@@ -180,13 +194,28 @@ describe('PATCH /api/v1/users/:id', () => {
         expect(body)
           .to.have.property('error')
           .contains('unauthorized');
+        done(err);
+      });
+  });
+
+  it('should return 404 if not found', (done) => {
+    chai
+      .request(server)
+      .patch('/api/v1/users/999999')
+      .set('x-access-token', adminToken)
+      .type('form')
+      .send(updateData)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res).status(404);
+        expect(body).property('error');
         done(err);
       });
   });
   it('should update resource if user is staff', (done) => {
     chai
       .request(server)
-      .patch(`/api/v1/users/${id}`)
+      .patch(path)
       .set('x-access-token', adminToken)
       .type('form')
       .send(updateData)
@@ -204,10 +233,13 @@ describe('PATCH /api/v1/users/:id', () => {
 
 /* ================================================================== */
 describe('DELETE /api/v1/users/:id', () => {
+  const path = `/api/v1/users/${id}`;
+  const path404 = '/api/v1/users/9999';
+
   it('should return error #401 if token not provided', (done) => {
     chai
       .request(server)
-      .delete(`/api/v1/users/${id}`)
+      .delete(path)
       .end((err, res) => {
         const { body } = res;
         expect(res).to.have.status(401);
@@ -220,7 +252,7 @@ describe('DELETE /api/v1/users/:id', () => {
   it('should return error #403 user is not staff', (done) => {
     chai
       .request(server)
-      .delete(`/api/v1/users/${id}`)
+      .delete(path)
       .set('x-access-token', clientToken)
       .end((err, res) => {
         const { body } = res;
@@ -231,10 +263,21 @@ describe('DELETE /api/v1/users/:id', () => {
         done(err);
       });
   });
+
+  it('should return 404 if not found', (done) => {
+    chai
+      .request(server)
+      .delete(path404)
+      .set('x-access-token', adminToken)
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        done(err);
+      });
+  });
   it('should update resource if user is staff', (done) => {
     chai
       .request(server)
-      .delete(`/api/v1/users/${id}`)
+      .delete(path)
       .set('x-access-token', adminToken)
       .end((err, res) => {
         const { body } = res;

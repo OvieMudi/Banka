@@ -20,20 +20,20 @@ accountsRouter
   .get(
     validator.validateAccountParams,
     auth.verifyAuth,
-    auth.verifyStaff,
+    auth.verifyAccountOwner,
     accountsController.getByAccountNumber,
   )
   .patch(
     validator.validateAccountParams,
     auth.verifyAuth,
-    auth.verifyAdmin,
+    auth.verifyStaff,
     validator.validateAccountUpdate,
     accountsController.updateAccount,
   )
   .delete(
     validator.validateAccountParams,
     auth.verifyAuth,
-    auth.verifyAdmin,
+    auth.verifyStaff,
     accountsController.delete,
   );
 

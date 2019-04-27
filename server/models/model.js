@@ -53,8 +53,11 @@ class Model {
   async getById(idString) {
     const queryString = `SELECT * FROM ${this.tableName}_view 
       WHERE id='${idString}'`;
-    const { rows } = await database.query(queryString);
-    return rows;
+    const { rows, rowCount } = await database.query(queryString);
+    if (rowCount) {
+      return rows[0];
+    }
+    throw new Error(`${this.tableName} not found`);
   }
 
   /**

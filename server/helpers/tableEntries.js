@@ -31,9 +31,6 @@ const tableEntries = {
   updateTableEntries(reqBody) {
     let entries = '';
     Object.keys(reqBody).forEach((propName, index) => {
-      if (propName === 'password') {
-        reqBody.password = authHelper.hashPassword(reqBody.password);
-      }
       entries
         += index === 0
           ? `"${propName}" = '${reqBody[propName]}'`

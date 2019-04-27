@@ -17,17 +17,33 @@ accountsRouter
 
 accountsRouter
   .route('/:accountNumber')
-  .get(auth.verifyAuth, auth.verifyStaff, accountsController.getByAccountNumber)
-  .patch(
+  .get(
+    validator.validateAccountParams,
     auth.verifyAuth,
-    auth.verifyAdmin,
+    auth.verifyAccountOwner,
+    accountsController.getByAccountNumber,
+  )
+  .patch(
+    validator.validateAccountParams,
+    auth.verifyAuth,
+    auth.verifyStaff,
     validator.validateAccountUpdate,
     accountsController.updateAccount,
   )
-  .delete(auth.verifyAuth, auth.verifyAdmin, accountsController.delete);
+  .delete(
+    validator.validateAccountParams,
+    auth.verifyAuth,
+    auth.verifyStaff,
+    accountsController.delete,
+  );
 
 accountsRouter
   .route('/:accountNumber/transactions')
-  .get(auth.verifyAuth, auth.verifyAccountOwner, accountsController.getAccountHistory);
+  .get(
+    validator.validateAccountParams,
+    auth.verifyAuth,
+    auth.verifyAccountOwner,
+    accountsController.getAccountHistory,
+  );
 
 export default accountsRouter;

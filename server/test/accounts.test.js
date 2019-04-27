@@ -232,6 +232,7 @@ describe('GET /api/v1/accounts/:accountNumber', () => {
 /* =================================================================================== */
 describe('GET /api/v1/user/:userEmail/accounts', () => {
   const path = `/api/v1/user/${sampleClient.email}/accounts`;
+  const path404 = '/api/v1/user/1234@abc.com/accounts';
   it('should return authentication error if no token/invalid', (done) => {
     chai
       .request(server)
@@ -244,19 +245,32 @@ describe('GET /api/v1/user/:userEmail/accounts', () => {
         done(err);
       });
   });
-  it('should return authorization error if user is not staff', (done) => {
+  it('should get account error if user is owner', (done) => {
     chai
       .request(server)
       .get(path)
       .set('x-access-token', clientToken)
       .end((err, res) => {
-        expect(res).to.have.status(403);
-        expect(res.body)
-          .property('error')
-          .includes('unauthorized');
+        const account = res.body.data;
+        expect(res).to.have.status(200);
+        expect(account).to.be.a('array');
+        expect(account[0])
+          .to.have.property('accountNumber')
+          .eql(sampleAccount.accountNumber);
         done(err);
       });
   });
+  it('should return 404 if not found', (done) => {
+    chai
+      .request(server)
+      .get(path404)
+      .set('x-access-token', adminToken)
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        done(err);
+      });
+  });
+
   it('should get all account if user is staff', (done) => {
     chai
       .request(server)
@@ -274,9 +288,10 @@ describe('GET /api/v1/user/:userEmail/accounts', () => {
   });
 });
 
-/* ===================================================================================== */
+/* ==================================== GET ONE ================================================= */
 describe('PATCH /api/v1/accounts/accountNumber', () => {
   const path = `/api/v1/accounts/${sampleAccount.accountNumber}`;
+  const path404 = '/api/v1/accounts/1010101010';
   it('should return error if token not provided', (done) => {
     chai
       .request(server)
@@ -309,6 +324,18 @@ describe('PATCH /api/v1/accounts/accountNumber', () => {
   it('should change status if admin', (done) => {
     chai
       .request(server)
+      .patch(path404)
+      .set('x-access-token', adminToken)
+      .type('form')
+      .send({ status: 'dormant' })
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        done(err);
+      });
+  });
+  it('should change status if admin', (done) => {
+    chai
+      .request(server)
       .patch(path)
       .set('x-access-token', adminToken)
       .type('form')
@@ -325,7 +352,7 @@ describe('PATCH /api/v1/accounts/accountNumber', () => {
   });
 });
 
-/* ===================================================================================== */
+/* ====================================== PATCH =============================================== */
 describe('PATCH /api/v1/accounts/accountNumber', () => {
   const path = `/api/v1/accounts/${sampleAccount.accountNumber}`;
   it('should return error if token not provided', (done) => {
@@ -354,6 +381,19 @@ describe('PATCH /api/v1/accounts/accountNumber', () => {
         expect(res.body)
           .to.have.property('error')
           .includes('unauthorized');
+        done(err);
+      });
+  });
+
+  it('should error if input empty', (done) => {
+    chai
+      .request(server)
+      .patch(path)
+      .set('x-access-token', adminToken)
+      .type('form')
+      .send({})
+      .end((err, res) => {
+        expect(res).status(400);
         done(err);
       });
   });
@@ -377,8 +417,9 @@ describe('PATCH /api/v1/accounts/accountNumber', () => {
 });
 
 /* ================================================================================== */
-describe('GET /api/v1/accounts/:accountNumber/transctions', () => {
+describe('GET /api/v1/accounts/:accountNumber/transactions', () => {
   const path = `/api/v1/accounts/${sampleAccount.accountNumber}/transactions`;
+  const path404 = '/api/v1/accounts/1001001001/transactions';
   it('should return error if token not provided', (done) => {
     chai
       .request(server)
@@ -391,16 +432,34 @@ describe('GET /api/v1/accounts/:accountNumber/transctions', () => {
         done(err);
       });
   });
-  it('should return error if user is not owner or cashier', (done) => {
+  it('should return account if owner or staff', (done) => {
     chai
       .request(server)
       .get(path)
       .set('x-access-token', adminToken)
       .end((err, res) => {
-        expect(res).to.have.status(403);
-        expect(res.body)
-          .to.have.property('error')
-          .include('unauthorized');
+        expect(res).to.have.status(200);
+        done(err);
+      });
+  });
+  it('should return 404 if not found', (done) => {
+    chai
+      .request(server)
+      .get(path404)
+      .set('x-access-token', adminToken)
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        done(err);
+      });
+  });
+
+  it('should return 404 if no error', (done) => {
+    chai
+      .request(server)
+      .get(path404)
+      .set('x-access-token', cashierToken)
+      .end((err, res) => {
+        expect(res).to.have.status(404);
         done(err);
       });
   });
@@ -422,6 +481,7 @@ describe('GET /api/v1/accounts/:accountNumber/transctions', () => {
 /* ================================================================================== */
 describe('DELETE /api/v1/accounts/accountNumber', () => {
   const path = `/api/v1/accounts/${sampleAccount.accountNumber}`;
+  const path404 = '/api/v1/accounts/1010101010';
   it('should return error if token not provided', (done) => {
     chai
       .request(server)
@@ -444,6 +504,17 @@ describe('DELETE /api/v1/accounts/accountNumber', () => {
         expect(res.body)
           .to.have.property('error')
           .include('unauthorized');
+        done(err);
+      });
+  });
+
+  it('should return 404 if not found', (done) => {
+    chai
+      .request(server)
+      .delete(path404)
+      .set('x-access-token', adminToken)
+      .end((err, res) => {
+        expect(res).to.have.status(404);
         done(err);
       });
   });

@@ -22,8 +22,7 @@ const authHelper = {
    * @returns {Boolean} True or False
    */
   comparePassword(password, hashPassword) {
-    if (password && hashPassword) return bcrypt.compareSync(password, hashPassword);
-    return false;
+    return bcrypt.compareSync(password, hashPassword);
   },
 
   /**

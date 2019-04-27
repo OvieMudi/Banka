@@ -13,6 +13,7 @@ class Model {
    */
   constructor(tableName) {
     this.tableName = tableName;
+    this.validParam = param => /^\d{10}$/.test(param);
   }
 
   /**
@@ -36,9 +37,12 @@ class Model {
    * @returns {Array} - array of resources
    */
   async getAll() {
-    const querString = `SELECT * FROM ${this.tableName}`;
-    const { rows } = await database.query(querString);
-    return rows;
+    const queryString = `SELECT * FROM ${this.tableName}_view`;
+    const { rows, rowCount } = await database.query(queryString);
+    if (rowCount) {
+      return rows;
+    }
+    throw new Error(`${this.tableName} not found`);
   }
 
   /**
@@ -47,10 +51,13 @@ class Model {
    * @returns {Object} - if recource is found
    */
   async getById(idString) {
-    const queryString = `SELECT * FROM ${this.tableName} 
+    const queryString = `SELECT * FROM ${this.tableName}_view 
       WHERE id='${idString}'`;
-    const { rows } = await database.query(queryString);
-    return rows[0];
+    const { rows, rowCount } = await database.query(queryString);
+    if (rowCount) {
+      return rows[0];
+    }
+    throw new Error(`${this.tableName} not found`);
   }
 
   /**
@@ -62,7 +69,9 @@ class Model {
   async searchDatabase(search, value) {
     const queryString = `SELECT * FROM ${this.tableName} 
       WHERE "${search}"='${value}'`;
+
     const { rows, rowCount } = await database.query(queryString);
+
     if (rowCount) {
       return { rows, rowCount };
     }

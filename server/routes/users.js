@@ -1,23 +1,22 @@
 import express from 'express';
 import usersController from '../controllers/usersController';
-import authenticator from '../middleware/authenticator';
+import auth from '../middleware/authenticator';
 import validator from '../middleware/requestValidator';
 
 const usersRouter = express.Router();
 
-usersRouter
-  .route('/')
-  .get(authenticator.verifyAuth, authenticator.verifyStaff, usersController.getUsers);
+usersRouter.route('/').get(auth.verifyAuth, auth.verifyStaff, usersController.getUsers);
 
 usersRouter
   .route('/:id')
-  .get(authenticator.verifyAuth, authenticator.verifyStaff, usersController.getUserById)
+  .get(auth.verifyAuth, auth.verifyClientAndStaff, usersController.getUserById)
   .patch(
     validator.validateUserUpdate,
-    authenticator.verifyAuth,
-    authenticator.verifyAdmin,
+    validator.validateIdParams,
+    auth.verifyAuth,
+    auth.verifyAdmin,
     usersController.update,
   )
-  .delete(authenticator.verifyAuth, authenticator.verifyAdmin, usersController.delete);
+  .delete(auth.verifyAuth, auth.verifyAdmin, validator.validateIdParams, usersController.delete);
 
 export default usersRouter;

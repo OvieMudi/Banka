@@ -33,11 +33,8 @@ class AccountsModel extends Model {
    */
   async getAllByEmail(userEmail) {
     const user = await usersModel.getByEmail(userEmail);
-    if (user) {
-      const { rows } = await this.searchDatabase('owner', user.id);
-      return rows;
-    }
-    throw new Error('user not found');
+    const { rows } = await this.searchDatabase('owner', user.id);
+    return rows;
   }
 }
 

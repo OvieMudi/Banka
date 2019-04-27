@@ -12,6 +12,16 @@ export const sampleClient = {
   isAdmin: false,
 };
 
+export const sampleClient2 = {
+  id: 5,
+  email: 'client2@gmail.com',
+  password: 'Password1',
+  type: 'client',
+  sex: 'female',
+  address: '34 Lorem Ipsum close, Sit Amet',
+  isAdmin: false,
+};
+
 export const sampleCashier = {
   id: 2,
   email: 'cashier@banka.com',

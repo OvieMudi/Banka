@@ -60,6 +60,7 @@ class TransactionsModel extends Model {
    * @returns {Object} - account object if success
    */
   async debit(accountNumber, amount, userId) {
+    if (!this.validParam(accountNumber)) throw new Error('account not found');
     try {
       const { rows: accounts, rowCount: count } = await accountsModel.searchDatabase(
         'accountNumber',

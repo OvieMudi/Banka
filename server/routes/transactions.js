@@ -5,13 +5,16 @@ import validator from '../middleware/requestValidator';
 
 const transactionsRouter = express.Router();
 
-transactionsRouter.route('/').get(transactionsController.getAll);
+transactionsRouter.route('/').get(auth.verifyAuth, auth.verifyStaff, transactionsController.getAll);
 
-transactionsRouter.route('/:transactionId').get(auth.verifyAuth, transactionsController.getById);
+transactionsRouter
+  .route('/:transactionId')
+  .get(validator.validateTrxParams, auth.verifyAuth, transactionsController.getById);
 
 transactionsRouter
   .route('/:accountNumber/credit')
   .post(
+    validator.validateAccountParams,
     auth.verifyAuth,
     auth.verifyCashier,
     validator.validateTransaction,
@@ -21,6 +24,7 @@ transactionsRouter
 transactionsRouter
   .route('/:accountNumber/debit')
   .post(
+    validator.validateAccountParams,
     auth.verifyAuth,
     auth.verifyCashier,
     validator.validateTransaction,

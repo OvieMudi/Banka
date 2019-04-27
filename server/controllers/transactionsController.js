@@ -45,11 +45,8 @@ const transactionsController = {
     try {
       const transaction = await transactionsModel.getById(req.params.transactionId);
       if (transaction) {
-        // get account number from trx
         const { accountNumber } = transaction;
-        // find acct in db
         const account = await accountsModel.getByAccountNumber(accountNumber);
-        // check if acct owner == userid
         if (account.owner === req.user.id || req.user.type === 'cashier') {
           controllerResponse.successResponse(res, 200, transaction);
         } else {

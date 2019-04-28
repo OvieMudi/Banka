@@ -2,7 +2,7 @@
 
 A light-weight core banking application.
 
-[![Build Status](https://travis-ci.org/OvieMudi/Banka.svg?branch=develop)](https://travis-ci.com/OvieMudi/Banka?branch=develop) [![Coverage Status](https://coveralls.io/repos/github/OvieMudi/Banka/badge.svg?branch=develop)](https://coveralls.io/github/OvieMudi/Banka?branch=develop&service=github) [![Code Climate](https://codeclimate.com/github/OvieMudi/Banka/badges/gpa.svg)](https://codeclimate.com/github/OvieMudi/Banka)
+[![Build Status](https://travis-ci.org/OvieMudi/Banka.svg?branch=develop)](https://travis-ci.com/OvieMudi/Banka?branch=develop) [![Coverage Status](https://coveralls.io/repos/github/OvieMudi/Banka/badge.svg?branch=develop&service=github)](https://coveralls.io/github/OvieMudi/Banka?branch=develop) [![Code Climate](https://codeclimate.com/github/OvieMudi/Banka/badges/gpa.svg)](https://codeclimate.com/github/OvieMudi/Banka)
 
 ## Introduction
 

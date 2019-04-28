@@ -35,11 +35,13 @@
   "dependencies": {
     "bcrypt": "^3.0.5",
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
-    "pg": "^7.10.0"
+    "pg": "^7.10.0",
+    "swagger-ui-express": "^4.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.3",

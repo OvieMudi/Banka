@@ -17,6 +17,16 @@ describe('index page routes', () => {
       });
   });
 
+  it('should load the docs without errors', (done) => {
+    chai
+      .request(server)
+      .get('/docs')
+      .end((err, res) => {
+        expect(res).status(200);
+        done(err);
+      });
+  });
+
   it('should return status code 200', (done) => {
     chai
       .request(server)

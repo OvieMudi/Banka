@@ -222,7 +222,8 @@ form span.mobile-tgl {
 }
 
 h1 {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  font-size: 1.7em;
 }
 
 .overlay p {

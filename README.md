@@ -34,7 +34,7 @@ $ cd Banka
 $ npm install
 
 # Create .env file in your root directory to store your environment variables
-# .env file content must DATABASE_URL and SECRET_STRING
+# .env file content must include DATABASE_URL and SECRET_STRING
 
 # Run the app
 $ npm start
@@ -53,8 +53,6 @@ Banka uses the Mocha test framework and Chai assertion library NodeJs to run aut
 Baka API endpoints are deployed on [Heroku](http://calm-dusk-51134.herokuapp.com/v1/api). View the docs [here](http://calm-dusk-51134.herokuapp.com/docs).
 
 The UI page pages are deployed to GitHub Pages. [Check it out](https://oviemudi.github.io/Banka/UI/).
-
-### Technology Stack
 
 ## Technology Stack
 

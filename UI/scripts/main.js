@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 localStorage.setItem('user', 'client');
 localStorage.removeItem('role');
 const user = localStorage.getItem('user');
@@ -36,7 +37,7 @@ if (user === 'admin') {
 /* -------------  CASHIER TRANSACTIONS SECTION ------------------- */
 const trxTglBtn = document.querySelectorAll('.js-input-tgl-btn');
 const cashierSection = document.querySelector('.js-cashier-trx-section');
-if (cashierSection && user == 'cashier') {
+if (cashierSection && user === 'cashier') {
   cashierSection.classList.add('display-flex');
   toggleAccInput(trxTglBtn);
 }
@@ -56,7 +57,7 @@ if (user === 'cashier') {
   cashierAcctOP.classList.add('display-flex');
   // show Credit/Debit input
   const creditBtn = document.querySelector('#js-credit-btn');
-  const deditBtn = document.querySelector('#js-dedit-btn');
+  const debitBtn = document.querySelector('#js-dedit-btn');
   const creditDebitBtn = document.querySelector('#js-credit-debit-btn');
   // Change button textcontent on click
   if (creditBtn) {
@@ -65,20 +66,19 @@ if (user === 'cashier') {
       creditDebitBtn.textContent = 'Credit';
     });
   }
-  if (deditBtn) {
-    deditBtn.addEventListener('click', () => {
+  if (debitBtn) {
+    debitBtn.addEventListener('click', () => {
       acctInputContainer.classList.add('display-flex');
       creditDebitBtn.textContent = 'Dedit';
     });
   }
   if (creditDebitBtn) {
-    deditBtn.addEventListener('click', () => {
+    debitBtn.addEventListener('click', () => {
       acctInputContainer.classList.add('display-flex');
     });
   }
-}
-// Admin operations delete/activate/deactivate
-else if (user === 'admin') {
+  // Admin operations delete/activate/deactivate
+} else if (user === 'admin') {
   adminAcctOP.classList.add('display-flex');
   const activateBtn = document.querySelector('#js-activate-btn');
   const deactivateBtn = document.querySelector('#js-deactivate-btn');
@@ -108,12 +108,12 @@ if (modalTrigger) {
   const modalCloseBtn = document.querySelectorAll('.modal-close-btn');
   let modalOverlay;
 
-  function toggleModal() {
+  const toggleModal = () => {
     modalContainer.forEach((mContainer) => {
       mContainer.classList.toggle('show-modal');
       modalOverlay = mContainer;
     });
-  }
+  };
 
   modalTrigger.forEach((trigger) => {
     trigger.addEventListener('click', toggleModal);
@@ -127,8 +127,8 @@ if (modalTrigger) {
     }
   });
 }
-function toggleAccInput(trxTglBtn) {
-  trxTglBtn.forEach((btn) => {
+function toggleAccInput(toggle) {
+  toggle.forEach((btn) => {
     btn.addEventListener('click', (e) => {
       acctInputContainer.classList.toggle('display-flex');
       e.preventDefault();

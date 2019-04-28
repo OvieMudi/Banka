@@ -11,7 +11,7 @@ button {
   text-transform: uppercase;
   cursor: pointer;
   margin-top: 0.8rem;
-  transition: transform 80ms ease-in;
+  transition: transform 0.4s ease-in;
 }
 
 button:hover {
@@ -33,11 +33,21 @@ ul.homepage-navlinks {
   justify-content: space-around;
   align-items: center;
   list-style-type: none;
-  font-size: 0.7em;
+  font-size: 0.8em;
 }
 
 .homepage-navlinks a {
   color: #cccccc;
+}
+
+.homepage-navlinks button {
+  font-size: inherit;
+  text-transform: inherit;
+  padding: 0.5em 1.5em;
+  background-color: transparent;
+  margin: 0;
+  border: 1px solid var(--light-theme-yellow);
+  transform: inherit;
 }
 
 .homepage-navlinks a:hover {

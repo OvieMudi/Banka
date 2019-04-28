@@ -64,8 +64,10 @@
         <ul class="main-navlinks" id="js-navlinks">
           <li><a href="#">Support</a></li>
           <li><a href="#">Branches</a></li>
-          <li id="admin-link" class="display-none"><a href="./dashboard-admin.html">Admin</a></li>
-          <li><a href="#">Settings</a></li>
+          <li id="admin-link" class="display-none">
+            <a href="./dashboard-admin.html">Admin</a>
+          </li>
+          <li><a href="#" class="js-signout">Signout</a></li>
         </ul>
       </nav>
     </header>
@@ -99,7 +101,9 @@
 
       <!-- Account Card -->
       <section>
-        <a href="./transactions-all.html" class="create-new" id=""><i class="fas fa-paper-plane"></i>&nbsp;View Transactions</a>
+        <a href="./transactions-all.html" class="create-new" id=""
+          ><i class="fas fa-paper-plane"></i>&nbsp;View Transactions</a
+        >
       </section>
       <section class="card-container account-card">
         <h2 class="card-main-header">Account Details</h2>
@@ -117,14 +121,10 @@
           <span class="card-value">Current</span>
 
           <p class="card-key">Status</p>
-          <span class="card-value"
-            >Active</span
-          >
+          <span class="card-value">Active</span>
 
           <p class="card-key">Created</p>
-          <span class="card-value"
-          >27-10-2019</span
-          >
+          <span class="card-value">27-10-2019</span>
 
           <p class="card-key">Phone</p>
           <span class="card-value">070318414899</span>
@@ -132,7 +132,9 @@
       </section>
 
       <!-- Cashier operations section-->
-      <section class="cashier-acct-op hidden-op-section js-cashier-trx-section display-none">
+      <section
+        class="cashier-acct-op hidden-op-section js-cashier-trx-section display-none"
+      >
         <div class="cashier-btn-container">
           <a href="#" class="create-new" id="js-credit-btn"
             ><i class="fas fa-plus-circle"></i>&nbsp;Credit Account</a
@@ -153,7 +155,9 @@
       </section>
 
       <!-- Admin operations section-->
-      <section class="admin-acct-op hidden-op-section js-cashier-trx-section  display-none">
+      <section
+        class="admin-acct-op hidden-op-section js-cashier-trx-section  display-none"
+      >
         <div class="cashier-btn-container">
           <a href="#" class="create-new modal-trigger" id="js-activate-btn"
             ><i class="fas fa-check-circle"></i>&nbsp;Activate Account</a
@@ -161,7 +165,10 @@
           <a href="#" class="create-new modal-trigger" id="js-deactivate-btn"
             ><i class="fas fa-ban"></i>&nbsp;Deactivate Account</a
           >
-          <a href="#" class="create-new js-input-tgl-btn modal-trigger" id="js-delete-btn"
+          <a
+            href="#"
+            class="create-new js-input-tgl-btn modal-trigger"
+            id="js-delete-btn"
             ><i class="fas fa-trash-alt"></i>&nbsp;Delete Account</a
           >
         </div>
@@ -169,13 +176,17 @@
 
       <!-- Admin Confirmation Modal -->
       <section class="modal-container">
-          <div class="modal-content">
-            <span class="modal-close-btn modal-x-btn">&times;</span>
-            <p>Do you want to <span id="js-confirmation-txt">perform operation on</span> this account?</p>
-            <button class="modal-close-btn btn">Cancel</button>
-            <button class="btn">Proceed</button>
-          </div>
-        </section>
+        <div class="modal-content">
+          <span class="modal-close-btn modal-x-btn">&times;</span>
+          <p>
+            Do you want to
+            <span id="js-confirmation-txt">perform operation on</span> this
+            account?
+          </p>
+          <button class="modal-close-btn btn">Cancel</button>
+          <button class="btn">Proceed</button>
+        </div>
+      </section>
     </main>
 
     <!-- ---------------------- PAGE FOOOTER ----------------------- -->

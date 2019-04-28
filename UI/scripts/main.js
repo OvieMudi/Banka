@@ -1,5 +1,4 @@
 /* eslint-disable require-jsdoc */
-localStorage.setItem('user', 'client');
 localStorage.removeItem('role');
 const user = localStorage.getItem('user');
 const role = user === 'client' ? 'client' : 'staff';
@@ -81,7 +80,7 @@ if (user === 'cashier') {
     });
   }
   // Admin operations delete/activate/deactivate
-} else if (user === 'admin') {
+} else if (user === 'admin' && adminAcctOP) {
   adminAcctOP.classList.add('display-flex');
   const activateBtn = document.querySelector('#js-activate-btn');
   const deactivateBtn = document.querySelector('#js-deactivate-btn');
@@ -136,5 +135,18 @@ function toggleAccInput(toggle) {
       acctInputContainer.classList.toggle('display-flex');
       e.preventDefault();
     });
+  });
+
+  /* ------------------------ Sign out --------------------- */
+  const signout = (event) => {
+    event.preventDefault();
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    window.location.assign('./signup.html');
+  };
+
+  const signoutButtons = document.querySelectorAll('.js-signout');
+  signoutButtons.forEach((signoutBtn) => {
+    signoutBtn.addEventListener('click', signout);
   });
 }

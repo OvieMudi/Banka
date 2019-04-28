@@ -62,8 +62,15 @@
         <form id="signin-form" action="javascript:void(0)" method="POST">
           <h1>Sign In</h1>
           <span>continue with your email</span>
-          <input type="email" placeholder="Email" required />
-          <input type="password" placeholder="Password" required />
+          <input type="email" name="email" placeholder="Email" required />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$"
+            required
+          />
+          <div class="formError"></div>
           <button>Sign In</button>
           <span class="mobile-tgl"
             >Don't have an account?&nbsp;<a href="#" class="alt js-tgl-form"

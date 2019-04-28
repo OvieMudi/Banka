@@ -14,14 +14,8 @@ body {
   align-items: center; */
 }
 
-.flex {
-  display: flex;
-}
 .visibility-hidden {
   visibility: hidden;
-}
-.visibility-visible {
-  visibility: visible;
 }
 
 main a {

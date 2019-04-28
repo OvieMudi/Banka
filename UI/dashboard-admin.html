@@ -49,7 +49,6 @@
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
       crossorigin="anonymous"
     />
-    <script src="main.js"></script>
   </head>
   <body>
     <header>
@@ -65,11 +64,13 @@
         <ul class="main-navlinks" id="js-navlinks">
           <li><a href="#">Support</a></li>
           <li><a href="#">Branches</a></li>
-          <li id="admin-link" class="display-none"><a href="./dashboard-admin.html">Admin</a></li>
-          <li><a href="#">Settings</a></li>
+          <li id="admin-link" class="display-none">
+            <a href="./dashboard-admin.html">Admin</a>
+          </li>
+          <li><a href="#" class="js-signout">Signout</a></li>
         </ul>
       </nav>
-    </header>  
+    </header>
 
     <!-- Sticky Page Navbar -->
     <div class="page-nav-container">
@@ -97,16 +98,24 @@
 
     <!-- Accounts -->
     <main>
-    <!-- Staff Operations -->
-    <section class="hidden-op-section js-staff-search-section">
-      <a href="#" class="create-new js-input-tgl-btn" id=""><i class="fas fa-search"></i>&nbsp;Find Staff Account</a>
-      <div class="inputContainer">
-        <input type="number" class="txtInput" placeholder="Enter Staff ID"><!-- input -->
-        <button class="btn-border">Find</button><!-- button -->
-      </div>
-    </section><!-- End cashier section -->
+      <!-- Staff Operations -->
+      <section class="hidden-op-section js-staff-search-section">
+        <a href="#" class="create-new js-input-tgl-btn" id=""
+          ><i class="fas fa-search"></i>&nbsp;Find Staff Account</a
+        >
+        <div class="inputContainer">
+          <input
+            type="number"
+            class="txtInput"
+            placeholder="Enter Staff ID"
+          /><!-- input -->
+          <button class="btn-border">Find</button
+          ><!-- button -->
+        </div>
+      </section>
+      <!-- End cashier section -->
 
-    <!-- Staff Accounts -->
+      <!-- Staff Accounts -->
       <section class="accts-container">
         <a href="./account-details.html" class="acct-summary">
           <span class="row-admin">
@@ -155,8 +164,17 @@
         <li><a href="#">Privacy</a></li>
         <li><a href="#">About</a></li>
       </ul>
-      <p class="copyright">&copy;2019 Banka. Designed and built with love by <a href="#">OvieMudi</a> with the support of the incredible <a href="#">LFAs</a>.</p>
-      <p class="copyright">Banka is licenced under the <a href="https://github.com/OvieMudi/Banka/blob/develop/LICENSE">MIT Licence</a>.</p>
+      <p class="copyright">
+        &copy;2019 Banka. Designed and built with love by
+        <a href="#">OvieMudi</a> with the support of the incredible
+        <a href="#">LFAs</a>.
+      </p>
+      <p class="copyright">
+        Banka is licenced under the
+        <a href="https://github.com/OvieMudi/Banka/blob/develop/LICENSE"
+          >MIT Licence</a
+        >.
+      </p>
     </footer>
     <script src="./scripts/main.js"></script>
   </body>

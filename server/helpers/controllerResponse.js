@@ -32,11 +32,13 @@ const controllerResponse = {
     const notAuthorized = error.message.includes('unauthorized');
 
     if (error.code) {
-      if (error.code === '23505' || error.code === 'P0001') {
-        error.message = error.detail;
-      } else if (error.code === '42601') {
+      if (error.code === '23505') {
+        error.message = 'user with email or phone already exists';
+      } else if (error.code === 'P0001') {
         error.message = 'input cannot be empty';
       }
+    } else if (error.code === '42601') {
+      error.message = 'input cannot be empty';
     }
 
     if (notAuthorized) {

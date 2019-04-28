@@ -59,7 +59,7 @@
   <body>
     <main class="container" id="js-container">
       <section class="form-container signup-container">
-        <form action="javascript:void(0)" method="POST">
+        <form id="signin-form" action="javascript:void(0)" method="POST">
           <h1>Sign In</h1>
           <span>continue with your email</span>
           <input type="email" placeholder="Email" required />
@@ -129,12 +129,15 @@
           />
           <!-------------- select  -------------->
           <div class="select-gender">
-            <select name="select" class="select form-control" required="">
+            <select name="sex" class="select form-control" required="">
               <option value="" selected>select gender...</option>
               <option value="male">male</option>
               <option value="female">female</option>
             </select>
           </div>
+
+          <div class="formError"></div>
+
           <button id="signup-btn">Sign Up</button>
           <span class="mobile-tgl"
             >Have an account?&nbsp;<a href="#" class="alt js-tgl-form"
@@ -146,7 +149,7 @@
 
       <section class="overlay-container">
         <div class="overlay">
-          <div class="overlay-box overlay-left">
+          <div class="overlay-box overlay-right">
             <h1>Hello there!</h1>
             <p>
               Register with
@@ -161,8 +164,8 @@
             </p>
             <button class="transparent js-tgl-form" id="signIn">Sign In</button>
           </div>
-
-          <div class="overlay-box overlay-right">
+          <!--  -->
+          <div class="overlay-box overlay-left">
             <h1>Welcome Back!</h1>
             <p>
               Please sign in to access your

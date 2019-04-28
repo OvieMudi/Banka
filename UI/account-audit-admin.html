@@ -68,7 +68,7 @@
           <li id="admin-link" class="display-none">
             <a href="./dashboard-admin.html">Admin</a>
           </li>
-          <li><a href="#">Settings</a></li>
+          <li><a href="#" class="js-signout">Signout</a></li>
         </ul>
       </nav>
     </header>
@@ -97,57 +97,69 @@
       </ul>
     </div>
 
-      
     <main>
       <!-- Staff Profile Card -->
       <section class="card-container profile-card">
         <div class="card-main-header">Profile</div>
-        <div class="profile-img-container"><img src="./images/Avatar2.PNG" class="profile-img" alt="user-img"></div>
-        
+        <div class="profile-img-container">
+          <img src="./images/Avatar2.PNG" class="profile-img" alt="user-img" />
+        </div>
+
         <div class="card-data-header">Bio</div>
         <div class="profile-bio card-data-grid">
           <p class="card-key">Name</p>
           <span class="card-value">Muffin Mangon</span>
-      
+
           <p class="card-key">Email</p>
           <span class="card-value">cm@coldplay.com</span>
-      
+
           <p class="card-key">Role</p>
           <span class="card-value">Cashier</span>
-      
+
           <p class="card-key">Registered</p>
           <span class="card-value">30-10-19</span>
         </div>
-        
+
         <div class="card-data-header">Contact</div>
-        
+
         <div class="profile-contact card-data-grid">
           <p class="card-key">Address</p>
-          <span class="card-value">25 Ipsum Lorem Crescent, Dolor Amet region.</span>
-          
+          <span class="card-value"
+            >25 Ipsum Lorem Crescent, Dolor Amet region.</span
+          >
+
           <p class="card-key">Phone</p>
           <span class="card-value">070318414899</span>
         </div>
       </section>
 
       <!-- Admin operations section-->
-      <section class="admin-acct-op hidden-op-section js-cashier-trx-section  display-none">
+      <section
+        class="admin-acct-op hidden-op-section js-cashier-trx-section  display-none"
+      >
         <div class="cashier-btn-container">
-          <a href="#" class="create-new js-input-tgl-btn modal-trigger" id="js-delete-btn"
+          <a
+            href="#"
+            class="create-new js-input-tgl-btn modal-trigger"
+            id="js-delete-btn"
             ><i class="fas fa-trash-alt"></i>&nbsp;Delete Account</a
           >
         </div>
       </section>
-  
-        <!-- Admin Confirmation Modal -->
-        <section class="modal-container">
-          <div class="modal-content">
-            <span class="modal-close-btn modal-x-btn">&times;</span>
-            <p>Do you want to <span id="js-confirmation-txt">perform operation on</span> this account?</p>
-            <button class="modal-close-btn btn">Cancel</button>
-            <button class="btn">Proceed</button>
-          </div>
-        </section>
+
+      <!-- Admin Confirmation Modal -->
+      <section class="modal-container">
+        <div class="modal-content">
+          <span class="modal-close-btn modal-x-btn">&times;</span>
+          <p>
+            Do you want to
+            <span id="js-confirmation-txt">perform operation on</span> this
+            account?
+          </p>
+          <button class="modal-close-btn btn">Cancel</button>
+          <button class="btn">Proceed</button>
+        </div>
+      </section>
     </main>
 
     <!-- ---------------------- PAGE FOOOTER ----------------------- -->

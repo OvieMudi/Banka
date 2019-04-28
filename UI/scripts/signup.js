@@ -10,6 +10,16 @@ toggleForm.forEach((click) => {
 });
 
 /* =============================== Signup /sign in user ========================== */
+const createFormData = (event) => {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  const createdObject = {};
+  for (const [key, value] of formData) {
+    createdObject[key] = value;
+  }
+  return createdObject;
+};
+
 const formError = document.querySelector('.formError');
 
 const queryAuth = (url, formContent) => {
@@ -30,10 +40,13 @@ const queryAuth = (url, formContent) => {
         formError.innerHTML = res.error;
         formError.style.visibility = 'visible';
       } else {
+        const user = res.data.type;
         localStorage.setItem('token', res.token);
-        localStorage.setItem('id', res.data.id);
-        if (res.data.isAdmin) {
+        localStorage.setItem('user', user);
+        if (user === 'admin') {
           window.location.assign('dashboard-admin.html');
+        } else if (user === 'cashier') {
+          window.location.assign('dashboard-staff.html');
         } else {
           window.location.assign('dashboard-client.html');
         }
@@ -47,14 +60,16 @@ const queryAuth = (url, formContent) => {
 const signupForm = document.getElementById('signup-form');
 
 signupForm.addEventListener('submit', (event) => {
-  event.preventDefault();
+  const createdObject = createFormData(event);
 
-  const formData = new FormData(event.target);
-  const userObject = {};
-  for (const [key, value] of formData) {
-    userObject[key] = value;
-  }
+  if (!createdObject.othername) createdObject.othername = undefined;
+  queryAuth(`${localStorage.getItem('baseUrl')}/auth/user/signup`, createdObject);
+});
 
-  if (!userObject.othername) userObject.othername = undefined;
-  queryAuth(`${localStorage.getItem('baseUrl')}/auth/user/signup`, userObject);
+/* -------------------------- Sign in --------------------- */
+const signinForm = document.getElementById('signin-form');
+
+signinForm.addEventListener('submit', (event) => {
+  const createdObject = createFormData(event);
+  queryAuth(`${localStorage.getItem('baseUrl')}/auth/signin`, createdObject);
 });

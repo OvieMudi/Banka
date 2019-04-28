@@ -18,7 +18,7 @@ const authController = {
       const token = authHelper.generateToken(user);
       controllerResponse.successResponse(res, 201, user, token);
     } catch (error) {
-      controllerResponse.errorResponse(res, 400, error);
+      controllerResponse.errorResponse(res, 400, new Error('username or password not correct'));
     }
   },
 

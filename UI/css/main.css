@@ -371,10 +371,18 @@ a.acct-summary:first-of-type {
   font-size: 70%;
   justify-self: flex-end;
 }
-.row .acct-inactive {
+.row .acct-dormant,
+.row .acct-draft {
   color: rgb(196, 3, 3);
   font-size: 70%;
   justify-self: flex-end;
+}
+
+.select-account-modal {
+  margin-bottom: 1rem;
+}
+.select-padded {
+  padding: 0.5rem;
 }
 
 /* =========================== ALL TRANSACTIONS PAGE =========================  */

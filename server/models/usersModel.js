@@ -21,24 +21,13 @@ class UsersModel extends Model {
    */
   async signIn(reqBody) {
     const { email, password } = reqBody;
-    const user = await this.getByEmail(email);
-
+    let { rows: user } = await this.searchDatabase('email', email);
+    user = user[0];
     if (user) {
       const validPassword = authHelper.comparePassword(password, user.password);
       if (validPassword) return user;
       throw new Error('username or password incorrect');
     } else throw new Error('username or password incorrect');
-  }
-
-  /**
-   * Get a resource in database using a unique id
-   * @param {String} email - http request.params.id
-   * @returns {Object} - if recource is found
-   */
-  async getByEmail(email) {
-    const { rows: users } = await this.searchDatabase('email', email);
-
-    return users[0];
   }
 }
 

@@ -114,17 +114,18 @@
           <p>Create a new Banka account?</p>
           <div class="select-account select-account-modal">
             <select
+              id="js-account-select"
               name="type"
               class="select form-control select-padded"
               required=""
             >
               <option value="" selected>Select account type...</option>
-              <option value="cashier">savings</option>
-              <option value="admin">current</option>
+              <option value="savings">savings</option>
+              <option value="current">current</option>
             </select>
           </div>
           <button class="modal-close-btn btn">Cancel</button>
-          <button class="btn">Proceed</button>
+          <button class="btn" id="js-account-proceed">Proceed</button>
         </div>
       </section>
     </main>
@@ -153,5 +154,6 @@
     </footer>
     <script src="./scripts/main.js"></script>
     <script src="./scripts/apis/userAccounts.js"></script>
+    <script src="./scripts/apis/accounts.js"></script>
   </body>
 </html>

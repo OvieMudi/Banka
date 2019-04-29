@@ -21,13 +21,17 @@ class UsersModel extends Model {
    */
   async signIn(reqBody) {
     const { email, password } = reqBody;
-    let { rows: user } = await this.searchDatabase('email', email);
-    user = user[0];
-    if (user) {
-      const validPassword = authHelper.comparePassword(password, user.password);
-      if (validPassword) return user;
+    try {
+      const { rows, rowCount } = await this.searchDatabase('email', email);
+      const user = rows[0];
+      if (rowCount) {
+        const validPassword = authHelper.comparePassword(password, user.password);
+        if (validPassword) return user;
+        throw new Error('username or password incorrect');
+      } else throw new Error('username or password incorrect');
+    } catch (error) {
       throw new Error('username or password incorrect');
-    } else throw new Error('username or password incorrect');
+    }
   }
 }
 

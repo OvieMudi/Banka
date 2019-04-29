@@ -32,7 +32,8 @@ class AccountsModel extends Model {
    * @returns {Object} accountNumber - account details
    */
   async getAllByEmail(userEmail) {
-    const user = await usersModel.getByEmail(userEmail);
+    const { rows: users } = await usersModel.searchDatabase('email', userEmail);
+    const user = users[0];
     const { rows } = await this.searchDatabase('owner', user.id);
     return rows;
   }

@@ -41,8 +41,10 @@ const queryAuth = (url, formContent) => {
         formError.style.visibility = 'visible';
       } else {
         const user = res.data.type;
-        localStorage.setItem('token', res.token);
         localStorage.setItem('user', user);
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('userId', res.data.id);
+        localStorage.setItem('userEmail', res.data.email);
         if (user === 'admin') {
           window.location.assign('dashboard-admin.html');
         } else if (user === 'cashier') {

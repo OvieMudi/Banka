@@ -98,41 +98,13 @@
 
     <!-- Accounts -->
     <main>
-      <!-- Page Title -->
-      <!-- <section class="page-info">
-        <span class="pg-location"><a href="#"><i class="fas fa-plus"></i>&nbsp;Create new</a></span>
-      </section> -->
-
       <a href="#" class="create-new modal-trigger"
         ><i class="fas fa-plus"></i>&nbsp;Create new</a
       >
 
       <!-- Client Accounts -->
       <section class="accts-container">
-        <a href="./account-details.html" class="acct-summary">
-          <span class="row">
-            <span class="digit"><i class="fas fa-coins"></i> 0123456789</span>
-            <span class="acc-type mob-display-none">savings</span>
-            <span class="digit">₦12,345,678.90</span>
-            <span class="acct-active"><i class="fas fa-circle"></i></span>
-          </span>
-        </a>
-        <a href="./account-details.html" class="acct-summary">
-          <span class="row">
-            <span class="digit"><i class="fas fa-coins"></i> 0123456789</span>
-            <span class="acc-type mob-display-none">current</span>
-            <span class="digit">₦345,678.90</span>
-            <span class="acct-active"><i class="fas fa-circle"></i></span>
-          </span>
-        </a>
-        <a href="./account-details.html" class="acct-summary">
-          <span class="row">
-            <span class="digit"><i class="fas fa-coins"></i> 0123456789</span>
-            <span class="acc-type mob-display-none">savings</span>
-            <span class="digit">₦12,345,6.90</span>
-            <span class="acct-inactive"><i class="fas fa-circle"></i></span>
-          </span>
-        </a>
+        <!-- accounts loaded here -->
       </section>
 
       <!-- Create Account Modal -->
@@ -140,6 +112,17 @@
         <div class="modal-content">
           <span class="modal-close-btn modal-x-btn">&times;</span>
           <p>Create a new Banka account?</p>
+          <div class="select-account select-account-modal">
+            <select
+              name="type"
+              class="select form-control select-padded"
+              required=""
+            >
+              <option value="" selected>Select account type...</option>
+              <option value="cashier">savings</option>
+              <option value="admin">current</option>
+            </select>
+          </div>
           <button class="modal-close-btn btn">Cancel</button>
           <button class="btn">Proceed</button>
         </div>
@@ -169,5 +152,6 @@
       </p>
     </footer>
     <script src="./scripts/main.js"></script>
+    <script src="./scripts/apis/userAccounts.js"></script>
   </body>
 </html>

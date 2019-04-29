@@ -136,17 +136,19 @@ function toggleAccInput(toggle) {
       e.preventDefault();
     });
   });
-
-  /* ------------------------ Sign out --------------------- */
-  const signout = (event) => {
-    event.preventDefault();
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    window.location.assign('./signup.html');
-  };
-
-  const signoutButtons = document.querySelectorAll('.js-signout');
-  signoutButtons.forEach((signoutBtn) => {
-    signoutBtn.addEventListener('click', signout);
-  });
 }
+
+/* ------------------------ Sign out --------------------- */
+const signout = (event) => {
+  event.preventDefault();
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+  localStorage.removeItem('userId');
+  localStorage.removeItem('userEmail');
+  window.location.assign('./signup.html');
+};
+
+const signoutButtons = document.querySelectorAll('.js-signout');
+signoutButtons.forEach((signoutBtn) => {
+  signoutBtn.addEventListener('click', signout);
+});

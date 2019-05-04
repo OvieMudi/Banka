@@ -146,7 +146,7 @@ describe('GET /api/v1/transactions/:id', () => {
   });
 });
 
-/* ============================ POST ==================================== */
+/* ============================ CREDIT ==================================== */
 describe('POST /api/v1/transactions/:accountNumber/credit', () => {
   const path = `/api/v1/transactions/${accountNumber}/credit`;
   it('should return error if token not provided', (done) => {
@@ -200,7 +200,7 @@ describe('POST /api/v1/transactions/:accountNumber/credit', () => {
   });
 });
 
-/* ================================================================================== */
+/* ==================================== DEBIT ======================================== */
 describe('POST /api/v1/transactions/:accountNumber/debit', () => {
   const path = `/api/v1/transactions/${accountNumber}/debit`;
   const inactivePath = '/api/v1/transactions/1002003005';
@@ -295,6 +295,9 @@ describe('POST /api/v1/transactions/:accountNumber/debit', () => {
       .send({ amount: 999999999 })
       .end((err, res) => {
         expect(res).status(400);
+        expect(res.body)
+          .property('error')
+          .contain('balance exceeded');
         done(err);
       });
   });

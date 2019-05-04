@@ -31,22 +31,19 @@ const controllerResponse = {
     const notFound = error.message.includes('not found');
     const notAuthorized = error.message.includes('unauthorized');
 
-    if (error.code) {
-      if (error.code === '23505') {
-        error.message = 'user with email or phone already exists';
-      } else if (error.code === 'P0001') {
-        error.message = 'input cannot be empty';
-      }
-    } else if (error.code === '42601') {
-      error.message = 'input cannot be empty';
-    }
-
     if (notAuthorized) {
       status = 403;
     } else if (notFound) {
       status = 404;
     } else {
       status = statusCode;
+    }
+
+    if (error.code) {
+      if (error.code === '23505') {
+        error.message = 'user with email or phone already exists';
+        status = 409;
+      }
     }
 
     return res.status(status).json({

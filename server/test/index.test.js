@@ -37,3 +37,15 @@ describe('index page routes', () => {
       });
   });
 });
+
+describe('General error handler', () => {
+  it('should return status 400', (done) => {
+    chai
+      .request(server)
+      .get('/api/v1/accounts/%%2345')
+      .end((err, res) => {
+        expect(res).status(400);
+        done(err);
+      });
+  });
+});

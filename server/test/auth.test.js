@@ -64,8 +64,10 @@ describe('POST /auth/user/signup', () => {
       .type('form')
       .send(userData)
       .end((err, res) => {
-        expect(res).status(400);
-        expect(res.body).property('error');
+        expect(res).status(409);
+        expect(res.body)
+          .property('error')
+          .contain('already exists');
         done(err);
       });
   });

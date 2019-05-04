@@ -161,7 +161,7 @@ const validator = {
 
   validateAccountCreate(req, res, next) {
     const accountProps = {
-      type: props.accountType,
+      type: props.accountType.required(),
     };
 
     validator.validate(accountProps, req, res, next);

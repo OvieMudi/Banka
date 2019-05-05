@@ -4,6 +4,10 @@ window.addEventListener('load', () => {
   const userEmail = localStorage.getItem('userEmail');
   const url = `${baseUrl}/user/${userEmail}/accounts`;
 
+  if (!userEmail) {
+    window.location.assign('./signup.html');
+  }
+
   const options = {
     method: 'GET',
     headers: new Headers({

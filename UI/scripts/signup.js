@@ -20,7 +20,7 @@ const createFormData = (event) => {
   return createdObject;
 };
 
-const formError = document.querySelector('.formError');
+const formError = document.querySelectorAll('.formError');
 
 const queryAuth = (url, formContent) => {
   const options = {
@@ -31,14 +31,18 @@ const queryAuth = (url, formContent) => {
       'Content-Type': 'application/json',
     }),
   };
-  formError.style.visibility = 'hidden';
 
   fetch(url, options)
     .then(res => res.json())
     .then((res) => {
       if (res.error) {
-        formError.innerHTML = res.error;
-        formError.style.visibility = 'visible';
+        formError.forEach((form) => {
+          form.innerHTML = res.error;
+          form.style.visibility = 'visible';
+          setTimeout(() => {
+            form.style.visibility = 'hidden';
+          }, 6000);
+        });
       } else {
         const user = res.data.type;
         localStorage.setItem('user', user);

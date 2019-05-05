@@ -165,10 +165,13 @@ form span.mobile-tgl {
   width: 100%;
   justify-content: center;
   align-content: center;
-  color: rgb(143, 7, 7);
+  color: #fff;
+  background-color: #8f0707;
   margin-bottom: 0.6rem;
+  padding: 0.5rem 0;
+  border-radius: 3px;
   visibility: hidden;
-  transition: visibility 0.6s ease-in-out;
+  transition: visibility 6ms ease-in-out;
 }
 
 /* --------- OVERLAY STYLES ----------- */

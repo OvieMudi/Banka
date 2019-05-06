@@ -229,10 +229,12 @@ header nav {
 }
 
 .icon {
-  color: #f3c943;
+  color: #f5deb3;
   font-family: "Libre Baskerville", serif;
 }
-
+span.icon-text {
+  color: #fff;
+}
 .navbar-toggle {
   position: absolute;
   top: 0.5rem;
@@ -318,23 +320,6 @@ header nav {
 /* ====================== ACCOUNTS DASHBOARD PAGE ======================  */
 /* -------------MAIN CONTENT ----------------------- */
 
-/* page info bar */
-.page-info {
-  height: 2rem;
-  display: flex;
-  align-items: center;
-  padding: 0 0.5rem;
-  color: inherit;
-}
-
-.page-info .pg-location {
-  padding: 0 1rem;
-}
-
-.page-info a {
-  color: inherit;
-}
-
 a.acct-summary {
   border-top: 1px solid #cdd6e9;
   display: block;
@@ -360,10 +345,6 @@ a.acct-summary:first-of-type {
 
 .digit {
   letter-spacing: 1.5px;
-}
-
-.row .fa-coins {
-  color: #f3c943;
 }
 
 .row .acct-active {

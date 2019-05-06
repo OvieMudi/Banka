@@ -35,6 +35,9 @@ const controllerResponse = {
       status = 403;
     } else if (notFound) {
       status = 404;
+    } else if (statusCode === 500) {
+      error.message = 'Opps! Something weird happened to this request.';
+      status = statusCode;
     } else {
       status = statusCode;
     }

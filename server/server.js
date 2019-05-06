@@ -1,10 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import swaggerUI from 'swagger-ui-express';
 import cors from 'cors';
-import swagger from './openapi.json';
+import swaggerUI from 'swagger-ui-express';
 import router from './routes/index';
-import controllerResponse from './helpers/controllerResponse.js';
+import controllerResponse from './helpers/controllerResponse';
+import swagger from './openapi.json';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -17,11 +17,15 @@ app.use('/docs', swaggerUI.serve, swaggerUI.setup(swagger));
 
 app.use('/api/v1', router);
 
+app.get('/', (req, res) => res.status(200).send('Welcome to Banka API'));
+
 app.use((err, req, res, next) => {
-  controllerResponse.errorResponse(res, 400, new Error('operation not permitted'));
+  controllerResponse.errorResponse(res, 500, err);
 });
 
-app.get('/', (req, res) => res.status(200).send('Welcome to Banka API'));
+app.use((req, res, next) => {
+  controllerResponse.errorResponse(res, 404, new Error(`${req.url} not found`));
+});
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console

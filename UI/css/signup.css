@@ -260,12 +260,12 @@ h1 {
 }
 
 .icon {
-  color: #f3c943;
+  color: #f5deb3;
   font-family: "Libre Baskerville", serif;
 }
 
 .overlay span.icon-text {
-  color: #f7e1b8;
+  color: #fff;
 }
 
 @media only screen and (max-width: 639px) {

@@ -44,20 +44,21 @@ const queryAuth = (url, formContent) => {
           }, 6000);
         });
       } else {
-        const user = res.data.type;
-        localStorage.setItem('user', user);
+        const userType = res.data.type;
+        localStorage.setItem('userType', userType);
         localStorage.setItem('token', res.token);
         localStorage.setItem('userId', res.data.id);
         localStorage.setItem('userEmail', res.data.email);
-        if (user === 'admin') {
+        if (userType === 'admin') {
           window.location.assign('dashboard-admin.html');
-        } else if (user === 'cashier') {
+        } else if (userType === 'cashier') {
           window.location.assign('dashboard-staff.html');
         } else {
           window.location.assign('dashboard-client.html');
         }
       }
     })
+    // eslint-disable-next-line no-console
     .catch(err => console.log(err));
 };
 

@@ -1,19 +1,19 @@
 /* eslint-disable require-jsdoc */
-localStorage.removeItem('role');
-const user = localStorage.getItem('user');
+const user = localStorage.getItem('userType');
 const role = user === 'client' ? 'client' : 'staff';
+console.log(user, role);
 
 // Set Base API
 localStorage.setItem('baseUrl', 'https://calm-dusk-51134.herokuapp.com/api/v1');
 
 /* ---------- PAGE NAVIGATION ------------------ */
 const accountsNavLink = document.getElementById('accounts-link');
+
 // Set Sticky Nav links
 if (accountsNavLink) {
   accountsNavLink.setAttribute('href', `./dashboard-${role}.html`);
 }
 
-// Set Admin Sticky Nav Links
 const accountsNavLinkAdmin = document.getElementById('accounts-link-admin');
 if (accountsNavLinkAdmin) {
   accountsNavLinkAdmin.setAttribute('href', `./dashboard-${user}.html`);
@@ -55,7 +55,7 @@ if (staffSearchSection && role === 'staff') {
 const cashierAcctOP = document.querySelector('.cashier-acct-op');
 const adminAcctOP = document.querySelector('.admin-acct-op');
 // Cashier Operations
-if (user === 'cashier') {
+if (user === 'cashier' && cashierAcctOP) {
   cashierAcctOP.classList.add('display-flex');
   // show Credit/Debit input
   const creditBtn = document.querySelector('#js-credit-btn');
@@ -141,10 +141,7 @@ function toggleAccInput(toggle) {
 /* ------------------------ Sign out --------------------- */
 const signout = (event) => {
   event.preventDefault();
-  localStorage.removeItem('token');
-  localStorage.removeItem('user');
-  localStorage.removeItem('userId');
-  localStorage.removeItem('userEmail');
+  localStorage.clear();
   window.location.assign('./signup.html');
 };
 

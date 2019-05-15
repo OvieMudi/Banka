@@ -18,6 +18,7 @@ const createAccount = (url, formContent) => {
     .then(() => {
       window.location.reload();
     })
+    // eslint-disable-next-line no-console
     .catch(err => console.log(err));
 };
 

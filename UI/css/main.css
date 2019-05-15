@@ -7,6 +7,7 @@ backg 1D4063
 /* --------------- GENERAL STYLES --------------- */
 
 :root {
+  --card-header-background: #2e2e2e;
   --sticky-nav-height: 3.5rem;
   --theme-orange: #ff4b2b;
   --black-font: #444;
@@ -37,6 +38,14 @@ main {
 
 a {
   text-decoration: none;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.theme-color {
+  color: var(--theme-orange);
 }
 
 /* General Button */
@@ -229,7 +238,7 @@ header nav {
 }
 
 .icon {
-  color: #f5deb3;
+  color: #ffece9;
   font-family: "Libre Baskerville", serif;
 }
 span.icon-text {
@@ -424,7 +433,6 @@ a.acct-summary:first-of-type {
 
 .table-design tbody th {
   font-weight: normal;
-  /* background-color: var(--nav-background-color); */
 }
 
 .table-design tbody th,
@@ -438,7 +446,6 @@ a.acct-summary:first-of-type {
   width: 10rem;
   flex: 0 0 50%;
   padding: 0 2rem;
-  color: #444;
   text-align: right;
   line-height: 100%;
   font-weight: bold;
@@ -472,11 +479,9 @@ a.acct-summary:first-of-type {
   .table-design thead th {
     padding: 1rem 0.9rem;
     text-align: center;
+    background-color: #1a1a1a;
+    color: #afafaa;
   }
-  /* 
-  .table-design tbody th[role="rowheader"] {
-    background-color: #fff;
-  } */
 
   .table-design thead {
     position: unset;
@@ -522,11 +527,14 @@ section.profile-card {
   min-height: 200px;
 }
 
-.card-main-header {
+h2.card-main-header {
   height: 3rem;
   line-height: 3rem;
   text-align: center;
-  background: var(--nav-background-color);
+  background: var(--card-header-background);
+  color: #f7f7f7;
+  font-size: 1.5em;
+  font-weight: 500;
   margin-bottom: 0.8rem;
 }
 
@@ -557,6 +565,7 @@ section.profile-card {
   grid-auto-rows: minmax(2rem, auto);
   padding: 0 0.5rem;
   font-size: 0.85em;
+  color: #131313;
 }
 
 .card-key {
@@ -569,6 +578,10 @@ section.profile-card {
   padding-bottom: 0.5rem;
 }
 
+.card-i {
+  font-size: 1.2em;
+  color: var(--theme-orange);
+}
 /* ------------------------- SINGLE ACCOUNT PAGE ------------------- */
 .cashier-acct-op {
   display: none;

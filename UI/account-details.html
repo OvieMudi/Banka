@@ -39,7 +39,7 @@
     <meta name="theme-color" content="#ffffff" />
     <!--   google fonts -->
     <link
-      href="https://fonts.googleapis.com/css?family=Montserrat|Libre+Baskerville"
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Libre+Baskerville"
       rel="stylesheet"
     />
     <!--   font-awesome icons -->
@@ -98,38 +98,16 @@
     </div>
 
     <main>
-      <!-- Cashier Section -->
-
       <!-- Account Card -->
       <section>
         <a href="./transactions-all.html" class="create-new" id=""
           ><i class="fas fa-paper-plane"></i>&nbsp;View Transactions</a
         >
+
+        <!-- Cashier Section -->
       </section>
       <section class="card-container account-card">
         <h2 class="card-main-header">Account Details</h2>
-        <div class="card-data-grid">
-          <p class="card-key">Account number</p>
-          <span class="card-value">1234567890</span>
-
-          <p class="card-key">Account name</p>
-          <span class="card-value">Chris Martin</span>
-
-          <p class="card-key">Balance</p>
-          <span class="card-value">123,456,790.79</span>
-
-          <p class="card-key">Type</p>
-          <span class="card-value">Current</span>
-
-          <p class="card-key">Status</p>
-          <span class="card-value">Active</span>
-
-          <p class="card-key">Created</p>
-          <span class="card-value">27-10-2019</span>
-
-          <p class="card-key">Phone</p>
-          <span class="card-value">070318414899</span>
-        </div>
       </section>
 
       <!-- Cashier operations section-->
@@ -213,6 +191,6 @@
       </p>
     </footer>
     <script src="./scripts/main.js"></script>
-    <script src="./scripts/table.js"></script>
+    <script type="module" src="./scripts/apis/singleAccount.js"></script>
   </body>
 </html>

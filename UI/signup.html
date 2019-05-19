@@ -53,11 +53,19 @@
   </head>
   <body>
     <main class="container" id="js-container">
-      <section class="form-container signup-container">
+      <section class="form-container signin-container">
         <form id="signin-form" action="javascript:void(0)" method="POST">
           <h1>Sign In</h1>
           <span>continue with your email</span>
-          <input type="email" name="email" placeholder="Email" required />
+          <input type="email" style="display:none" name="email" />
+          <input type="password" style="display:none" name="password" />
+          <input
+            id="email-input"
+            type="email"
+            name="email"
+            placeholder="Email"
+            required
+          />
           <input
             type="password"
             name="password"
@@ -65,7 +73,26 @@
             pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$"
             required
           />
+
+          <!-- signin error display -->
           <div class="formError"></div>
+
+          <!-- fetch loading animation -->
+          <div class="sk-fading-circle display-none">
+            <div class="sk-circle1 sk-circle"></div>
+            <div class="sk-circle2 sk-circle"></div>
+            <div class="sk-circle3 sk-circle"></div>
+            <div class="sk-circle4 sk-circle"></div>
+            <div class="sk-circle5 sk-circle"></div>
+            <div class="sk-circle6 sk-circle"></div>
+            <div class="sk-circle7 sk-circle"></div>
+            <div class="sk-circle8 sk-circle"></div>
+            <div class="sk-circle9 sk-circle"></div>
+            <div class="sk-circle10 sk-circle"></div>
+            <div class="sk-circle11 sk-circle"></div>
+            <div class="sk-circle12 sk-circle"></div>
+          </div>
+
           <button>Sign In</button>
           <span class="mobile-tgl"
             >Don't have an account?&nbsp;<a href="#" class="alt js-tgl-form"
@@ -75,7 +102,7 @@
         </form>
       </section>
 
-      <section class="form-container signin-container">
+      <section class="form-container signup-container">
         <form id="signup-form" action="#" method="POST">
           <h1>Sign Up for Banka</h1>
           <input
@@ -112,6 +139,7 @@
             required
             pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$"
             id="passwordInput1"
+            autocomplete="new-password"
           />
           <input
             type="password"
@@ -119,6 +147,7 @@
             required
             pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$"
             id="passwordInput2"
+            autocomplete="new-password"
           />
           <input
             type="text"
@@ -138,7 +167,24 @@
             </select>
           </div>
 
+          <!-- signup error display -->
           <div class="formError"></div>
+
+          <!-- fetch loading animation -->
+          <div class="sk-fading-circle display-none">
+            <div class="sk-circle1 sk-circle"></div>
+            <div class="sk-circle2 sk-circle"></div>
+            <div class="sk-circle3 sk-circle"></div>
+            <div class="sk-circle4 sk-circle"></div>
+            <div class="sk-circle5 sk-circle"></div>
+            <div class="sk-circle6 sk-circle"></div>
+            <div class="sk-circle7 sk-circle"></div>
+            <div class="sk-circle8 sk-circle"></div>
+            <div class="sk-circle9 sk-circle"></div>
+            <div class="sk-circle10 sk-circle"></div>
+            <div class="sk-circle11 sk-circle"></div>
+            <div class="sk-circle12 sk-circle"></div>
+          </div>
 
           <button id="signup-btn">Sign Up</button>
           <span class="mobile-tgl"
@@ -166,7 +212,8 @@
             </p>
             <button class="transparent js-tgl-form" id="signIn">Sign In</button>
           </div>
-          <!--  -->
+
+          <!-- overlay -->
           <div class="overlay-box overlay-left">
             <h1>Welcome Back!</h1>
             <p>
@@ -187,7 +234,7 @@
         </div>
       </section>
     </main>
-    <script src="./scripts/signup.js"></script>
     <script src="./scripts/formValidation.js"></script>
+    <script src="./scripts/signup.js"></script>
   </body>
 </html>

@@ -1,7 +1,6 @@
 /* eslint-disable require-jsdoc */
 const user = localStorage.getItem('userType');
 const role = user === 'client' ? 'client' : 'staff';
-console.log(user, role);
 
 // Set Base API
 localStorage.setItem('baseUrl', 'https://calm-dusk-51134.herokuapp.com/api/v1');

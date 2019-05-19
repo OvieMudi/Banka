@@ -1,11 +1,16 @@
 /* eslint-disable import/extensions */
 import fetchApi from './fetchApi.mjs';
 import createHtmlElement from '../createElement.mjs';
+import loadingAnimation from '../modules/loadingAnimation.mjs';
 
-window.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const baseUrl = localStorage.getItem('baseUrl');
   const accountNumber = localStorage.getItem('accountNumber');
   const accountURL = `${baseUrl}/accounts/${accountNumber}/`;
+
+  /* css loading animation */
+  const animationContainer = document.querySelector('.css-loading-animation');
+  animationContainer.innerHTML = loadingAnimation();
 
   const account = await fetchApi(accountURL, 'GET');
 
@@ -39,6 +44,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     </div>
   `;
 
+  animationContainer.innerHTML = '';
   const cardDiv = createHtmlElement(html);
   const accountCard = document.querySelector('.account-card');
   accountCard.insertAdjacentElement('beforeend', cardDiv);

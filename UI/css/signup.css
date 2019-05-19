@@ -1,3 +1,4 @@
+@import url("./vendors/loadingAnimation.css");
 /* ----------- GENERAL STYLES ------------- */
 * {
   margin: 0;
@@ -16,6 +17,10 @@ body {
 
 .visibility-hidden {
   visibility: hidden;
+}
+
+.display-none {
+  display: none;
 }
 
 main a {
@@ -76,13 +81,13 @@ button.transparent {
   transition: all 0.6s ease-in-out;
 }
 
-.signup-container {
+.signin-container {
   left: 0;
   width: 50%;
   z-index: 2;
 }
 
-.signin-container {
+.signup-container {
   left: 0;
   width: 50%;
   opacity: 0;
@@ -92,11 +97,11 @@ button.transparent {
 /* First Move both signin/signup containers right,
  Then stack signup ontop signin (z-index)
 */
-.container.right-box-active .signup-container {
+.container.right-box-active .signin-container {
   transform: translateX(100%);
 }
 
-.container.right-box-active .signin-container {
+.container.right-box-active .signup-container {
   transform: translateX(100%);
   opacity: 1;
   z-index: 5;
@@ -161,6 +166,7 @@ form span.mobile-tgl {
 }
 
 .formError {
+  display: none;
   font-size: 0.8em;
   width: 100%;
   justify-content: center;
@@ -170,8 +176,6 @@ form span.mobile-tgl {
   margin-bottom: 0.6rem;
   padding: 0.5rem 0;
   border-radius: 3px;
-  visibility: hidden;
-  transition: visibility 6ms ease-in-out;
 }
 
 /* --------- OVERLAY STYLES ----------- */

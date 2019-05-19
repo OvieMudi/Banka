@@ -1,5 +1,6 @@
 /* eslint-disable import/extensions */
 import fetchApi from './fetchApi.mjs';
+import loadingAnimation from '../modules/loadingAnimation.mjs';
 import createHtmlElement from '../createElement.mjs';
 
 const baseUrl = localStorage.getItem('baseUrl');
@@ -15,8 +16,14 @@ if (!userEmail) {
 window.addEventListener('DOMContentLoaded', async () => {
   /* ----------- Client Dashboard ----------- */
   const accountsContainer = document.querySelector('.accts-container');
+
   if (accountsContainer) {
+    /* css loading animation */
+    accountsContainer.innerHTML = loadingAnimation();
+
     const clientAccounts = await fetchApi(accountsByEmailUrl, 'GET');
+    accountsContainer.innerHTML = '';
+
     clientAccounts.forEach((account) => {
       const html = `
         <a class="acct-summary" href="./account-details.html">
@@ -42,8 +49,13 @@ window.addEventListener('DOMContentLoaded', async () => {
   /* ----------------- Staff Dashboard ----------------- */
   const tBodyAccounts = document.querySelector('#tbody_accounts');
   if (tBodyAccounts) {
+    /* css loading animation */
+    tBodyAccounts.innerHTML = loadingAnimation();
     const allAccounts = await fetchApi(allAccountsUrl, 'GET');
     const users = await fetchApi(allUsersUrl, 'GET');
+
+    /* remove css loading animation */
+    tBodyAccounts.innerHTML = '';
 
     allAccounts.forEach((account, idx) => {
       const index = idx + 1;
@@ -78,7 +90,6 @@ window.addEventListener('DOMContentLoaded', async () => {
       `;
 
       const tr = createHtmlElement(html);
-      console.log(tr);
 
       tr.addEventListener('click', () => {
         localStorage.setItem('accountNumber', account.accountNumber);
@@ -86,6 +97,6 @@ window.addEventListener('DOMContentLoaded', async () => {
       });
 
       tBodyAccounts.insertAdjacentElement('afterbegin', tr);
-    });
+    }); // end forEach
   }
 });

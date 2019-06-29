@@ -3,7 +3,7 @@ const user = localStorage.getItem('userType');
 const role = user === 'client' ? 'client' : 'staff';
 
 // Set Base API
-localStorage.setItem('baseUrl', 'https://calm-dusk-51134.herokuapp.com/api/v1');
+// localStorage.setItem('baseUrl', 'https://calm-dusk-51134.herokuapp.com/api/v1');
 
 /* ---------- PAGE NAVIGATION ------------------ */
 const accountsNavLink = document.getElementById('accounts-link');

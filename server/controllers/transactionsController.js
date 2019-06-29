@@ -63,6 +63,22 @@ const transactionsController = {
       controllerResponse.errorResponse(res, 500, error);
     }
   },
+
+  async getByAllByEmail(req, res) {
+    try {
+      const transactions = await transactionsModel.getAll();
+      const accounts = await accountsModel.getAllByEmail(req.params.userEmail);
+      const accountNumbers = [];
+      accounts.forEach(acc => accountNumbers.push(acc.accountNumber));
+      const userTransactions = transactions.filter(
+        transaction => accountNumbers.includes(transaction.accountNumber),
+      );
+
+      controllerResponse.successResponse(res, 200, userTransactions);
+    } catch (error) {
+      controllerResponse.errorResponse(res, 500, error);
+    }
+  },
 };
 
 export default transactionsController;

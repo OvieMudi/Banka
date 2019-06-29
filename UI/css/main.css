@@ -143,7 +143,7 @@ a {
 }
 
 /* create new button */
-a.create-new {
+a.link-btn {
   display: inline-flex;
   align-items: center;
   height: 2.5rem;
@@ -155,10 +155,10 @@ a.create-new {
   color: var(--theme-orange);
   transition: background-color 0.3s;
 }
-a.create-new:hover {
+a.link-btn:hover {
   background-color: var(--nav-background-color);
 }
-a.create-new:active {
+a.link-btn:active {
   transform: scale(0.98);
 }
 

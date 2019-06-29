@@ -245,7 +245,7 @@ describe('GET /api/v1/user/:userEmail/accounts', () => {
         done(err);
       });
   });
-  it('should get account error if user is owner', (done) => {
+  it('should get accounts if user is owner', (done) => {
     chai
       .request(server)
       .get(path)

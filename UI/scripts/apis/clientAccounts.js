@@ -13,8 +13,6 @@ if (!userEmail) {
   window.location.assign('./signup.html');
 }
 
-console.log(baseUrl);
-
 window.addEventListener('DOMContentLoaded', async () => {
   /* ----------- Client Dashboard ----------- */
   const accountsContainer = document.querySelector('.accts-container');

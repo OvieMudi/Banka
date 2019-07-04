@@ -20,7 +20,7 @@ describe('index page routes', () => {
   it('should load the docs without errors', (done) => {
     chai
       .request(server)
-      .get('/docs')
+      .get('/api/v1/docs')
       .end((err, res) => {
         expect(res).status(200);
         done(err);

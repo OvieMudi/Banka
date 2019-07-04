@@ -1,0 +1,576 @@
+openapi: 3.0.1
+info:
+  title: Banka API
+  description: >
+    Banka is a light-weight core banking application that powers banking
+    operations like account creation, customer deposit and withdrawals. More
+    info can be found on [GitHub](https://github.com/OvieMudi/Banka).
+  license:
+    name: MIT
+    url: 'https://github.com/OvieMudi/Banka/blob/develop/LICENSE'
+  version: "1-oas3"
+servers:
+  - url: /api/v1
+  - url: 'https://calm-dusk-51134.herokuapp.com/api/v1'
+security:
+  - UserSecurity: []
+paths:
+  /auth/signin:
+    post:
+      tags:
+        - auth
+      summary: Sign in as client or staff
+      operationId: signin
+      requestBody:
+        description: app user that needs to sign in to continue
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+        required: true
+      responses:
+        '200':
+          description: returns the signed in user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/auth'
+        '400':
+          $ref: '#/components/schemas/error400'
+        '500':
+          $ref: '#/components/schemas/error500'
+  /auth/users/signup:
+    post:
+      tags:
+        - auth
+      summary: Register a client
+      operationId: signup
+      requestBody:
+        description: app user that needs to sign in to continue
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/clientSignup'
+        required: true
+      responses:
+        '201':
+          description: returns the created user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/auth'
+        '400':
+          $ref: '#/components/schemas/error400'
+        '500':
+          $ref: '#/components/schemas/error500'
+  /auth/admin/create:
+    post:
+      tags:
+        - auth
+      summary: Create staff
+      operationId: staffCreate
+      requestBody:
+        description: app user that needs to sign in to continue
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+        required: true
+      responses:
+        '201':
+          description: returns the created Staff details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/auth'
+        '400':
+          $ref: '#/components/schemas/error400'
+        '500':
+          $ref: '#/components/schemas/error500'
+  /accounts:
+    get:
+      tags:
+        - accounts
+      summary: Get all account record in the database
+      operationId: getAllAccounts
+      parameters:
+        - name: status
+          in: query
+          description: Gets all active or inactive accounts
+          schema:
+            type: string
+      responses:
+        '200':
+          description: returns all accounts in database
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/account'
+        '403':
+          $ref: '#/components/schemas/error403'
+        '404':
+          $ref: '#/components/schemas/error404'
+        '500':
+          $ref: '#/components/schemas/error500'
+    post:
+      tags:
+        - accounts
+      summary: Create a bank account
+      operationId: createAccount
+      requestBody:
+        description: 'account type: savings or curent'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: integer
+        required: true
+      responses:
+        '201':
+          description: returns the created user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/accountCreate'
+        '400':
+          $ref: '#/components/schemas/error400'
+        '500':
+          $ref: '#/components/schemas/error500'
+  '/account/{accountNumber}':
+    get:
+      tags:
+        - accounts
+      summary: Get information of an account
+      operationId: getSingleAccount
+      parameters:
+        - name: accountNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: returns an account record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/account'
+        '400':
+          $ref: '#/components/schemas/error400'
+        '401':
+          $ref: '#/components/schemas/error401'
+        '403':
+          $ref: '#/components/schemas/error403'
+        '404':
+          $ref: '#/components/schemas/error404'
+    delete:
+      tags:
+        - accounts
+      summary: Delete a bank account
+      operationId: deleteAccount
+      parameters:
+        - name: accountNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: returns success message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: number
+        '400':
+          $ref: '#/components/schemas/error400'
+        '401':
+          $ref: '#/components/schemas/error401'
+        '403':
+          $ref: '#/components/schemas/error403'
+        '404':
+          $ref: '#/components/schemas/error404'
+    patch:
+      tags:
+        - accounts
+      summary: Update a bank account
+      operationId: updateAccount
+      parameters:
+        - name: accountNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: change account status to active or dormant
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+        required: true
+      responses:
+        '200':
+          description: returns the created user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/account'
+        '400':
+          $ref: '#/components/schemas/error400'
+        '401':
+          $ref: '#/components/schemas/error401'
+        '403':
+          $ref: '#/components/schemas/error403'
+  '/transactions/{accountNumber}/debit':
+    patch:
+      tags:
+        - transactions
+      summary: Debit a bank account
+      operationId: debit
+      parameters:
+        - name: accountNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: amount of debit on account
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+        required: true
+      responses:
+        '201':
+          description: returns an alert from the created transaction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alert'
+        '400':
+          $ref: '#/components/schemas/error400'
+        '401':
+          $ref: '#/components/schemas/error401'
+        '403':
+          $ref: '#/components/schemas/error403'
+        '404':
+          $ref: '#/components/schemas/error404'
+  '/transactions/{accountNumber}/credit':
+    patch:
+      tags:
+        - transactions
+      summary: Credit a bank account
+      operationId: credit
+      parameters:
+        - name: accountNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: amount of credit on account
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+        required: true
+      responses:
+        '201':
+          description: returns an alert from the created transaction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alert'
+        '400':
+          $ref: '#/components/schemas/error400'
+        '401':
+          $ref: '#/components/schemas/error401'
+        '403':
+          $ref: '#/components/schemas/error403'
+        '404':
+          $ref: '#/components/schemas/error404'
+  '/accounts/{accountNumber}/transactions':
+    get:
+      tags:
+        - transactions
+      summary: Get account history
+      operationId: getAccountHistory
+      parameters:
+        - name: accountNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: returns an all transactions on an account
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/transaction'
+        '400':
+          $ref: '#/components/schemas/error400'
+        '401':
+          $ref: '#/components/schemas/error401'
+        '403':
+          $ref: '#/components/schemas/error403'
+        '404':
+          $ref: '#/components/schemas/error404'
+  '/transactions/{transactionId}':
+    get:
+      tags:
+        - transactions
+      summary: Get a single transaction
+      operationId: getSingleTransaction
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: returns a single transaction record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/transaction'
+        '400':
+          $ref: '#/components/schemas/error400'
+        '401':
+          $ref: '#/components/schemas/error401'
+        '403':
+          $ref: '#/components/schemas/error403'
+        '404':
+          $ref: '#/components/schemas/error404'
+  '/user/{userEmailAddress}/transactions':
+    get:
+      tags:
+        - transactions
+      summary: Get all transactions associated with an email
+      operationId: transactionsByEmail
+      parameters:
+        - name: userEmailAddress
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: returns all transactions associated with the email
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/account'
+        '400':
+          $ref: '#/components/schemas/error400'
+        '401':
+          $ref: '#/components/schemas/error401'
+        '403':
+          $ref: '#/components/schemas/error403'
+        '404':
+          $ref: '#/components/schemas/error404'
+  '/user/{userEmailAddress}/accounts':
+    get:
+      tags:
+        - accounts
+      summary: Get all accounts associated with an email
+      operationId: accountsByEmail
+      parameters:
+        - name: userEmailAddress
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: returns all accounts associated with email
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/account'
+        '400':
+          $ref: '#/components/schemas/error400'
+        '401':
+          $ref: '#/components/schemas/error401'
+        '403':
+          $ref: '#/components/schemas/error403'
+        '404':
+          $ref: '#/components/schemas/error404'
+components:
+  schemas:
+    auth:
+      required:
+        - token
+      type: object
+      properties:
+        token:
+          type: string
+        data:
+          $ref: '#/components/schemas/user'
+    alert:
+      type: object
+      properties:
+        transactionId:
+          type: number
+        accountNumber:
+          type: number
+        amount:
+          type: number
+        cashier:
+          type: number
+        transactionType:
+          type: string
+        accountBalance:
+          type: string
+    error404:
+      type: object
+      description: not found
+    error403:
+      type: object
+      description: forbidden
+    error400:
+      type: object
+      description: invalid request
+    error401:
+      type: object
+      description: unauthorized
+    error500:
+      type: object
+      description: internal server error
+    user:
+      required:
+        - email
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        othername:
+          type: string
+        password:
+          type: string
+        type:
+          type: string
+        phone:
+          type: string
+        sex:
+          type: string
+        address:
+          type: string
+        isAdmin:
+          type: boolean
+    account:
+      required:
+        - accountNumber
+      type: object
+      properties:
+        id:
+          type: integer
+        accountNumber:
+          type: integer
+        createOn:
+          type: string
+        owner:
+          type: integer
+        type:
+          type: string
+        status:
+          type: string
+        balance:
+          type: number
+    transaction:
+      required:
+        - accountNumber
+      type: object
+      properties:
+        id:
+          type: integer
+        createdOn:
+          type: string
+        type:
+          type: string
+        accountNumber:
+          type: integer
+        cashier:
+          type: integer
+        amount:
+          type: integer
+        oldBalance:
+          type: number
+        newBalance:
+          type: number
+    accountCreate:
+      type: object
+      properties:
+        accountNumber:
+          type: number
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+        type:
+          type: string
+          example: 'savings, current'
+    clientSignup:
+      required:
+        - email
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        othername:
+          type: string
+        password:
+          type: string
+        phone:
+          type: string
+        sex:
+          type: string
+        address:
+          type: string
+  securitySchemes:
+    UserSecurity:
+      type: http
+      scheme: basic

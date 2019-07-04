@@ -1,10 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import swaggerUI from 'swagger-ui-express';
 import router from './routes/index';
 import controllerResponse from './helpers/controllerResponse';
-import swagger from './openapi.json';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -12,8 +10,6 @@ app.use(cors({ credentials: true, origin: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ type: 'application/json' }));
 app.use(bodyParser.text());
-
-app.use('/docs', swaggerUI.serve, swaggerUI.setup(swagger));
 
 app.use('/api/v1', router);
 

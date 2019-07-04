@@ -3,6 +3,7 @@ import chaiHttp from 'chai-http';
 import server from '../server';
 import {
   sampleClient,
+  sampleClient2,
   sampleCashier,
   sampleAccount2,
   sampleTransaction,
@@ -13,6 +14,7 @@ const { expect } = chai;
 chai.use(chaiHttp);
 
 let clientToken;
+let clientToken2;
 let cashierToken;
 
 const { accountNumber, balance: oldBalance } = sampleAccount2;
@@ -37,6 +39,17 @@ before((done) => {
     .send({ email: sampleCashier.email, password: 'Password1' })
     .end((err, res) => {
       cashierToken = res.body.token;
+      done(err);
+    });
+});
+before((done) => {
+  chai
+    .request(server)
+    .post('/api/v1/auth/signin')
+    .type('form')
+    .send({ email: sampleClient2.email, password: 'Password1' })
+    .end((err, res) => {
+      clientToken2 = res.body.token;
       done(err);
     });
 });
@@ -72,7 +85,7 @@ describe('GET /api/v1/transactions/', () => {
       });
   });
 
-  it('should return transactions if owner or admin', (done) => {
+  it('should return transactions if user is staff', (done) => {
     chai
       .request(server)
       .get(path)
@@ -334,6 +347,64 @@ describe('POST /api/v1/transactions/:accountNumber/debit', () => {
         expect(body)
           .property('error')
           .includes('not found');
+        done(err);
+      });
+  });
+});
+
+
+/* ============================= GET ALL TRANSACTIONS OF A USER ============================== */
+
+describe('GET /api/v1/user/:userEmail/transactions', () => {
+  const path = `/api/v1/user/${sampleClient.email}/transactions`;
+  it('should return error if token not provided', (done) => {
+    chai
+      .request(server)
+      .get(path)
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body)
+          .to.have.property('error')
+          .eql('token not provided');
+        done(err);
+      });
+  });
+
+  it('should return error if user is not owner or staff', (done) => {
+    chai
+      .request(server)
+      .get(path)
+      .set('x-access-token', clientToken2)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res).to.have.status(403);
+        expect(body)
+          .property('error')
+          .contains('unauthorized');
+        done(err);
+      });
+  });
+  it('should get transactions  if user is owner', (done) => {
+    chai
+      .request(server)
+      .get(path)
+      .set('x-access-token', clientToken)
+      .end((err, res) => {
+        const transactions = res.body.data;
+        expect(res).to.have.status(200);
+        expect(transactions).to.be.a('array');
+        done(err);
+      });
+  });
+  it('should get transactions  if user is owner', (done) => {
+    chai
+      .request(server)
+      .get(path)
+      .set('x-access-token', cashierToken)
+      .end((err, res) => {
+        const account = res.body.data;
+        expect(res).to.have.status(200);
+        expect(account).to.be.a('array');
         done(err);
       });
   });

@@ -18,6 +18,14 @@ if (accountsNavLinkAdmin) {
   accountsNavLinkAdmin.setAttribute('href', `./dashboard-${user}.html`);
 }
 
+// clear accountNumber from storage
+const transactionsNavLink = document.querySelector('.js-trx-nav');
+if (transactionsNavLink) {
+  transactionsNavLink.addEventListener('click', () => {
+    localStorage.removeItem('accountNumber');
+  });
+}
+
 // Main nav hamburber menu
 const navbarToggle = document.getElementById('js-navbar-toggle');
 const mainNavlinks = document.getElementById('js-navlinks');
@@ -53,6 +61,7 @@ if (staffSearchSection && role === 'staff') {
 /* ------------------- SINGLE ACCOUNT PAGE ------------------ */
 const cashierAcctOP = document.querySelector('.cashier-acct-op');
 const adminAcctOP = document.querySelector('.admin-acct-op');
+
 // Cashier Operations
 if (user === 'cashier' && cashierAcctOP) {
   cashierAcctOP.classList.add('display-flex');

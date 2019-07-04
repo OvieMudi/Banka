@@ -1,4 +1,6 @@
 localStorage.setItem('baseUrl', 'https://calm-dusk-51134.herokuapp.com/api/v1');
+// localStorage.clear();
+// localStorage.setItem('baseUrl', 'http://localhost:3000/api/v1');
 
 /* =========================== Toggle signup/signin form ========================== */
 const toggleForm = document.querySelectorAll('.js-tgl-form');

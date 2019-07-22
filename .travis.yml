@@ -16,9 +16,7 @@ env:
   global:
     - PGPORT=5433
 
-before_script: sudo -u postgres psql -p 5432 -h 127.0.0.1
-
-createdb -p 5432 -h 127.0.0.1
+before_script:
   - psql -c 'create database banka_test;' -U postgres -p 5432 -h 127.0.0.1
 after_success:
   - npm run coverage

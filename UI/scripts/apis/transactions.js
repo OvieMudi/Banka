@@ -66,6 +66,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         const tr = createHtmlElement(html);
 
         tr.addEventListener('click', () => {
+          localStorage.setItem('transactionId', transaction.id);
           window.location.href = tr.dataset.href;
         });
 

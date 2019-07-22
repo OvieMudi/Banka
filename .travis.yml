@@ -1,10 +1,10 @@
 language: node_js
 node_js:
-  - "10.15.3"
+  - '10.16'
 services:
   - postgresql
 addons:
-  postgresql: "10"
+  postgresql: '10'
   apt:
     packages:
       - postgresql-10
@@ -14,7 +14,7 @@ before_install:
   - sudo /etc/init.d/postgresql restart
 env:
   global:
-    - PGPORT=5433
+    - PGPORT=5432
 
 before_script:
   - psql -c 'create database banka_test;' -U postgres

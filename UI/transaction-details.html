@@ -83,7 +83,10 @@
           >
         </li>
         <li class="nav-active">
-          <a href="./transactions-all.html" class="js-trx-nav" id="transactions-link"
+          <a
+            href="./transactions-all.html"
+            class="js-trx-nav"
+            id="transactions-link"
             ><i class="fas fa-hand-holding-usd"></i
             ><span class="sticky-nav-text">Transactions</span></a
           >
@@ -106,33 +109,9 @@
       </section>
 
       <!-- Account Card -->
-      <section class="card-container account-card">
+      <section class="card-container transaction-card">
         <h2 class="card-main-header">Transaction Details</h2>
-        <div class="card-data-grid">
-          <p class="card-key">Transaction ID</p>
-          <span class="card-value">28200</span>
-
-          <p class="card-key">Account number</p>
-          <span class="card-value">1234567890</span>
-
-          <p class="card-key">Account name</p>
-          <span class="card-value">Chris Martin</span>
-
-          <p class="card-key">Transaction Type</p>
-          <span class="card-value">Credit</span>
-
-          <p class="card-key">Amount</p>
-          <span class="card-value">456,790.79</span>
-
-          <p class="card-key">Balance</p>
-          <span class="card-value">123,456,790.79</span>
-
-          <p class="card-key">Cashier</p>
-          <span class="card-value">Ella Nut</span>
-
-          <p class="card-key">Date</p>
-          <span class="card-value">27-10-2019</span>
-        </div>
+        <div class="css-loading-animation"></div>
       </section>
     </main>
 
@@ -159,6 +138,6 @@
       </p>
     </footer>
     <script src="./scripts/main.js"></script>
-    <script src="./scripts/table.js"></script>
+    <script type="module" src="./scripts/apis/singleTransaction.js"></script>
   </body>
 </html>

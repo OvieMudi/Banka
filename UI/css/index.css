@@ -11,15 +11,21 @@ button {
   text-transform: uppercase;
   cursor: pointer;
   margin-top: 0.8rem;
-  transition: transform 0.4s ease-in;
+  transition: transform 0.2s ease;
+}
+
+.cta-btn {
+  /* font-size: 1em; */
+  display: inline-block;
 }
 
 button:hover {
   opacity: 0.7;
+  transform: scale(1.05) translateY(-2px);
 }
 
 button:active {
-  transform: scale(0.95);
+  transform: scale(0.97);
 }
 
 button:focus {
@@ -47,7 +53,6 @@ ul.homepage-navlinks {
   background-color: transparent;
   margin: 0;
   border: 1px solid var(--light-theme-yellow);
-  transform: inherit;
 }
 
 .homepage-navlinks a:hover {
@@ -59,11 +64,10 @@ ul.homepage-navlinks {
 main {
   display: grid;
   grid-template-columns: 50vw 1fr;
-  grid-template-rows: 50vh 50vh auto;
+  grid-template-rows: 55vh 55vh;
   grid-template-areas:
-    "section1 section2"
-    "section1 section3"
-    "section4 section4";
+    'section1 section2'
+    'section1 section3';
   color: #e0e0e0;
 }
 
@@ -71,7 +75,7 @@ main {
 
 .section1 {
   grid-area: section1;
-  background-image: url("../images/ocean.jpg");
+  background-image: url('../images/ocean.jpg');
   background-size: cover;
   background-position: center;
 }
@@ -99,13 +103,17 @@ main {
   margin: 20% auto;
 }
 
+.arrow {
+  display: inline-block;
+}
+
 /* ------------- SECTION 2 ------------- */
 
 .section2 {
   grid-area: section2;
   background-size: cover;
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url("../images/banktellerprv.jpg");
+    url('../images/banktellerprv.jpg');
   background-position: center;
   display: flex;
   flex-direction: column;
@@ -128,7 +136,7 @@ main {
 .section3 {
   grid-area: section3;
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url("../images/Architecture-Building.jpg");
+    url('../images/Architecture-Building.jpg');
   background-size: cover;
   background-position: center;
   display: flex;
@@ -146,7 +154,7 @@ main {
 .section4 {
   grid-area: section4;
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url("../images/An_innovative.png");
+    url('../images/An_innovative.png');
   background-size: cover;
   background-position: top;
 }
@@ -169,19 +177,135 @@ main {
   text-transform: unset;
 }
 
+.footer {
+  grid-area: footer;
+}
+
+.animate-moveIn-left {
+  animation: moveIn-left 0.8s ease-out;
+}
+
+.animate-moveIn-right {
+  animation: moveIn-right 0.8s ease-out;
+}
+
+.animate-moveIn-down {
+  animation: moveIn-down 0.8s 0.4s ease;
+  animation-fill-mode: backwards;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1.5s 0.4s ease;
+  animation-fill-mode: backwards;
+}
+
+.animate-twerkIt {
+  animation: twerkIt 0.2s ease-in 1s;
+}
+.animate-slideRight {
+  animation: slideRight 1.2s ease;
+  animation-iteration-count: infinite;
+}
+
 @media only screen and (max-width: 640px) {
   main {
     grid-template-columns: 100vw;
-    grid-template-rows: 100vh 40vh 40vh 100vh;
+    grid-template-rows: 100vh 40vh 40vh;
     grid-template-areas:
-      "section1"
-      "section2"
-      "section3"
-      "section4";
+      'section1'
+      'section2'
+      'section3';
   }
 
   .hero4 {
     width: 90%;
     margin-top: 60%;
+  }
+}
+
+@keyframes moveIn-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-4rem);
+  }
+
+  80% {
+    transform: translateX(1rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveIn-right {
+  0% {
+    opacity: 0;
+    transform: translateX(4rem);
+  }
+
+  80% {
+    transform: translateX(-1rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveIn-down {
+  0% {
+    opacity: 0;
+    transform: translateY(4rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform: scale(1);
+  }
+}
+
+@keyframes twerkIt {
+  0% {
+    transform: rotate(15deg);
+  }
+  20% {
+    transform: rotate(-15deg);
+  }
+  60% {
+    transform: rotate(15deg);
+  }
+  80% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes slideRight {
+  0% {
+    transform: translateX(5px);
+  }
+  60% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
